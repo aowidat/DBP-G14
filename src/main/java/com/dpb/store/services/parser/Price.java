@@ -3,6 +3,13 @@ package com.dpb.store.services.parser;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+@Setter
+@Getter
 public class Price {
     @JacksonXmlProperty(isAttribute = true)
     private double mult;
@@ -19,40 +26,7 @@ public class Price {
         this.currency = currency;
         this.price = price;
     }
+    public Price(){
 
-    public Price() {
-
-    }
-
-    public double getMult() {
-        return mult;
-    }
-
-    public void setMult(double mult) {
-        this.mult = mult;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 }

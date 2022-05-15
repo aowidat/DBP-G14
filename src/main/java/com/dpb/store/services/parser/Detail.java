@@ -3,6 +3,13 @@ package com.dpb.store.services.parser;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+@Setter
+@Getter
 public class Detail {
     @JacksonXmlProperty(isAttribute = true)
     private String img;
@@ -13,24 +20,7 @@ public class Detail {
         this.img = img;
         this.value = value;
     }
+    public Detail(){
 
-    public Detail() {
-
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 }
