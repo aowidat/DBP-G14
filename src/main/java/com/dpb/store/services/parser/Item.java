@@ -74,7 +74,7 @@ public class Item {
     private List<Item> similar;
 
     @JacksonXmlElementWrapper(localName = "tracks")
-       // @JacksonXmlProperty(localName = "title")
+    // @JacksonXmlProperty(localName = "title")
     private List<String> tracks;
     private String audiotext;
     private String mult;
@@ -82,7 +82,6 @@ public class Item {
 
 
     private String currency;
-
 
 
     //@JacksonXmlElementWrapper
@@ -116,7 +115,7 @@ public class Item {
         this.label = label;
         this.publisher = publisher;
         this.studio = studio;
-        this.similars = similars;
+        this.similar = similars;
         this.tracks = tracks;
         this.audiotext = audiotext;
         this.mult = mult;
@@ -126,7 +125,8 @@ public class Item {
         this.bookspec = bookspec;
         this.musicspec = musicspec;
     }
-    public Item(){
+
+    public Item() {
 
     }
 }
