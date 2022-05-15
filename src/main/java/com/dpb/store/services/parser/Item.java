@@ -71,7 +71,7 @@ public class Item {
 
     @JacksonXmlElementWrapper(localName = "similars")
     @JacksonXmlProperty(localName = "item")
-    private List<Item> similars;
+    private List<Item> similar;
 
     @JacksonXmlElementWrapper(localName = "tracks")
        // @JacksonXmlProperty(localName = "title")
