@@ -1,13 +1,8 @@
 package com.dpb.store.services.parser;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import lombok.Data;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +10,6 @@ import java.util.List;
 
 @Setter
 @Getter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Item {
     @JacksonXmlProperty(isAttribute = true)
     private String pgroup;
@@ -74,9 +68,7 @@ public class Item {
     private List<Item> similar;
 
     @JacksonXmlElementWrapper(localName = "tracks")
-    // @JacksonXmlProperty(localName = "title")
     private List<String> tracks;
-    private String audiotext;
     private String mult;
     private String state;
 
@@ -84,8 +76,11 @@ public class Item {
     private String currency;
 
 
-    //@JacksonXmlElementWrapper
+    //@JacksonXmlElementWrapper(localName = "audiotext", useWrapping = false)
+    //private List<Audiotext> audiotext;
     // private List<Audiotext> audiotext;
+    //private List<String> language;
+    //private List<String> audioformat;
 
     private DVDspec dvdspec;
 
@@ -93,10 +88,7 @@ public class Item {
 
     private Musicspec musicspec;
 
-    @JacksonXmlProperty(localName = "")
-    private String nix;
-
-    public Item(String pgroup, String asin, int salesrank, String title, Price price, String ean, Detail details, String picture, String detailpage, List<String> list, List<String> actor, List<String> artist, List<String> author, List<String> creator, List<String> director, List<String> label, List<String> publisher, List<String> studio, List<Item> similars, List<String> tracks, String audiotext, String mult, String state, String currency, DVDspec dvdspec, Bookspec bookspec, Musicspec musicspec) {
+    public Item(String pgroup, String asin, int salesrank, String title, Price price, String ean, Detail details, String picture, String detailpage, List<String> list, List<String> actor, List<String> artist, List<String> author, List<String> creator, List<String> director, List<String> label, List<String> publisher, List<String> studio, List<Item> similars, List<String> tracks, List<Audiotext> audiotext, String mult, String state, String currency, DVDspec dvdspec, Bookspec bookspec, Musicspec musicspec) {
         this.pgroup = pgroup;
         this.asin = asin;
         this.salesrank = salesrank;
@@ -117,7 +109,6 @@ public class Item {
         this.studio = studio;
         this.similar = similars;
         this.tracks = tracks;
-        this.audiotext = audiotext;
         this.mult = mult;
         this.state = state;
         this.currency = currency;

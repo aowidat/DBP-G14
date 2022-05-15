@@ -1,10 +1,11 @@
 package com.dpb.store.services.parser;
 
-import lombok.Data;
+
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
+import java.util.List;
+
 @Setter
 @Getter
 public class Audiotext {

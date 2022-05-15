@@ -2,29 +2,41 @@ package com.dpb.store.services.parser;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.List;
 
+@Getter
+@Setter
 public class Parser {
-    Shop leipzig;
-    Shop dresden;
+    private Shop leipzig;
+    private Shop dresden;
+    private List<Review> review;
+    private Categories categories;
 
-    public static void deserializeFromXML() throws IOException {
-        File file = new File("src/main/resources/data/leipzig_transformed.xml");
-        XmlMapper xmlMapper = new XmlMapper();
-        xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        String xml = inputt(new FileInputStream(file));
-        Shop shop = xmlMapper.readValue(xml, Shop.class);
-        System.out.println(shop.getName());
-        System.out.println(shop.getStreet());
-        System.out.println(shop.getZip());
-        System.out.println(shop.getItem().size());
 
+    public Parser() {
     }
 
-    public static String inputt(InputStream is) throws IOException {
+    public void lunchParser() throws IOException {
+        File fileLeipzig = new File("src/main/resources/data/leipzig_transformed.xml");
+        File fileDresden = new File("src/main/resources/data/dresden.xml");
+        File fileCategories = new File("src/main/resources/data/categories.xml");
+        File fileReviews = new File("src/main/resources/data/reviews.csv");
+        leipzig = deserializeShopFromXML(fileLeipzig);
+        dresden = deserializeShopFromXML(fileDresden);
+    }
+
+    public Shop deserializeShopFromXML(File file) throws IOException {
+        XmlMapper xmlMapper = new XmlMapper();
+        xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        String xml = input(new FileInputStream(file));
+        return xmlMapper.readValue(xml, Shop.class);
+    }
+
+    public String input(InputStream is) throws IOException {
         StringBuilder sb = new StringBuilder();
         String line;
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -33,12 +45,6 @@ public class Parser {
         }
         br.close();
         return sb.toString();
-    }
-
-
-    public static void main(String[] args) throws IOException {
-        System.out.println("Deserializing from XML...");
-        deserializeFromXML();
     }
 
 }

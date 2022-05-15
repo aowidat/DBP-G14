@@ -1,5 +1,6 @@
 package com.dpb.store.services.parser;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
 import lombok.Getter;
@@ -11,7 +12,9 @@ import lombok.Setter;
 public class Bookspec {
     private String binding;
     private String edition;
-    private String isbn;
+
+    @JacksonXmlProperty(isAttribute = true)
+    private String val;
 
     @JacksonXmlProperty(localName = "package")
     private Package bookPackage;
@@ -22,12 +25,13 @@ public class Bookspec {
     public Bookspec(String binding, String edition, String isbn, Package bookPackage, String pages, String publication) {
         this.binding = binding;
         this.edition = edition;
-        this.isbn = isbn;
+        this.val = isbn;
         this.bookPackage = bookPackage;
         this.pages = pages;
         this.publication = publication;
     }
-    public Bookspec(){
+
+    public Bookspec() {
 
     }
 }

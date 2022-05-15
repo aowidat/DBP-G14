@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- developed from a project of the departmentof data bases of the University of Leipzig -->
+<shop name="Leipzig" street="Am Brühl" zip="04109">
+    <item pgroup="DVD" asin="6304498969" salesrank="5663"
+          picture="http://images.amazon.com/images/P/6304498969.03._SCMZZZZZZZ_.jpg"
+          detailpage="http://www.amazon.de/exec/obidos/redirect?tag=ws%26link_code=xm2%26camp=2025%26creative=165953%26path=http://www.amazon.de/gp/redirect.html%253fASIN=6304498969%2526tag=ws%2526lcode=xm2%2526cID=2025%2526ccmID=165953%2526location=/o/ASIN/6304498969%25253FSubscriptionId=008VAFAFSK8GN837GT02"
+          ean="0075993831122">
+        <price mult="0.01" state="new" currency=""/>
+        <title>Eric Clapton - Unplugged</title>
+        <bookspec/>
+        <dvdspec>
+            <aspectratio>4:3</aspectratio>
+            <format>Dolby,Surround Sound,PAL</format>
+            <regioncode>2</regioncode>
+            <releasedate>1998-08-24</releasedate>
+            <runningtime>65</runningtime>
+            <theatr_release>1992</theatr_release>
+            <upc val="075993831122"/>
+        </dvdspec>
+        <musicspec/>
+        <labels/>
+        <publishers/>
+        <studios>
+            <studio name="Warner Music Group Germany"/>
+        </studios>
+        <similars>
+            <sim_product>
+                <asin>6305610460</asin>
+                <title>
+                    Eric Clapton and Friends - A Benefit for the Crossroads Center at Antigua
+                </title>
+            </sim_product>
+            <sim_product>
+                <asin>B00005OM5L</asin>
+                <title>Eric Clapton - Live in Hyde Park</title>
+            </sim_product>
+        </similars>
+        <tracks/>
+        <audiotext>
+            <language type="Original Language">Englisch</language>
+            <audioformat>Dolby Digital 5.1</audioformat>
+            <language type="Subtitled">Deutsch</language>
+            <audioformat>not specified</audioformat>
+        </audiotext>
+        <listmania>
+            <list name="Sehen und Hoeren ein Genuss"/>
+            <list>name="Meine Besten Musik - DVD`s"</list>
+        </listmania>
+        <actors>
+            <actor name="Eric Clapton"/>
+            <actor>Halloosadf</actor>
+        </actors>
+        <artists>
+            <artist name="hallo"/>
+        </artists>
+        <authors>
+            <author>
+                lkahsdasd
+            </author>
+            <author name="haasdasdasd"/>
+        </authors>
+        <creators>
+            <creator name="Eric Clapton"/>
+            <creator>asdhaskdjhasd</creator>
+        </creators>
+        <directors/>
+    </item>
+</shop>
