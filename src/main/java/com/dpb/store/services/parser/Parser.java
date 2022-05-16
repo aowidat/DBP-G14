@@ -16,7 +16,9 @@ public class Parser {
     private Shop test;
     private Shop dresden;
     private List<Review> review;
-    private Categories categories;
+    //    private List<Category> categories;
+//    private Categories categories;
+//    private Category cat;
 
 
     public Parser() {
@@ -32,6 +34,7 @@ public class Parser {
 //        this.test = deserializeShopFromXML(test);
         dresden = deserializeShopFromXML(fileDresden);
         review = deserializeReviewFromCSV(fileReviews);
+//        cat = deserializeCategoriesFromXML(fileCategories);
     }
 
     public Shop deserializeShopFromXML(File file) throws IOException {
@@ -40,6 +43,13 @@ public class Parser {
         String xml = input(new FileInputStream(file));
         return xmlMapper.readValue(xml, Shop.class);
     }
+
+//    public Category deserializeCategoriesFromXML(File file) throws IOException {
+//        XmlMapper xmlMapper = new XmlMapper();
+//        xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+//        String xml = input(new FileInputStream(file));
+//        return xmlMapper.readValue(xml, Category.class);
+//    }
 
     public List<Review> deserializeReviewFromCSV(File file) throws IOException {
         List<Review> reviews = new ArrayList<>();

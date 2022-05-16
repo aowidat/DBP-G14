@@ -63,6 +63,6 @@ public class Main {
 //            System.out.println(rv.getProduct());
 //            System.out.println(parser.getReview().size());
 //        }
-
+//        System.out.println(parser.getCat().getCategory());
     }
 }
