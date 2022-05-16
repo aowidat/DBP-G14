@@ -9,7 +9,6 @@ public class ISBN {
     private String val;
 
     public ISBN() {
-
     }
 
     public ISBN(String val) {

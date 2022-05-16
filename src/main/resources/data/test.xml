@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?><!-- developed from a project of the departmentof data bases of the University of Leipzig -->
 <shop name="Leipzig" street="Am Brühl" zip="04109">
-    <item pgroup="Book" asin="3779500302" salesrank="531" ean="7163487163847618" detailpage="akjsgda"
+    <item pgroup="Book" asin="3779500302" salesrank="531" ean="7163487163847618" detailpage="akjsgda" state="asdasd"
           picture="jkashdkjahskjd">
         <title>Wolf Erlbruchs Kinderzimmerkalender</title>
         <price state="new" mult="0.01" currency="EUR">1480</price>
         <details img="http://images.amazon.com/images/P/3779500302.03._SCMZZZZZZZ_.jpg">
             http://www.amazon.de/exec/obidos/redirect?tag=ws%26link_code=xm2%26camp=2025%26creative=165953%26path=http://www.amazon.de/gp/redirect.html%253fASIN=3779500302%2526tag=ws%2526lcode=xm2%2526cID=2025%2526ccmID=165953%2526location=/o/ASIN/3779500302%25253FSubscriptionId=008VAFAFSK8GN837GT02
         </details>
-        <listmania/>
-        <actors/>
-        <artists/>
+        <listmania>
+            <list>Beethoven Klaviersonaten</list>
+            <list name="my personal top-ten"/>
+        </listmania>
+        <actors>
+            <actor>Wolf Erlbruch</actor>
+            <actor name="Wolf Erlbruch"/>
+        </actors>
+        <artists>
+            <artist>Wolf Erlbruch</artist>
+            <artist name="Wolf Erlbruch"/>
+        </artists>
         <authors>
             <author>Wolf Erlbruch</author>
+            <author name="Wolf Erlbruch"/>
         </authors>
-        <creators/>
-        <directors/>
+        <creators>
+            <creator>Hamish Hamilton</creator>
+            <creator>Phil Collins</creator>
+            <creator name="Dav"/>
+            <creator name="David Mallet"/>
+            <creator name="Michael Flatley"/>
+        </creators>
+        <directors>
+            <director>Hamish Hamilton</director>
+            <director name="Dav"/>
+            <director name="David Mallet"/>
+        </directors>
         <labels>
             <label>Decca (Universal)</label>
             <label>Universal</label>
@@ -22,11 +42,33 @@
         </labels>
         <publishers>
             <publisher>Hammer</publisher>
-            <publisher name="ajksda" />
+            <publisher name="ajksda"/>
         </publishers>
-        <studios/>
-        <similars/>
-        <tracks/>
+        <studios>
+            <studio>EMI</studio>
+            <studio name="Warner Music Group Germany"/>
+        </studios>
+        <similars>
+            <sim_product>
+                <asin>B000A6OB1S</asin>
+                <title>Barry Gibb - Now Voyager</title>
+            </sim_product>
+            <sim_product>
+                <asin>B000B7VZU6</asin>
+                <title>The Bee Gees - A Pop Collection (2 DVDs)</title>
+            </sim_product>
+
+            <item asin="B00008HE5S">Spanish Guitar Music</item>
+
+        </similars>
+        <tracks>
+            <title>"10" Ravel Bolero</title>
+            <title>
+                "Immortal Beloved"Beethoven Symphony No. 5/I. Allegro con Brio
+            </title>
+            <title>I Can't Stand Still</title>
+            <title>You Better Hang Up</title>
+        </tracks>
         <audiotext>
             <language type="Original Language">Englisch</language>
             <audioformat>Dolby Digital 5.1</audioformat>

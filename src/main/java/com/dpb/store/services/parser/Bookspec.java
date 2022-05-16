@@ -21,20 +21,11 @@ public class Bookspec {
 
     private Date publication;
 
-    public Bookspec(String binding, String edition, ISBN isbn, Package bookPackage, String pages, Date publication) {
-        this.binding = binding;
-        this.edition = edition;
-        this.isbn = isbn;
-        this.bookPackage = bookPackage;
-        this.pages = pages;
-        this.publication = publication;
-    }
-
     public Bookspec() {
 
     }
 
-    public String getTheRealISBN(){
+    public String getTheRealISBN() {
         return this.isbn.getVal();
     }
 }

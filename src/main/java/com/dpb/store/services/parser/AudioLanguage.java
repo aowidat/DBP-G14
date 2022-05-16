@@ -17,9 +17,5 @@ public class AudioLanguage {
     public AudioLanguage() {
 
     }
-    public AudioLanguage(String type , String language){
-        this.type = type;
-        this.language = language;
-    }
 
 }

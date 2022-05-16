@@ -15,11 +15,7 @@ public class Detail {
     @JacksonXmlText
     private String value;
 
-    public Detail(String img, String value) {
-        this.img = img;
-        this.value = value;
-    }
-    public Detail(){
+    public Detail() {
 
     }
 }

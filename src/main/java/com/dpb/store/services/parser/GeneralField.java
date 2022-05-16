@@ -13,6 +13,9 @@ public class GeneralField {
     @JacksonXmlText
     private String value;
 
+    public GeneralField() {
+    }
+
     public String getTheRealValue() {
         if (name != null) {
             return name;

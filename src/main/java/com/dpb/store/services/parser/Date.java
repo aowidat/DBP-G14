@@ -13,8 +13,4 @@ public class Date {
     public Date() {
 
     }
-
-    public Date(String date) {
-        this.date = date;
-    }
 }

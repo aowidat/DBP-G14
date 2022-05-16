@@ -12,4 +12,8 @@ public class Format {
     private String value;
     @JacksonXmlText
     private String name;
+
+    public Format() {
+
+    }
 }

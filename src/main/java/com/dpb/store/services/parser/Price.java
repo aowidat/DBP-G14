@@ -2,8 +2,6 @@ package com.dpb.store.services.parser;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +19,8 @@ public class Price {
     private double price;
     @JacksonXmlProperty(isAttribute = true)
     private String title;
+
+    public Price() {
+    }
 
 }

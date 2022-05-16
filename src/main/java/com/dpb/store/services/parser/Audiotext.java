@@ -15,12 +15,6 @@ public class Audiotext {
     private List<AudioLanguage> language;
     private List<String> audioformat;
 
-
-    public Audiotext(List<AudioLanguage> audioLanguage, List<String> audioformat) {
-        this.audioformat = audioformat;
-        this.language = audioLanguage;
-    }
-
     public Audiotext() {
     }
 
