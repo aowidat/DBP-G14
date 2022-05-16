@@ -54,6 +54,15 @@ public class Main {
 //        System.out.println(parser.getTest().getItem().get(i).getListmania().get(0).getTheRealValue());
 //        System.out.println(parser.getTest().getItem().get(i).getListmania().get(1).getTheRealValue());
 //        System.out.println(parser.getTest().getItem().get(i).getPgroup());
+//        for (Review rv : parser.getReview()
+//        ) {
+//            System.out.println(rv.getProduct());
+//            System.out.println(rv.getUser());
+//            System.out.println(rv.getRating());
+//            System.out.println(rv.getProduct());
+//            System.out.println(rv.getProduct());
+//            System.out.println(parser.getReview().size());
+//        }
 
     }
 }
