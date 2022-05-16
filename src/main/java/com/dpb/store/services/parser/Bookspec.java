@@ -33,4 +33,8 @@ public class Bookspec {
     public Bookspec() {
 
     }
+
+    public String getTheRealISBN(){
+        return this.isbn.getVal();
+    }
 }

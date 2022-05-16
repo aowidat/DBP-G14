@@ -2,6 +2,7 @@ package com.dpb.store.services.parser;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ public class Item {
     private String ean;
     private String pgroup;
     private String title;
-    private int salesrank;
+    private String salesrank;
     @JacksonXmlElementWrapper(localName = "price", useWrapping = false)
     private Price price;
     private Detail details;
@@ -25,7 +26,6 @@ public class Item {
     @JacksonXmlText
     private String value;
 
-    // book specific
     private Bookspec bookspec;
     @JacksonXmlElementWrapper
     private List<GeneralField> authors = new ArrayList<>();
@@ -34,7 +34,6 @@ public class Item {
     @JacksonXmlElementWrapper
     private List<GeneralField> listmania = new ArrayList<>();
 
-    // music / audio book specific
     private Musicspec musicspec;
     @JacksonXmlElementWrapper
     private List<GeneralField> tracks = new ArrayList<>();
@@ -43,7 +42,6 @@ public class Item {
     @JacksonXmlElementWrapper
     private List<GeneralField> artists = new ArrayList<>();
 
-    // dvd specific
     private DVDspec dvdspec;
     @JacksonXmlElementWrapper
     private List<GeneralField> studios = new ArrayList<>();
@@ -54,13 +52,13 @@ public class Item {
     @JacksonXmlElementWrapper
     private List<GeneralField> directors = new ArrayList<>();
 
-
-    private String audiotext;
+    @JacksonXmlElementWrapper(useWrapping = false)
+    private List<Audiotext> audiotext;
     private String picture;
     private String detailpage;
     private String state;
 
-    public Item(String asin, String ean, String pgroup, String title, int salesrank, Price price, Detail details, List<Item> similars, String value, Bookspec bookspec, List<GeneralField> authors, List<GeneralField> publishers, List<GeneralField> listmania, Musicspec musicspec, List<GeneralField> tracks, List<GeneralField> labels, List<GeneralField> artists, DVDspec dvdspec, List<GeneralField> studios, List<GeneralField> creators, List<GeneralField> actors, List<GeneralField> directors, String audiotext, String picture, String detailpage, String state) {
+    public Item(String asin, String ean, String pgroup, String title, String salesrank, Price price, Detail details, List<Item> similars, String value, Bookspec bookspec, List<GeneralField> authors, List<GeneralField> publishers, List<GeneralField> listmania, Musicspec musicspec, List<GeneralField> tracks, List<GeneralField> labels, List<GeneralField> artists, DVDspec dvdspec, List<GeneralField> studios, List<GeneralField> creators, List<GeneralField> actors, List<GeneralField> directors, List<Audiotext> audiotext, String picture, String detailpage, String state) {
         this.asin = asin;
         this.ean = ean;
         this.pgroup = pgroup;

@@ -12,4 +12,12 @@ public class GeneralField {
     private String name;
     @JacksonXmlText
     private String value;
+
+    public String getTheRealValue() {
+        if (name != null) {
+            return name;
+        } else if (value != null) {
+            return value;
+        } else return "NULL";
+    }
 }

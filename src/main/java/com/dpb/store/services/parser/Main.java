@@ -7,7 +7,7 @@ public class Main {
         Parser parser = new Parser();
         parser.lunchParser();
         int i = 0;
-        //  System.out.println(parser.getDresden().getItem().get(i).getBookspec().getPages());
+//          System.out.println(parser.getDresden().getItem().get(1).getBookspec().getTheRealISBN());
         // System.out.println(parser.getLeipzig().getItem().get(i).getBookspec().getPages());
 //        System.out.println(parser.getTest().getItem().get(i).getMusicspec().getBinding());
 //        System.out.println(parser.getTest().getItem().get(i).getMusicspec().getFormat().getValue());
@@ -23,11 +23,17 @@ public class Main {
 //        System.out.println(parser.getTest().getItem().get(i).getDetails().toString());
 //        System.out.println(parser.getTest().getItem().get(i).getDetailpage());
 //        System.out.println(parser.getTest().getItem().get(i).getTitle());
-//        System.out.println(parser.getTest().getItem().get(i).getPublishers().get(0).getName());
+//        System.out.println(parser.getTest().getItem().get(i).getPublishers().get(0).getTheRealValue());
 //        System.out.println(parser.getTest().getItem().get(i).getPublishers().get(0).getValue());
-//        System.out.println(parser.getTest().getItem().get(i).getPublishers().get(1).getName());
+//        System.out.println(parser.getTest().getItem().get(i).getPublishers().get(0).getName());
+//        System.out.println(parser.getTest().getItem().get(i).getPublishers().get(1).getTheRealValue());
 //        System.out.println(parser.getTest().getItem().get(i).getPublishers().get(1).getValue());
-        System.out.println(parser.getTest().getItem().get(i).getSimilars().get(1).getValue());
-        System.out.println(parser.getTest().getItem().get(i).getSimilars().get(1).getValue());
+//        System.out.println(parser.getTest().getItem().get(i).getPublishers().get(1).getName());
+//        System.out.println(parser.getTest().getItem().get(i).getSimilars());
+//        System.out.println(parser.getTest().getItem().get(i).getSimilars());
+//        System.out.println(parser.getTest().getItem().get(i).getSalesrank());
+        System.out.println(parser.getTest().getItem().get(i).getAudiotext().get(0).getAudioformat().get(12));
+        System.out.println(parser.getTest().getItem().get(i).getAudiotext().get(0).getLanguage().get(12).getLanguage());
+        System.out.println(parser.getTest().getItem().get(i).getAudiotext().get(0).getLanguage().get(12).getType());
     }
 }

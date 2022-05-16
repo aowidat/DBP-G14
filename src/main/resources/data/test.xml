@@ -27,7 +27,34 @@
         <studios/>
         <similars/>
         <tracks/>
-        <audiotext/>
+        <audiotext>
+            <language type="Original Language">Englisch</language>
+            <audioformat>Dolby Digital 5.1</audioformat>
+            <language type="Untertitel für Hörgeschädigte">Englisch</language>
+            <audioformat>Dolby Digital 5.1</audioformat>
+            <language type="Subtitled">Deutsch</language>
+            <audioformat>not specified</audioformat>
+            <language type="Subtitled">Spanisch</language>
+            <audioformat>not specified</audioformat>
+            <language type="Subtitled">Schwedisch</language>
+            <audioformat>not specified</audioformat>
+            <language type="Subtitled">Portugiesisch</language>
+            <audioformat>not specified</audioformat>
+            <language type="Subtitled">Norwegisch</language>
+            <audioformat>not specified</audioformat>
+            <language type="Subtitled">Niederländisch</language>
+            <audioformat>not specified</audioformat>
+            <language type="Subtitled">Hindi</language>
+            <audioformat>not specified</audioformat>
+            <language type="Subtitled">Französisch</language>
+            <audioformat>not specified</audioformat>
+            <language type="Subtitled">Finnisch</language>
+            <audioformat>not specified</audioformat>
+            <language type="Subtitled">Englisch</language>
+            <audioformat>not specified</audioformat>
+            <language type="Subtitled">Dänisch</language>
+            <audioformat>not specified</audioformat>
+        </audiotext>
         <bookspec>
             <binding>Kalender</binding>
             <edition val="1"/>
