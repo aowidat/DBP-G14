@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 public class Parser {
     private Shop leipzig;
+    private Shop test;
     private Shop dresden;
     private List<Review> review;
     private Categories categories;
@@ -22,10 +23,12 @@ public class Parser {
 
     public void lunchParser() throws IOException {
         File fileLeipzig = new File("src/main/resources/data/leipzig_transformed.xml");
+        File test = new File("src/main/resources/data/test.xml");
         File fileDresden = new File("src/main/resources/data/dresden.xml");
         File fileCategories = new File("src/main/resources/data/categories.xml");
         File fileReviews = new File("src/main/resources/data/reviews.csv");
         leipzig = deserializeShopFromXML(fileLeipzig);
+        this.test = deserializeShopFromXML(test);
         dresden = deserializeShopFromXML(fileDresden);
     }
 

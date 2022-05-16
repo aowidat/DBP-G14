@@ -1,4 +1,6 @@
 package com.dpb.store.services.parser;
+
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,16 +10,18 @@ import lombok.Setter;
 @Getter
 public class Musicspec {
     private String binding;
-    private String format;
+
+    private Format format;
     private String num_discs;
     private String releasedate;
     private String upc;
 
 
-    public Musicspec(){
+    public Musicspec() {
 
     }
-    public Musicspec(String binding, String format, String num_discs, String releasedate, String upc) {
+
+    public Musicspec(String binding, Format format, String num_discs, String releasedate, String upc) {
         this.binding = binding;
         this.format = format;
         this.num_discs = num_discs;

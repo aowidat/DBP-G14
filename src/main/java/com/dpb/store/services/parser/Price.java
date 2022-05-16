@@ -19,14 +19,7 @@ public class Price {
     private String currency;
     @JacksonXmlText
     private double price;
+    @JacksonXmlProperty(isAttribute = true)
+    private String title;
 
-    public Price(double mult, String state, String currency, double price) {
-        this.mult = mult;
-        this.state = state;
-        this.currency = currency;
-        this.price = price;
-    }
-    public Price(){
-
-    }
 }
