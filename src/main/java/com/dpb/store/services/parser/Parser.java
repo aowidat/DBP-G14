@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j(topic = "Parser")
 @Getter
 @Setter
 public class Parser {
@@ -25,13 +27,14 @@ public class Parser {
     }
 
     public void lunchParser() throws IOException {
+        log.info("{} has started ", Parser.class.getSimpleName());
         File fileLeipzig = new File("src/main/resources/data/leipzig_transformed.xml");
-//        File test = new File("src/main/resources/data/test.xml");
+        File test = new File("src/main/resources/data/test.xml");
         File fileDresden = new File("src/main/resources/data/dresden.xml");
         File fileCategories = new File("src/main/resources/data/categories.xml");
         File fileReviews = new File("src/main/resources/data/reviews.csv");
         leipzig = deserializeShopFromXML(fileLeipzig);
-//        this.test = deserializeShopFromXML(test);
+        this.test = deserializeShopFromXML(test);
         dresden = deserializeShopFromXML(fileDresden);
         review = deserializeReviewFromCSV(fileReviews);
 //        cat = deserializeCategoriesFromXML(fileCategories);
