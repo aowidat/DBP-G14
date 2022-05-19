@@ -21,6 +21,6 @@ public class GeneralField {
             return name;
         } else if (value != null) {
             return value;
-        } else return "NULL";
+        } else return null;
     }
 }

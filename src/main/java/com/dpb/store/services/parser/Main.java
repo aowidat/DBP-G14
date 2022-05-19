@@ -11,7 +11,6 @@
 //    public static void main(String[] args) throws IOException, JAXBException, ParserConfigurationException, SAXException {
 //        Parser parser = new Parser();
 //        parser.lunchParser();
-//        int i = 0;
 ////        System.out.println(parser.getTest().getItem().get(i).getMusicspec().getBinding());
 ////        System.out.println(parser.getTest().getItem().get(i).getMusicspec().getFormat().getValue());
 ////        System.out.println(parser.getTest().getItem().get(i).getMusicspec().getFormat().getName());
@@ -40,10 +39,10 @@
 ////        System.out.println(parser.getTest().getItem().get(i).getAudiotext().get(0).getLanguage().get(12).getType());
 ////        System.out.println(parser.getTest().getItem().get(i).getTracks().get(3).getTheRealValue());
 ////        System.out.println(parser.getTest().getItem().get(i).getPrice().getState());
-////        System.out.println(parser.getTest().getItem().get(i).getSimilars().get(1).getAsin());
-////        System.out.println(parser.getTest().getItem().get(i).getSimilars().get(1).getTitle());
-////        System.out.println(parser.getTest().getItem().get(i).getSimilars().get(2).getAsin());
-////        System.out.println(parser.getTest().getItem().get(i).getSimilars().get(2).getTitleOfSimilar());
+////        System.out.println(parser.getTest().getItem().get(0).getSimilars().get(0).getAsin());
+////        System.out.println(parser.getTest().getItem().get(0).getSimilars().get(0).getTitle());
+////        System.out.println(parser.getTest().getItem().get(0).getSimilars().get(1).getAsin());
+////        System.out.println(parser.getTest().getItem().get(0).getSimilars().get(1).getValue());
 ////        System.out.println(parser.getTest().getItem().get(i).getStudios().get(0).getTheRealValue());
 ////        System.out.println(parser.getTest().getItem().get(i).getStudios().get(1).getTheRealValue());
 ////        System.out.println(parser.getTest().getItem().get(i).getDirectors().get(0).getTheRealValue());
@@ -72,7 +71,15 @@
 ////        System.out.println(parser.getCategories().getCategoryList().get(1).getValue());
 ////        System.out.println(parser.getCategories().getCategoryList().get(1).getItem());
 ////        System.out.println(parser.getCategories().getCategoryList());
-//        File fileCategories = new File("src/main/resources/data/categories.xml");
-//        parser.deserializeCategoriesFromXML(fileCategories);
+////        File fileCategories = new File("src/main/resources/data/categories.xml");
+////        parser.deserializeCategoriesFromXML(fileCategories);
+//
+//        String str1 = parser.getTest().getItem().get(0).getSimilars().get(0).getTheRealTitle();
+//        String str2 = parser.getTest().getItem().get(0).getSimilars().get(0).getAsin();
+//        System.out.println("title 0" + parser.getTest().getItem().get(0).getSimilars().get(1).getTheRealTitle());
+//        System.out.println("asin 0" + parser.getTest().getItem().get(0).getSimilars().get(1).getAsin());
+//        System.out.println("title 1" + str1);
+//        System.out.println("asin 1"+str2);
+//
 //    }
 //}

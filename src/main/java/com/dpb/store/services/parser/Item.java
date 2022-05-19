@@ -51,8 +51,22 @@ public class Item {
     private String state;
     //Help Temp to store Title from Similar
     @JacksonXmlText
-    private String titleOfSimilar;
+    private String value;
 
+    public String getTheRealImg(){
+        if (details.getImg()==null && detailpage==null){
+            return null;
+        } else if (details.getImg()!=null){
+            return details.getImg();
+        } else return detailpage;
+    }
+    public String getTheRealTitle(){
+        if (this.title != null) {
+            return title;
+        } else if (value != null) {
+            return value;
+        } else return null;
+    }
     public Item() {
 
     }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -16,6 +17,7 @@ public class Review {
     private int helpful;
     private int rating;
     private String summery;
+    private LocalDate date;
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;

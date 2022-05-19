@@ -19,7 +19,7 @@ public class Bookspec {
 
     private String pages;
 
-    private Date publication;
+    private String publication;
 
     public Bookspec() {
 

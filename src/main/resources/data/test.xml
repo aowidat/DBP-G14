@@ -50,14 +50,11 @@
         </studios>
         <similars>
             <sim_product>
-                <asin>B000A6OB1S</asin>
-                <title>Barry Gibb - Now Voyager</title>
-            </sim_product>
-            <sim_product>
                 <asin>B000B7VZU6</asin>
                 <title>The Bee Gees - A Pop Collection (2 DVDs)</title>
             </sim_product>
 
+            <item asin="B00008HE5S">Spanish Guitar Music</item>
             <item asin="B00008HE5S">Spanish Guitar Music</item>
 
         </similars>

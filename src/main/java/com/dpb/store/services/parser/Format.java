@@ -16,4 +16,11 @@ public class Format {
     public Format() {
 
     }
+    public String getTheRealValue() {
+        if (name != null) {
+            return name;
+        } else if (value != null) {
+            return value;
+        } else return null;
+    }
 }

@@ -5,7 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +20,7 @@ public class DVD extends  Product {
     private String format;
     private String aspectratio;
     private int regioncode;
-    private Date release_date;
+    private LocalDate release_date;
     private int running_time;
     private int theater_release;
     @ElementCollection
@@ -36,4 +38,32 @@ public class DVD extends  Product {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "dirctor" , joinColumns = @JoinColumn(name ="dvd_id" , referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private Set<Person> directors;
+
+    public void addNewStudio(String str){
+        if(this.studio==null){
+            this.studio= new ArrayList<>();
+        }
+        this.studio.add(str);
+    }
+
+    public void addNewActor(Person person) {
+        if (this.actors!=null){
+            this.actors = new HashSet<>();
+        }
+        this.actors.add(person);
+    }
+
+    public void addNewCreator(Person person) {
+        if (this.creators!=null){
+            this.creators = new HashSet<>();
+        }
+        this.creators.add(person);
+    }
+
+    public void addNewDirector(Person person) {
+        if (this.directors!=null){
+            this.directors = new HashSet<>();
+        }
+        this.directors.add(person);
+    }
 }

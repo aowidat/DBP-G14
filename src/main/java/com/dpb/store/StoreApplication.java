@@ -30,7 +30,7 @@ public class StoreApplication {
             cd.setId("hajskdfhaskpjhdfa");
             cd.setBinding("asdasdasdasd");
             cd.setImage("asdfasdfasd");
-            Set<Person> rre = new HashSet<>();
+            List<Person> rre = new ArrayList<>();
             rre.add(john);
             cd.setArtists(rre);
             cr.save(cd);
