@@ -209,7 +209,7 @@ public class Validator {
         entityReview.setPerson(person);
         for (Product pr : validProduct) {
             if (pr.getId().replaceAll("\"", "").equalsIgnoreCase(review.getProduct().replaceAll("\"", ""))) {
-                entityReview.setProduct(pr);
+                entityReview.addProduct(pr);
                 this.validReview.add(entityReview);
                 return true;
             }
@@ -249,7 +249,7 @@ public class Validator {
                 Product product = new Product();
                 product.setId(i.getAsin().replaceAll("\"", ""));
                 product.setTitle(i.getTheRealTitle().replaceAll("\"", ""));
-                dvd.addNewSimProcuct(product);
+//                dvd.addNewSimProcuct(product);
             }
         }
         if (item.getListmania() != null) {
@@ -310,7 +310,7 @@ public class Validator {
                 Product product = new Product();
                 product.setId(i.getAsin().replaceAll("\"", ""));
                 product.setTitle(i.getTheRealTitle().replaceAll("\"", ""));
-                cd.addNewSimProcuct(product);
+//                cd.addNewSimProcuct(product);
             }
         }
         if (item.getListmania() != null) {
@@ -368,7 +368,7 @@ public class Validator {
                 Product product = new Product();
                 product.setId(i.getAsin().replaceAll("\"", ""));
                 product.setTitle(i.getTheRealTitle().replaceAll("\"", ""));
-                book.addNewSimProcuct(product);
+//                book.addNewSimProcuct(product);
             }
         }
         if (item.getListmania() != null) {

@@ -20,6 +20,7 @@ public class Product {
     private int salesRank;
     private double price;
     private String status;
+    @Column(columnDefinition = "text", length = 10485760)
     private String image;
     private int rating;
     @ElementCollection
@@ -32,12 +33,12 @@ public class Product {
         this.listmania.add(str);
     }
 
-    public void addNewSimProcuct(Product pr) {
-        if (this.similars == null) {
-            this.similars = new HashSet<>();
-        }
-        this.similars.add(pr);
-    }
+//    public void addNewSimProcuct(Product pr) {
+//        if (this.similars == null) {
+//            this.similars = new HashSet<>();
+//        }
+//        this.similars.add(pr);
+//    }
 
     @Override
     public String toString() {
@@ -52,18 +53,19 @@ public class Product {
                 '}';
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "simi", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "simi_id", referencedColumnName = "id"))
-    private Set<Product> similars;
-
-    @ManyToMany(mappedBy = "similars")
-    private Set<Product> som;
+    //    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "simi", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "simi_id", referencedColumnName = "id"))
+//    private Set<Product> similars;
+//
+//    @ManyToMany(mappedBy = "similars")
+//    private Set<Product> som;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "product_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
     private Set<Store> stores;
+    //    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
+//    private Set<Category> categories;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
-    private Set<Category> categories;
-    @OneToMany(mappedBy = "product")
+    @JoinTable(name = "product_review", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "review_id", referencedColumnName = "id"))
     private Set<Review> reviews;
 }
