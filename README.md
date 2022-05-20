@@ -1,4 +1,8 @@
-# Store App for DPB; SS2022; by Abed Alaziz Owidat and Mahmoud Ahmad
+# Store App for DPB
+
+#### SS2022
+
+#### by Abed Alaziz Owidat and Mahmoud Ahmad
 
 ### Techs
 
@@ -6,4 +10,9 @@
 * Spring 2.6.7
 * PostgresSQl -v 14.2.2
 * Maven
+* JacksonXML
+* JAXB XML
+* Logback
+* SLF4J
+* Lombok
 
