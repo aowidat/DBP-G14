@@ -38,7 +38,7 @@ public class Parser {
     public Parser() {
     }
 
-    public void lunchParser() throws IOException, JAXBException {
+    public void lunchParser() throws IOException, JAXBException, ParserConfigurationException, SAXException {
         log.info("{} has started ", Parser.class.getSimpleName());
         File fileLeipzig = new File("src/main/resources/data/leipzig_transformed.xml");
         File test = new File("src/main/resources/data/test.xml");
@@ -49,45 +49,22 @@ public class Parser {
         this.test = deserializeShopFromXML(test);
         dresden = deserializeShopFromXML(fileDresden);
         review = deserializeReviewFromCSV(fileReviews);
-//        categories = deserializeCategoriesFromXML(fileCategories);
+        categories = deserializeCategoriesFromXML(fileCategories);
     }
 
     public Shop deserializeShopFromXML(File file) throws IOException {
         XmlMapper xmlMapper = new XmlMapper();
         xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-//        xmlMapper.disable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
         String xml = input(new FileInputStream(file));
         return xmlMapper.readValue(xml, Shop.class);
     }
 
-    public void deserializeCategoriesFromXML(File file) throws IOException, JAXBException, ParserConfigurationException, SAXException {
-//        XmlMapper xmlMapper = new XmlMapper();
+    public Categories deserializeCategoriesFromXML(File file) throws IOException, JAXBException, ParserConfigurationException, SAXException {
+        XmlMapper xmlMapper = new XmlMapper();
+//        xmlMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 //        xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-////        xmlMapper.disable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-//        String xml = input(new FileInputStream(file));
-//        System.out.println(xml.);
-//        JAXBContext jc = JAXBContext.newInstance(Categories.class);
-//        Unmarshaller unmarshaller = jc.createUnmarshaller();
-//        return (Categories) unmarshaller.unmarshal(file);
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = factory.newDocumentBuilder();
-        Document doc = dBuilder.parse(file);
-        doc.getDocumentElement().normalize();
-        NodeList list = doc.getElementsByTagName("category");
-        for (int temp = 0; temp < list.getLength(); temp++) {
-
-            Node node = list.item(temp);
-
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-
-                Element element = (Element) node;
-            }
-        }
-        System.out.println(doc.getDocumentElement().getNodeName());
-//        for (int i = 0; i < nd.getLength(); i++) {
-//            System.out.println(nd.item(i).getChildNodes().item(0).getLocalName());
-//        }
-
+        String xml = input(new FileInputStream(file));
+        return xmlMapper.readValue(xml, Categories.class);
     }
 
     public List<Review> deserializeReviewFromCSV(File file) throws IOException {
