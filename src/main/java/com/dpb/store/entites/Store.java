@@ -1,6 +1,5 @@
 package com.dpb.store.entites;
 
-import com.dpb.store.services.parser.Item;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +10,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-//@IdClass(Store_Id.class)
 public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,10 +22,20 @@ public class Store {
     @ManyToMany(mappedBy = "stores")
     private Set<Product> products;
 
-    public void addNewProduct(Product product){
-        if (products==null){
-            products=new HashSet<>();
+    public void addNewProduct(Product product) {
+        if (products == null) {
+            products = new HashSet<>();
         }
         products.add(product);
+    }
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", street='" + street + '\'' +
+                ", zip=" + zip +
+                '}';
     }
 }

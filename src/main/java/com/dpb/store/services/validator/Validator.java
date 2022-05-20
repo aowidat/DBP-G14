@@ -17,86 +17,88 @@ import java.util.List;
 @Slf4j
 @Getter
 public class Validator {
-    private List<DVD> validDVD = new ArrayList<>();
-    private List<CD> validCD = new ArrayList<>();
-    private List<Book> validBook = new ArrayList<>();
-    private List<com.dpb.store.entites.Review> validReview = new ArrayList<>();
-    private List<Category> validCategory = new ArrayList<>();
-    private List<Person> validPerson = new ArrayList<>();
-    private List<Store> validStore = new ArrayList<>();
-
-    private String errormsg = "{} Item not valid caused by ";
-    private String errormsgReview = "{} Review not valid caused by ";
-    private String warningmsg = "{} Item missing some values ";
-    private String warningmsgReview = "{} Review missing some values ";
+    private final List<DVD> validDVD = new ArrayList<>();
+    private final List<CD> validCD = new ArrayList<>();
+    private final List<Book> validBook = new ArrayList<>();
+    private final List<com.dpb.store.entites.Review> validReview = new ArrayList<>();
+    private final List<Category> validCategory = new ArrayList<>();
+    private final List<Person> validPerson = new ArrayList<>();
+    private final List<Store> validStore = new ArrayList<>();
+    private final String itemErrors = "{} Item not valid caused by ";
+    private final String reviewErrors = "{} Review not valid caused by ";
+    private final String itemWarning = "{} Item missing some values ";
+    private final String reviewWarning = "{} Review missing some values ";
 
     public Validator() {
     }
 
     public Store storeValidator(Shop shop) {
-        Store store = new Store();
-        if (shop.getName() == null || shop.getName().equals("")) {
-            log.error("Invalid shop caused by no name {}", shop.toString());
-            return null;
-        }
-        if (shop.getStreet() == null || shop.getStreet().equals("")) {
-            log.error("Invalid shop caused by no Street {}", shop.toString());
-            return null;
-        }
-        if (shop.getZip() == null || shop.getZip().equals("")) {
-            log.error("Invalid shop caused by no Zip {}", shop.toString());
-            return null;
-        }
-        int zip;
-        try {
-            zip = Integer.parseInt(shop.getZip());
-        } catch (NumberFormatException e) {
-            log.error("invalid shop caused by invalid zip {}", shop.getZip());
-            return null;
-        }
-        store.setName(shop.getName());
-        store.setStreet(shop.getStreet());
-        store.setZip(zip);
-
-        for (Item item : shop.getItem()) {
-            if (productValidator(item)) {
-                if (item.getPgroup().equalsIgnoreCase("DVD") && DVDValidator(item)) {
-                    DVD dvd = convertItemToDVD(item);
-                    store.addNewProduct(dvd);
-                    this.validDVD.add(dvd);
-                }
-                if (item.getPgroup().equalsIgnoreCase("CD") && CDValidator(item)) {
-                    CD cd = convertItemToCD(item);
-                    store.addNewProduct(cd);
-                    this.validCD.add(cd);
-                }
-                if (item.getPgroup().equalsIgnoreCase("Book") && bookValidator(item)) {
-                    Book book = convertItemToBook(item);
-                    store.addNewProduct(book);
-                    this.validBook.add(book);
+        if (shop != null) {
+            Store store = new Store();
+            if (shop.getName() == null || shop.getName().isEmpty()) {
+                log.error("Invalid shop caused by no name {}", shop);
+                return null;
+            }
+            if (shop.getStreet() == null || shop.getStreet().isEmpty()) {
+                log.error("Invalid shop caused by no Street {}", shop);
+                return null;
+            }
+            if (shop.getZip() == null || shop.getZip().isEmpty()) {
+                log.error("Invalid shop caused by no Zip {}", shop);
+                return null;
+            }
+            int zip;
+            try {
+                zip = Integer.parseInt(shop.getZip());
+            } catch (NumberFormatException e) {
+                log.error("invalid shop caused by invalid zip {}", shop.getZip());
+                return null;
+            }
+            store.setName(shop.getName());
+            store.setStreet(shop.getStreet());
+            store.setZip(zip);
+            for (Item item : shop.getItem()) {
+                if (productValidator(item)) {
+                    if (item.getPgroup().equalsIgnoreCase("DVD") && DVDValidator(item)) {
+                        DVD dvd = convertItemToDVD(item);
+                        store.addNewProduct(dvd);
+                        this.validDVD.add(dvd);
+                    }
+                    if (item.getPgroup().equalsIgnoreCase("CD") && CDValidator(item)) {
+                        CD cd = convertItemToCD(item);
+                        store.addNewProduct(cd);
+                        this.validCD.add(cd);
+                    }
+                    if (item.getPgroup().equalsIgnoreCase("Book") && bookValidator(item)) {
+                        Book book = convertItemToBook(item);
+                        store.addNewProduct(book);
+                        this.validBook.add(book);
+                    }
                 }
             }
-        }
-        return store;
+            this.validStore.add(store);
+            return store;
+        } else return null;
     }
+
 
     public boolean productValidator(Item item) {
         if (item.getAsin() == null || item.getAsin().isEmpty()) {
-            log.error(errormsg + "no ID", item);
+            log.error(itemErrors + "no ID", item);
             return false;
         }
         if (item.getTitle() == null || item.getTitle().isEmpty()) {
-            log.error(errormsg + "no title", item);
+            log.error(itemErrors + "no title", item);
             return false;
         }
         if (item.getPgroup() == null || item.getPgroup().isEmpty()) {
-            log.error(errormsg + "no group", item);
+            log.error(itemErrors + "no group", item);
             return false;
         }
         try {
             Integer.parseInt(item.getSalesrank());
         } catch (NumberFormatException e) {
-            log.error(errormsg + "fail to convert the value to Integer ", item);
+            log.error(itemErrors + "fail to convert the value to Integer ", e.getMessage());
             return false;
         }
         if (item.getPgroup().equalsIgnoreCase("DVD") && DVDValidator(item)) {
@@ -109,7 +111,7 @@ public class Validator {
             return bookValidator(item);
         }
         if ((item.getState() == null || item.getState().isEmpty()) || (item.getTheRealImg() == null || item.getTheRealImg().isEmpty()) || (item.getListmania().isEmpty() || item.getListmania() == null) || (item.getSimilars().isEmpty() || item.getSimilars() == null)) {
-            log.warn(warningmsg, item);
+            log.warn(itemWarning, item);
         }
         return true;
     }
@@ -117,13 +119,14 @@ public class Validator {
     public boolean CDValidator(Item item) {
         try {
             Integer.parseInt(item.getMusicspec().getNum_discs());
+            Integer.parseInt(item.getPrice().getPrice());
             LocalDate.parse(item.getMusicspec().getReleasedate());
         } catch (NumberFormatException | DateTimeException e) {
-            log.error(errormsg + "fail to convert the value ", item);
+            log.error(itemErrors + "fail to convert the value ", e.getMessage());
             return false;
         }
         if ((item.getMusicspec().getFormat() == null || item.getMusicspec().getFormat().getTheRealValue().isEmpty()) || (item.getMusicspec().getBinding() == null || item.getMusicspec().getBinding().isEmpty())) {
-            log.warn(warningmsg, item);
+            log.warn(itemWarning, item);
         }
         return true;
     }
@@ -132,13 +135,14 @@ public class Validator {
         try {
             Integer.parseInt(item.getDvdspec().getRunningtime());
             Integer.parseInt(item.getDvdspec().getTheatr_release());
+            Integer.parseInt(item.getPrice().getPrice());
             LocalDate.parse(item.getDvdspec().getReleasedate());
         } catch (NumberFormatException | DateTimeException e) {
-            log.error(errormsg + "fail to convert the value ", item);
+            log.error(itemErrors + "fail to convert the value ", e.getMessage());
             return false;
         }
         if ((item.getDvdspec().getFormat() == null || item.getDvdspec().getFormat().isEmpty()) || (item.getDvdspec().getAspectratio() == null || item.getDvdspec().getAspectratio().isEmpty()) || (item.getDvdspec().getReleasedate() == null || item.getDvdspec().getReleasedate().isEmpty())) {
-            log.warn(warningmsg, item);
+            log.warn(itemWarning, item);
         }
         return true;
     }
@@ -147,16 +151,17 @@ public class Validator {
         try {
             Integer.parseInt(item.getBookspec().getEdition());
             Integer.parseInt(item.getBookspec().getPages());
+            Integer.parseInt(item.getPrice().getPrice());
             Integer.parseInt(item.getBookspec().getBookPackage().getWeight());
             Integer.parseInt(item.getBookspec().getBookPackage().getLength());
             Integer.parseInt(item.getBookspec().getBookPackage().getHeight());
             LocalDate.parse(item.getBookspec().getPublication());
         } catch (NumberFormatException | DateTimeException e) {
-            log.error(errormsg + "fail to convert the value ", item);
+            log.error(itemErrors + "fail to convert the value ", e.getMessage());
             return false;
         }
         if ((item.getBookspec().getBinding() == null || item.getBookspec().getBinding().isEmpty()) || (item.getBookspec().getTheRealISBN() == null || item.getBookspec().getTheRealISBN().isEmpty())) {
-            log.warn(warningmsg, item);
+            log.warn(itemWarning, item);
         }
         return true;
     }
@@ -164,46 +169,45 @@ public class Validator {
     public boolean ReviewValidator(Review review) {
         com.dpb.store.entites.Review entityReview = new com.dpb.store.entites.Review();
         if (review.getContent().isEmpty() || review.getContent() == null) {
-            log.error(errormsgReview + " no Content", review);
+            log.error(reviewErrors + " no Content", review);
             return false;
         }
         entityReview.setContent(review.getContent());
         if (review.getSummery().isEmpty() || review.getSummery() == null) {
-            log.error(errormsgReview + " no Summery", review);
+            log.error(reviewErrors + " no Summery", review);
             return false;
         }
         entityReview.setSummery(review.getSummery());
         try {
             int helpful = Integer.parseInt(review.getHelpful());
             if (helpful < 0) {
-                log.error(errormsgReview + " not valid Helpful", review);
+                log.error(reviewErrors + " not valid Helpful", review);
                 return false;
             } else {
                 entityReview.setHelpful(helpful);
             }
         } catch (NumberFormatException e) {
-            log.error(errormsgReview + " not valid Helpful", review);
+            log.error(reviewErrors + " not valid Helpful", e.getMessage());
             return false;
         }
         try {
             int rating = Integer.parseInt(review.getRating());
             if (rating < 1 || rating > 6) {
-                log.error(errormsgReview + " not valid Rating", review);
+                log.error(reviewErrors + " not valid Rating", review);
                 return false;
             } else {
                 entityReview.setRating(rating);
             }
         } catch (NumberFormatException e) {
-            log.error(errormsgReview + " not valid Rating", review);
+            log.error(reviewErrors + " not valid Rating", e.getMessage());
             return false;
         }
         try {
             entityReview.setDate(LocalDate.parse(review.getReviewdate()));
         } catch (DateTimeException e) {
-            log.error(errormsgReview + " not valid Date", review);
+            log.error(reviewErrors + " not valid Date", e.getMessage());
             return false;
         }
-
         Person person = new Person();
         person.setName(review.getUser());
         this.validPerson.add(person);
@@ -230,7 +234,7 @@ public class Validator {
         DVD dvd = new DVD();
         dvd.setTitle(item.getTitle());
         dvd.setSalesRank(Integer.parseInt(item.getSalesrank()));
-        dvd.setPrice(item.getPrice().getPrice());
+        dvd.setPrice(Integer.parseInt(item.getPrice().getPrice()));
         dvd.setStatus(item.getPrice().getState());
         dvd.setImage(item.getTheRealImg());
         dvd.setFormat(item.getDvdspec().getFormat());
@@ -288,7 +292,7 @@ public class Validator {
         CD cd = new CD();
         cd.setTitle(item.getTitle());
         cd.setSalesRank(Integer.parseInt(item.getSalesrank()));
-        cd.setPrice(item.getPrice().getPrice());
+        cd.setPrice(Integer.parseInt(item.getPrice().getPrice()));
         cd.setStatus(item.getPrice().getState());
         cd.setImage(item.getTheRealImg());
         cd.setFormat(item.getMusicspec().getFormat().getTheRealValue());
@@ -333,7 +337,7 @@ public class Validator {
         Book book = new Book();
         book.setTitle(item.getTitle());
         book.setSalesRank(Integer.parseInt(item.getSalesrank()));
-        book.setPrice(item.getPrice().getPrice());
+        book.setPrice(Integer.parseInt(item.getPrice().getPrice()));
         book.setStatus(item.getPrice().getState());
         book.setImage(item.getTheRealImg());
         book.setBinding(item.getBookspec().getBinding());

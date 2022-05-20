@@ -37,6 +37,18 @@ public class Product {
         this.similars.add(pr);
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", salesRank=" + salesRank +
+                ", price=" + price +
+                ", status='" + status + '\'' +
+                ", image='" + image + '\'' +
+                ", rating=" + rating +
+                '}';
+    }
 
     @OneToMany
     private Set<Product> similars;

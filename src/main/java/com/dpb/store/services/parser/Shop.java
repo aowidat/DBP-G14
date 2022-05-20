@@ -21,4 +21,13 @@ public class Shop {
     public Shop() {
 
     }
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "name='" + name + '\'' +
+                ", street='" + street + '\'' +
+                ", zip='" + zip + '\'' +
+                '}';
+    }
 }

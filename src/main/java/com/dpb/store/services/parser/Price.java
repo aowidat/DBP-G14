@@ -10,13 +10,13 @@ import lombok.Setter;
 @Getter
 public class Price {
     @JacksonXmlProperty(isAttribute = true)
-    private double mult;
+    private String mult;
     @JacksonXmlProperty(isAttribute = true)
     private String state;
     @JacksonXmlProperty(isAttribute = true)
     private String currency;
     @JacksonXmlText
-    private double price;
+    private String price;
     @JacksonXmlProperty(isAttribute = true)
     private String title;
 
