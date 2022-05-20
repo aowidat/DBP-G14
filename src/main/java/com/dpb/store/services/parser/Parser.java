@@ -39,11 +39,13 @@ public class Parser {
     public void lunchParser() throws IOException {
         log.info("{} has started ", Parser.class.getSimpleName());
         File fileLeipzig = new File("src/main/resources/data/leipzig_transformed.xml");
+        File fileTest = new File("src/main/resources/data/test.xml");
         File fileDresden = new File("src/main/resources/data/dresden.xml");
         File fileCategories = new File("src/main/resources/data/categories.xml");
         File fileReviews = new File("src/main/resources/data/reviews.csv");
         leipzig = deserializeShopFromXML(fileLeipzig);
         dresden = deserializeShopFromXML(fileDresden);
+        test = deserializeShopFromXML(fileTest);
         review = deserializeReviewFromCSV(fileReviews);
         categories = deserializeCategoriesFromXML(fileCategories);
     }

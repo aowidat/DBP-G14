@@ -24,12 +24,14 @@ public class Product {
     private int rating;
     @ElementCollection
     private Set<String> listmania;
+
     public void addNewListMania(String str) {
         if (this.listmania == null) {
             this.listmania = new HashSet<>();
         }
         this.listmania.add(str);
     }
+
     public void addNewSimProcuct(Product pr) {
         if (this.similars == null) {
             this.similars = new HashSet<>();
@@ -50,8 +52,12 @@ public class Product {
                 '}';
     }
 
-    @OneToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "simi", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "simi_id", referencedColumnName = "id"))
     private Set<Product> similars;
+
+    @ManyToMany(mappedBy = "similars")
+    private Set<Product> som;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "product_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
     private Set<Store> stores;

@@ -19,7 +19,7 @@ public class Category {
     private Set<Integer> children;
     private String name;
 
-    @ManyToMany(mappedBy = "categories")
-    private Set<Product> products;
+//    @ManyToMany(mappedBy = "categories")
+//    private Set<Product> products;
 
 }

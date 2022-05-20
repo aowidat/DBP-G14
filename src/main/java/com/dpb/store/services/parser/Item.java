@@ -71,4 +71,12 @@ public class Item {
     public Item() {
 
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "asin='" + asin + '\'' +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }

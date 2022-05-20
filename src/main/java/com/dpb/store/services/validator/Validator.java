@@ -37,6 +37,15 @@ public class Validator {
     int errorH = 0;
     int errorD = 0;
     int errorU = 0;
+    int vp = 0;
+    int up = 0;
+    int vc = 0;
+    int uc = 0;
+    int vd = 0;
+    int ud = 0;
+    int vb = 0;
+    int ub = 0;
+    int ur = 0;
 
     public Validator() {
     }
@@ -66,20 +75,22 @@ public class Validator {
             store.setZip(shop.getZip().replaceAll("\"", ""));
             for (Item item : shop.getItem()) {
                 if (productValidator(item)) {
+                    vp++;
                     if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("DVD") && DVDValidator(item)) {
                         DVD dvd = convertItemToDVD(item);
+                        vd++;
                         store.addNewProduct(dvd);
                         this.validDVD.add(dvd);
                         this.validProduct.add(dvd);
-                    }
-                    if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("CD") && CDValidator(item)) {
+                    } else if ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("music") && CDValidator(item)) || ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Musical") && CDValidator(item)))) {
                         CD cd = convertItemToCD(item);
+                        vc++;
                         store.addNewProduct(cd);
                         this.validCD.add(cd);
                         this.validProduct.add(cd);
-                    }
-                    if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Book") && bookValidator(item)) {
+                    } else if ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Book") && bookValidator(item)) || ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Buch") && bookValidator(item)))) {
                         Book book = convertItemToBook(item);
+                        vb++;
                         store.addNewProduct(book);
                         this.validBook.add(book);
                         this.validProduct.add(book);
@@ -105,13 +116,21 @@ public class Validator {
             log.error(itemErrors + "no group", item);
             return false;
         }
-        if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("DVD") && DVDValidator(item)) {
+        for (Product pr : validProduct
+        ) {
+            if (item.getAsin().equalsIgnoreCase(pr.getId())) {
+                log.error(itemErrors + " Duplicate", item);
+                System.out.println("ZBI");
+                return false;
+            }
+        }
+        if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("DVD")) {
             return DVDValidator(item);
         }
-        if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("CD") && CDValidator(item)) {
+        if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("CD") || item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("musical")) {
             return CDValidator(item);
         }
-        if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Book") && bookValidator(item)) {
+        if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Book") || item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Buch")) {
             return bookValidator(item);
         }
         if ((item.getState() == null || item.getState().replaceAll("\"", "").isEmpty()) || (item.getTheRealImg() == null || item.getTheRealImg().replaceAll("\"", "").isEmpty()) || (item.getListmania().isEmpty() || item.getListmania() == null) || (item.getSimilars().isEmpty() || item.getSimilars() == null)) {
