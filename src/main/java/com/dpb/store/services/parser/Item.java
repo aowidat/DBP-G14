@@ -52,20 +52,22 @@ public class Item {
     @JacksonXmlText
     private String titleOfSimilar;
 
-    public String getTheRealImg(){
-        if (details.getImg()==null && detailpage==null){
+    public String getTheRealImg() {
+        if (detailpage == null && details.getImg() == null) {
             return null;
-        } else if (details.getImg()!=null){
-            return details.getImg();
-        } else return detailpage;
+        } else if (detailpage != null) {
+            return detailpage;
+        } else return this.details.getImg();
     }
-    public String getTheRealTitle(){
+
+    public String getTheRealTitle() {
         if (this.title != null) {
             return title;
         } else if (titleOfSimilar != null) {
             return titleOfSimilar;
         } else return null;
     }
+
     public Item() {
 
     }

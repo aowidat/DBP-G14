@@ -47,21 +47,21 @@ public class DVD extends  Product {
     }
 
     public void addNewActor(Person person) {
-        if (this.actors!=null){
+        if (this.actors==null){
             this.actors = new HashSet<>();
         }
         this.actors.add(person);
     }
 
     public void addNewCreator(Person person) {
-        if (this.creators!=null){
+        if (this.creators==null){
             this.creators = new HashSet<>();
         }
         this.creators.add(person);
     }
 
     public void addNewDirector(Person person) {
-        if (this.directors!=null){
+        if (this.directors==null){
             this.directors = new HashSet<>();
         }
         this.directors.add(person);

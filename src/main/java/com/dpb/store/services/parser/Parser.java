@@ -31,22 +31,18 @@ public class Parser {
     private Shop dresden;
     private List<Review> review;
     private Categories categories;
-//    private Categories categories;
-//    private Category cat;
 
 
     public Parser() {
     }
 
-    public void lunchParser() throws IOException, JAXBException, ParserConfigurationException, SAXException {
+    public void lunchParser() throws IOException {
         log.info("{} has started ", Parser.class.getSimpleName());
         File fileLeipzig = new File("src/main/resources/data/leipzig_transformed.xml");
-        File test = new File("src/main/resources/data/test.xml");
         File fileDresden = new File("src/main/resources/data/dresden.xml");
         File fileCategories = new File("src/main/resources/data/categories.xml");
         File fileReviews = new File("src/main/resources/data/reviews.csv");
         leipzig = deserializeShopFromXML(fileLeipzig);
-        this.test = deserializeShopFromXML(test);
         dresden = deserializeShopFromXML(fileDresden);
         review = deserializeReviewFromCSV(fileReviews);
         categories = deserializeCategoriesFromXML(fileCategories);
@@ -59,10 +55,8 @@ public class Parser {
         return xmlMapper.readValue(xml, Shop.class);
     }
 
-    public Categories deserializeCategoriesFromXML(File file) throws IOException, JAXBException, ParserConfigurationException, SAXException {
+    public Categories deserializeCategoriesFromXML(File file) throws IOException {
         XmlMapper xmlMapper = new XmlMapper();
-//        xmlMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-//        xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         String xml = input(new FileInputStream(file));
         return xmlMapper.readValue(xml, Categories.class);
     }

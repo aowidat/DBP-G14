@@ -17,7 +17,7 @@ public class Store {
 
     private String name;
     private String street;
-    private int zip;
+    private String zip;
 
     @ManyToMany(mappedBy = "stores")
     private Set<Product> products;

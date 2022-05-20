@@ -19,23 +19,4 @@ public class StoreApplication {
         SpringApplication.run(StoreApplication.class, args);
 
     }
-
-    @Bean
-    CommandLineRunner cmd(PersonRepo pr, CDRepo cr) {
-        return args -> {
-            Person john = new Person();
-            john.setName("maen");
-            pr.save(john);
-            CD cd = new CD();
-            cd.setId("hajskdfhaskpjhdfa");
-            cd.setBinding("asdasdasdasd");
-            cd.setImage("asdfasdfasd");
-            List<Person> rre = new ArrayList<>();
-            rre.add(john);
-            cd.setArtists(rre);
-            cr.save(cd);
-        };
-    }
-
-
 }

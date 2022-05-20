@@ -30,14 +30,14 @@ public class Book extends Product {
     private List<Person> authors;
 
     public void addNewAuthor(Person person) {
-        if (this.authors != null) {
+        if (this.authors == null) {
             this.authors = new ArrayList<>();
         }
         this.authors.add(person);
     }
 
     public void addNewPublisher(String str) {
-        if (this.publisher != null) {
+        if (this.publisher == null) {
             this.publisher = new ArrayList<>();
         }
         this.publisher.add(str);
