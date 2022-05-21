@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Slf4j
@@ -21,6 +22,9 @@ public class Validator {
     private final List<Book> validBook = new ArrayList<>();
     private final List<com.dpb.store.entites.Review> validReview = new ArrayList<>();
     private final List<Category> validCategory = new ArrayList<>();
+    private final List<Category> zumLoeschen = new ArrayList<>();
+    private Category up;
+    private Category down;
     private final List<Person> validPerson = new ArrayList<>();
     private final List<Store> validStore = new ArrayList<>();
     private final String itemErrors = "{} Item not valid caused by ";
@@ -94,7 +98,7 @@ public class Validator {
         } else return null;
     }
 
-    public boolean productValidator(Item item) {
+    private boolean productValidator(Item item) {
         if (item.getAsin() == null || item.getAsin().replaceAll("\"", "").isEmpty()) {
             log.error(itemErrors + "no ID", item);
             return false;
@@ -110,7 +114,6 @@ public class Validator {
         for (Product pr : validProduct) {
             if (item.getAsin().equalsIgnoreCase(pr.getId())) {
                 log.error(itemErrors + " Duplicate", item);
-                System.out.println("ZBI");
                 return false;
             }
         }
@@ -129,21 +132,21 @@ public class Validator {
         return true;
     }
 
-    public boolean CDValidator(Item item) {
+    private boolean CDValidator(Item item) {
         if ((item.getMusicspec().getFormat() == null || item.getMusicspec().getFormat().getTheRealValue().replaceAll("\"", "").isEmpty()) || (item.getMusicspec().getBinding() == null || item.getMusicspec().getBinding().replaceAll("\"", "").isEmpty())) {
             log.warn(itemWarning, item);
         }
         return true;
     }
 
-    public boolean DVDValidator(Item item) {
+    private boolean DVDValidator(Item item) {
         if ((item.getDvdspec().getFormat() == null || item.getDvdspec().getFormat().replaceAll("\"", "").isEmpty()) || (item.getDvdspec().getAspectratio() == null || item.getDvdspec().getAspectratio().replaceAll("\"", "").isEmpty()) || (item.getDvdspec().getReleasedate() == null || item.getDvdspec().getReleasedate().replaceAll("\"", "").isEmpty())) {
             log.warn(itemWarning, item);
         }
         return true;
     }
 
-    public boolean bookValidator(Item item) {
+    private boolean bookValidator(Item item) {
         if ((item.getBookspec().getBinding() == null || item.getBookspec().getBinding().replaceAll("\"", "").isEmpty()) || (item.getBookspec().getTheRealISBN() == null || item.getBookspec().getTheRealISBN().replaceAll("\"", "").isEmpty())) {
             log.warn(itemWarning, item);
         }
@@ -204,13 +207,65 @@ public class Validator {
         return false;
     }
 
-    public boolean categoryValidator(Categories categories) {
-        boolean valid = false;
-
-        return true;
+    public void categoriesConverter(Categories categories) {
+        for (CategoryBean category : categories.getCategory()) {
+            validCategory.add(categoryConverter(category, null));
+        }
+        for (Category category : validCategory) {
+            if (category.getName() == null || category.getName().isEmpty()) {
+                zumLoeschen.add(category);
+            }
+        }
+        System.out.println(" loeschen " + zumLoeschen.size());
+        validCategory.removeAll(zumLoeschen);
     }
 
-    public DVD convertItemToDVD(Item item) {
+    private Category categoryConverter(CategoryBean categoryBean, Category up) {
+        Category category = new Category();
+        String jo = categoryBean.getCategoryName();
+        if (jo != null) {
+            if (!jo.isEmpty()) {
+                String name = categoryBean.getCategoryName();
+                category.setName(name);
+                for (Iterator<Category> it = validCategory.iterator(); it.hasNext(); ) {
+                    Category x = it.next();
+                    if (x.getName() != null) {
+                        if (x.getName().equals(jo)) {
+                            category = x;
+                            it.remove();
+                        }
+                    }
+                }
+                if (categoryBean.getItem() != null) {
+                    for (String str : categoryBean.getItem()) {
+                        for (Product pr : validProduct) {
+                            if (pr.getId().equalsIgnoreCase(str)) {
+                                category.addNewItem(pr);
+                                pr.addNewCategory(category);
+                            }
+                        }
+                    }
+                }
+                if (categoryBean.getCategory() != null && categoryBean.getCategory().size() != 0) {
+                    for (CategoryBean x : categoryBean.getCategory()) {
+                        Category y = categoryConverter(x, category);
+                        if (category.getChildren() != null) {
+                            if (!category.getChildren().contains(y)) category.addNewChild(y);
+                        } else category.addNewChild(y);
+                    }
+                }
+            }
+            if (up != null) {
+                if (category.getParents() != null) {
+                    if (!category.getParents().contains(up)) category.addNewParent(up);
+                } else category.addNewParent(up);
+            }
+        }
+        this.validCategory.add(category);
+        return category;
+    }
+
+    private DVD convertItemToDVD(Item item) {
         log.info("Making new DVD ... {}", item);
         DVD dvd = new DVD();
         dvd.setTitle(item.getTitle().replaceAll("\"", ""));
@@ -281,7 +336,7 @@ public class Validator {
         return dvd;
     }
 
-    public CD convertItemToCD(Item item) {
+    private CD convertItemToCD(Item item) {
         log.info("Making new CD ... {}", item);
         CD cd = new CD();
         cd.setId(item.getAsin().replaceAll("\"", ""));
@@ -337,7 +392,7 @@ public class Validator {
         return cd;
     }
 
-    public Book convertItemToBook(Item item) {
+    private Book convertItemToBook(Item item) {
         log.info("Making new Book ... {}", item);
         Book book = new Book();
         book.setId(item.getAsin().replaceAll("\"", ""));
@@ -395,7 +450,7 @@ public class Validator {
         return book;
     }
 
-    public boolean isValidNumber(String str) {
+    private boolean isValidNumber(String str) {
         if (str != null && !str.replaceAll("\"", "").isEmpty()) {
             try {
                 Integer.parseInt(str.replaceAll("\"", ""));
@@ -409,7 +464,7 @@ public class Validator {
         }
     }
 
-    public boolean isValidDouble(String str) {
+    private boolean isValidDouble(String str) {
         if (str != null && !str.replaceAll("\"", "").isEmpty()) {
             try {
                 Double.parseDouble(str.replaceAll("\"", ""));
@@ -421,7 +476,7 @@ public class Validator {
         } else return false;
     }
 
-    public boolean isValidDate(String str) {
+    private boolean isValidDate(String str) {
         if (str != null && !str.replaceAll("\"", "").isEmpty()) {
             try {
                 LocalDate.parse(str.replaceAll("\"", ""));
