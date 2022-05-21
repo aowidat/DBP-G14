@@ -1,8 +1,10 @@
-# Store App for DPB
+# Store App for DBP
 
 #### SS2022
 
-#### by Abed Alaziz Owidat and Mahmoud Ahmad
+### by:
+* #### Abed Alaziz Owidat
+* #### Mahmoud Ahmad
 
 ### Techs
 

@@ -33,6 +33,8 @@ class StoreApplicationTests {
     StoreRepo dresdenRepo;
     @Autowired
     PersonRepo personRepo;
+    @Autowired
+    SimiRepo simiRepo;
 
     @Test
     void contextLoads() {
@@ -57,11 +59,12 @@ class StoreApplicationTests {
         }
         dresdenRepo.save(storeDresden);
         leipzigRepo.save(storeLeipzig);
-        personRepo.saveAll(validator.getValidPerson());
-        reviewRepo.saveAll(validator.getValidReview());
+        simiRepo.saveAll(validator.getValidSimiProduct());
         dvdRepo.saveAll(dvds);
         cdRepo.saveAll(cds);
         bookRepo.saveAll(books);
+        personRepo.saveAll(validator.getValidPerson());
+        reviewRepo.saveAll(validator.getValidReview());
 
     }
 

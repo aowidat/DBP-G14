@@ -51,6 +51,7 @@ public class Parser {
     }
 
     public Shop deserializeShopFromXML(File file) throws IOException {
+        log.info("deserializing file {}", file.getName());
         XmlMapper xmlMapper = new XmlMapper();
         xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         String xml = input(new FileInputStream(file));
@@ -58,12 +59,14 @@ public class Parser {
     }
 
     public Categories deserializeCategoriesFromXML(File file) throws IOException {
+        log.info("deserializing file {}", file.getName());
         XmlMapper xmlMapper = new XmlMapper();
         String xml = input(new FileInputStream(file));
         return xmlMapper.readValue(xml, Categories.class);
     }
 
     public List<Review> deserializeReviewFromCSV(File file) throws IOException {
+        log.info("deserializing file {}", file.getName());
         List<Review> reviews = new ArrayList<>();
         String line;
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -78,6 +81,7 @@ public class Parser {
     }
 
     public String input(InputStream is) throws IOException {
+        log.info("Converting File to String ..");
         StringBuilder sb = new StringBuilder();
         String line;
         BufferedReader br = new BufferedReader(new InputStreamReader(is));

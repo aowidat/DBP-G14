@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,21 +25,48 @@ public class Product {
     private String image;
     private int rating;
     @ElementCollection
-    private Set<String> listmania;
+    private List<String> listmania;
+
+    //    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "simi", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "simi_id", referencedColumnName = "id"))
+//    private Set<Product> similars;
+//
+//    @ManyToMany(mappedBy = "similars")
+//    private Set<Product> som;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "product_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
+    private List<Store> stores;
+    //    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
+//    private Set<Category> categories;
+    @OneToMany(mappedBy = "product_review")
+    private List<Review> reviews;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "product_similar", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "simi_id", referencedColumnName = "id"))
+    private List<SimiProduct> similar;
+
 
     public void addNewListMania(String str) {
         if (this.listmania == null) {
-            this.listmania = new HashSet<>();
+            this.listmania = new ArrayList<>();
         }
         this.listmania.add(str);
     }
 
-//    public void addNewSimProcuct(Product pr) {
-//        if (this.similars == null) {
-//            this.similars = new HashSet<>();
-//        }
-//        this.similars.add(pr);
-//    }
+    public void addNewSimProcuct(SimiProduct pr) {
+        if (this.similar == null) {
+            this.similar = new ArrayList<>();
+        }
+        this.similar.add(pr);
+    }
+
+    public void addNewReview(Review rw) {
+        if (this.reviews == null) {
+            this.reviews = new ArrayList<>();
+        }
+        this.reviews.add(rw);
+    }
 
     @Override
     public String toString() {
@@ -52,20 +80,4 @@ public class Product {
                 ", rating=" + rating +
                 '}';
     }
-
-    //    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "simi", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "simi_id", referencedColumnName = "id"))
-//    private Set<Product> similars;
-//
-//    @ManyToMany(mappedBy = "similars")
-//    private Set<Product> som;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "product_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
-    private Set<Store> stores;
-    //    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
-//    private Set<Category> categories;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "product_review", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "review_id", referencedColumnName = "id"))
-    private Set<Review> reviews;
 }

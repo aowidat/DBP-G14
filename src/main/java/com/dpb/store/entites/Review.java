@@ -22,18 +22,19 @@ public class Review {
     private String summery;
     private LocalDate date;
 
-    @ManyToMany(mappedBy = "reviews")
-    private List<Product> product;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product_review;
 
     @ManyToOne
     @JoinColumn(name = "person")
     private Person person;
 
     public void addProduct(Product pr) {
-        if (this.product == null) {
-            product = new ArrayList<>();
-        }
-        this.product.add(pr);
+//        if (this.product == null) {
+//            product = new ArrayList<>();
+//        }
+        this.product_review = pr;
     }
 
 }
