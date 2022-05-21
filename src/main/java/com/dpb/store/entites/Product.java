@@ -22,12 +22,15 @@ public class Product {
     @Column(columnDefinition = "text", length = 10485760)
     private String image;
     private int rating;
-    private boolean available;
     @ElementCollection
     private List<String> listmania;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "product_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
     private List<Store> stores;
+
+    @ManyToMany
+    @JoinTable(name = "product_in_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
+    private List<Store> availableInStores;
     //    @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
 //    private Set<Category> categories;
@@ -58,6 +61,20 @@ public class Product {
             this.reviews = new ArrayList<>();
         }
         this.reviews.add(rw);
+    }
+
+    public void addNewStore(Store sr) {
+        if (this.stores == null) {
+            this.stores = new ArrayList<>();
+        }
+        this.stores.add(sr);
+    }
+
+    public void addNewAvailableInStore(Store sr) {
+        if (this.availableInStores == null) {
+            this.availableInStores = new ArrayList<>();
+        }
+        this.availableInStores.add(sr);
     }
 
     @Override

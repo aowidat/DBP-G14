@@ -14,10 +14,8 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-*.log
-store-2022-05-20.0.log
+/LoggingArchiv
 store.log
-store-%d{yyyy-MM-dd}.%i.log
 .idea
 *.iws
 *.iml

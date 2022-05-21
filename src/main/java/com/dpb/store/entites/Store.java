@@ -22,11 +22,21 @@ public class Store {
     @ManyToMany(mappedBy = "stores")
     private Set<Product> products;
 
+    @ManyToMany(mappedBy = "availableInStores")
+    private Set<Product> availableProducts;
+
     public void addNewProduct(Product product) {
         if (products == null) {
             products = new HashSet<>();
         }
         products.add(product);
+    }
+
+    public void addNewAvailableProduct(Product product) {
+        if (availableProducts == null) {
+            availableProducts = new HashSet<>();
+        }
+        availableProducts.add(product);
     }
 
     @Override

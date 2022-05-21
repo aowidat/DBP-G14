@@ -62,16 +62,31 @@ public class Validator {
                     if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("DVD") && DVDValidator(item)) {
                         DVD dvd = convertItemToDVD(item);
                         store.addNewProduct(dvd);
+                        dvd.addNewStore(store);
+                        if (dvd.getPrice() != 0.0) {
+                            store.addNewAvailableProduct(dvd);
+                            dvd.addNewAvailableInStore(store);
+                        }
                         this.validDVD.add(dvd);
                         this.validProduct.add(dvd);
                     } else if ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("music") && CDValidator(item)) || ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Musical") && CDValidator(item)))) {
                         CD cd = convertItemToCD(item);
                         store.addNewProduct(cd);
+                        cd.addNewStore(store);
+                        if (cd.getPrice() != 0.0) {
+                            store.addNewAvailableProduct(cd);
+                            cd.addNewAvailableInStore(store);
+                        }
                         this.validCD.add(cd);
                         this.validProduct.add(cd);
                     } else if ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Book") && bookValidator(item)) || ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Buch") && bookValidator(item)))) {
                         Book book = convertItemToBook(item);
                         store.addNewProduct(book);
+                        book.addNewStore(store);
+                        if (book.getPrice() != 0.0) {
+                            store.addNewAvailableProduct(book);
+                            book.addNewAvailableInStore(store);
+                        }
                         this.validBook.add(book);
                         this.validProduct.add(book);
                     }
@@ -96,8 +111,7 @@ public class Validator {
             log.error(itemErrors + "no group", item);
             return false;
         }
-        for (Product pr : validProduct
-        ) {
+        for (Product pr : validProduct) {
             if (item.getAsin().equalsIgnoreCase(pr.getId())) {
                 log.error(itemErrors + " Duplicate", item);
                 System.out.println("ZBI");

@@ -56,9 +56,9 @@ class StoreApplicationTests {
         for (Review r : reviews) {
             validator.reviewValidator(r);
         }
-        dresdenRepo.save(storeDresden);
-        leipzigRepo.save(storeLeipzig);
         simiRepo.saveAll(validator.getValidSimiProduct());
+        leipzigRepo.save(storeLeipzig);
+        dresdenRepo.save(storeDresden);
         dvdRepo.saveAll(dvds);
         cdRepo.saveAll(cds);
         bookRepo.saveAll(books);
