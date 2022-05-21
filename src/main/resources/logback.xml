@@ -7,8 +7,8 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>store.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>store-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>3MB</maxFileSize>
+            <fileNamePattern>LoggingArchiv\store-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxFileSize>12MB</maxFileSize>
             <maxHistory>30</maxHistory>
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>

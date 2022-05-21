@@ -228,7 +228,7 @@ public class Validator {
                         SimiProduct simiProduct = new SimiProduct();
                         simiProduct.setId(i.getAsin().replaceAll("\"", ""));
                         simiProduct.setTitle(i.getTheRealTitle().replaceAll("\"", ""));
-                        dvd.addNewSimProcuct(simiProduct);
+                        dvd.addNewSimProduct(simiProduct);
                         simiProduct.addNewProduct(dvd);
                     }
                 }
@@ -295,7 +295,7 @@ public class Validator {
                         SimiProduct simiProduct = new SimiProduct();
                         simiProduct.setId(i.getAsin().replaceAll("\"", ""));
                         simiProduct.setTitle(i.getTheRealTitle().replaceAll("\"", ""));
-                        cd.addNewSimProcuct(simiProduct);
+                        cd.addNewSimProduct(simiProduct);
                         simiProduct.addNewProduct(cd);
                     }
                 }
@@ -359,7 +359,7 @@ public class Validator {
                         SimiProduct simiProduct = new SimiProduct();
                         simiProduct.setId(i.getAsin().replaceAll("\"", ""));
                         simiProduct.setTitle(i.getTheRealTitle().replaceAll("\"", ""));
-                        book.addNewSimProcuct(simiProduct);
+                        book.addNewSimProduct(simiProduct);
                         simiProduct.addNewProduct(book);
                     }
                 }

@@ -6,9 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -24,15 +22,9 @@ public class Product {
     @Column(columnDefinition = "text", length = 10485760)
     private String image;
     private int rating;
+    private boolean available;
     @ElementCollection
     private List<String> listmania;
-
-    //    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "simi", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "simi_id", referencedColumnName = "id"))
-//    private Set<Product> similars;
-//
-//    @ManyToMany(mappedBy = "similars")
-//    private Set<Product> som;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "product_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
     private List<Store> stores;
@@ -54,7 +46,7 @@ public class Product {
         this.listmania.add(str);
     }
 
-    public void addNewSimProcuct(SimiProduct pr) {
+    public void addNewSimProduct(SimiProduct pr) {
         if (this.similar == null) {
             this.similar = new ArrayList<>();
         }
@@ -73,11 +65,6 @@ public class Product {
         return "Product{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
-                ", salesRank=" + salesRank +
-                ", price=" + price +
-                ", status='" + status + '\'' +
-                ", image='" + image + '\'' +
-                ", rating=" + rating +
                 '}';
     }
 }
