@@ -15,7 +15,7 @@ import java.util.*;
 public class Book extends Product {
 
     private String binding;
-    private int edition;
+    private String edition;
     private String isbn;
     private int page;
     private LocalDate publication;

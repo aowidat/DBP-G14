@@ -1,10 +1,7 @@
 package com.dpb.store.services.validator;
 
 import com.dpb.store.entites.*;
-import com.dpb.store.services.parser.GeneralField;
-import com.dpb.store.services.parser.Item;
-import com.dpb.store.services.parser.Shop;
-import com.dpb.store.services.parser.Review;
+import com.dpb.store.services.parser.*;
 import lombok.Getter;
 
 import lombok.extern.slf4j.Slf4j;
@@ -97,7 +94,6 @@ public class Validator {
         } else return null;
     }
 
-
     public boolean productValidator(Item item) {
         if (item.getAsin() == null || item.getAsin().replaceAll("\"", "").isEmpty()) {
             log.error(itemErrors + "no ID", item);
@@ -154,7 +150,7 @@ public class Validator {
         return true;
     }
 
-    public boolean reviewValidator(Review review) {
+    public boolean reviewValidator(com.dpb.store.services.parser.Review review) {
         com.dpb.store.entites.Review entityReview = new com.dpb.store.entites.Review();
         if (review.getContent().isEmpty() || review.getContent() == null) {
             log.error(reviewErrors + " no Content", review.getContent());
@@ -208,7 +204,7 @@ public class Validator {
         return false;
     }
 
-    public boolean categoryValidator(Category category) {
+    public boolean categoryValidator(Categories categories) {
         boolean valid = false;
 
         return true;
@@ -353,8 +349,7 @@ public class Validator {
         book.setStatus(item.getPrice().getState().replaceAll("\"", ""));
         book.setImage(item.getTheRealImg().replaceAll("\"", ""));
         book.setBinding(item.getBookspec().getBinding().replaceAll("\"", ""));
-        if (isValidNumber(item.getBookspec().getEdition()))
-            book.setEdition(Integer.parseInt(item.getBookspec().getEdition().replaceAll("\"", "")));
+        book.setEdition(item.getBookspec().getTheRealEdition().replaceAll("\"", ""));
         book.setIsbn(item.getBookspec().getTheRealISBN().replaceAll("\"", ""));
         if (isValidNumber(item.getBookspec().getPages()))
             book.setPage(Integer.parseInt(item.getBookspec().getPages().replaceAll("\"", "")));
@@ -364,8 +359,8 @@ public class Validator {
             book.setLength(Integer.parseInt(item.getBookspec().getBookPackage().getLength().replaceAll("\"", "")));
         if (isValidNumber(item.getBookspec().getBookPackage().getWeight()))
             book.setWeight(Integer.parseInt(item.getBookspec().getBookPackage().getWeight().replaceAll("\"", "")));
-        if (isValidDate(item.getBookspec().getPublication()))
-            book.setPublication(LocalDate.parse(item.getBookspec().getPublication().replaceAll("\"", "")));
+        if (isValidDate(item.getBookspec().getTheRealPublication()))
+            book.setPublication(LocalDate.parse(item.getBookspec().getTheRealPublication().replaceAll("\"", "")));
         if (item.getSimilars() != null) {
             for (Item i : item.getSimilars()) {
                 if (i != null) {
@@ -401,7 +396,6 @@ public class Validator {
     }
 
     public boolean isValidNumber(String str) {
-        log.info("Trying to convert Value {} to Integer", str);
         if (str != null && !str.replaceAll("\"", "").isEmpty()) {
             try {
                 Integer.parseInt(str.replaceAll("\"", ""));
@@ -416,7 +410,6 @@ public class Validator {
     }
 
     public boolean isValidDouble(String str) {
-        log.info("Trying to convert Value {} to Double", str);
         if (str != null && !str.replaceAll("\"", "").isEmpty()) {
             try {
                 Double.parseDouble(str.replaceAll("\"", ""));
@@ -429,7 +422,6 @@ public class Validator {
     }
 
     public boolean isValidDate(String str) {
-        log.info("Trying to convert Value {} to LocalDate", str);
         if (str != null && !str.replaceAll("\"", "").isEmpty()) {
             try {
                 LocalDate.parse(str.replaceAll("\"", ""));
