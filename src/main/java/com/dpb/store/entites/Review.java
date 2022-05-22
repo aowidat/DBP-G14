@@ -15,8 +15,10 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @Column(columnDefinition = "text", length = 10485760)
     private String content;
+
     private int helpful;
     private int rating;
     private String summery;

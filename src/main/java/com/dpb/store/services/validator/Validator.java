@@ -216,7 +216,6 @@ public class Validator {
                 zumLoeschen.add(category);
             }
         }
-        System.out.println(" loeschen " + zumLoeschen.size());
         validCategory.removeAll(zumLoeschen);
     }
 

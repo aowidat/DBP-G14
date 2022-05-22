@@ -32,6 +32,10 @@ class StoreApplicationTests {
     PersonRepo personRepo;
     @Autowired
     SimiRepo simiRepo;
+    @Autowired
+    CategoryRepo categoryRepo;
+    @Autowired
+    ProductRepo productRepo;
 
     @Test
     void contextLoads() {
@@ -48,33 +52,41 @@ class StoreApplicationTests {
         Store storeLeipzig = validator.storeValidator(leipzig);
         Store storeDresden = validator.storeValidator(dresden);
         validator.categoriesConverter(parser.getCategories());
-        System.out.println(validator.getValidCategory().size());
-        Category categ = validator.getValidCategory().get(0);
-        for (Product pr: categ.getProducts()){
-            System.out.println(pr.getTitle());
-        }
-            System.out.println("start >>>>>>>> ");
-            System.out.println(categ.getName());
-            if (categ.getProducts() != null) System.out.println("pro " + categ.getProducts().size());
-            if (categ.getParents() != null) System.out.println("par "+categ.getParents().get(0).getName());
-            if (categ.getChildren() != null) System.out.println("chi "+categ.getChildren().size());
-            System.out.println("end >>>>>>>> ");
-//        List<CD> cds = validator.getValidCD();
-//        List<DVD> dvds = validator.getValidDVD();
-//        List<Book> books = validator.getValidBook();
-//        List<Review> reviews = parser.getReview();
-//        for (Review r : reviews) {
-//            validator.reviewValidator(r);
+//        System.out.println(validator.getValidCategory().size());
+//        Category categ = validator.getValidCategory().get(0);
+//        for (Product pr: categ.getProducts()){
+//            System.out.println(pr.getTitle());
 //        }
-//        simiRepo.saveAll(validator.getValidSimiProduct());
-//        leipzigRepo.save(storeLeipzig);
-//        dresdenRepo.save(storeDresden);
-//        dvdRepo.saveAll(dvds);
-//        cdRepo.saveAll(cds);
-//        bookRepo.saveAll(books);
-//        personRepo.saveAll(validator.getValidPerson());
-//        reviewRepo.saveAll(validator.getValidReview());
+//            System.out.println("start >>>>>>>> ");
+//            System.out.println(categ.getName());
+//            if (categ.getProducts() != null) System.out.println("pro " + categ.getProducts().size());
+//            if (categ.getParents() != null) System.out.println("par "+categ.getParents().get(0).getName());
+//            if (categ.getChildren() != null) System.out.println("chi "+categ.getChildren().size());
+//            System.out.println("end >>>>>>>> ");
 
+        List<CD> cds = validator.getValidCD();
+        List<DVD> dvds = validator.getValidDVD();
+        List<Book> books = validator.getValidBook();
+        List<Review> reviews = parser.getReview();
+        List<Category> categories = validator.getValidCategory();
+        List<Person> personList = validator.getValidPerson();
+        for (Review r : reviews) {
+            validator.reviewValidator(r);
+        }
+        List<com.dpb.store.entites.Review> reviewList = validator.getValidReview();
+        for (com.dpb.store.entites.Review re: reviewList){
+            System.out.println(re.getId());
+        }
+        leipzigRepo.save(storeLeipzig);
+        dresdenRepo.save(storeDresden);
+        productRepo.saveAll(validator.getValidProduct());
+//        categoryRepo.saveAll(categories);
+        dvdRepo.saveAll(dvds);
+        cdRepo.saveAll(cds);
+        bookRepo.saveAll(books);
+        personRepo.saveAll(validator.getValidPerson());
+        reviewRepo.saveAll(validator.getValidReview());
+        simiRepo.saveAll(validator.getValidSimiProduct());
     }
 
 }
