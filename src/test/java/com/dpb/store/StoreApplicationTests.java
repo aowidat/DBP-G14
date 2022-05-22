@@ -49,28 +49,30 @@ class StoreApplicationTests {
         Validator validator = new Validator();
         Shop leipzig = parser.getLeipzig();
         Shop dresden = parser.getDresden();
-        Store storeLeipzig = validator.storeValidator(leipzig);
-        Store storeDresden = validator.storeValidator(dresden);
-        validator.categoriesConverter(parser.getCategories());
-        System.out.println(validator.getValidCategory().size());
-        for (Category categ : validator.getValidCategory()){
-            System.out.println("start >>>>>>>> ");
-            System.out.println( "name "+ categ.getName());
-            if (categ.getProducts() != null) System.out.println("pro " + categ.getProducts().size());
-            if (categ.getParents() != null) System.out.println("par "+categ.getParents().size());
-            if (categ.getChildren() != null) System.out.println("chi "+categ.getChildren().size());
-            System.out.println("end >>>>>>>> ");
-        }
+
+//        System.out.println(validator.getValidCategory().size());
+//        for (Category categ : validator.getValidCategory()){
+//            System.out.println("start >>>>>>>> ");
+//            System.out.println( "name "+ categ.getName());
+//            if (categ.getProducts() != null) System.out.println("pro " + categ.getProducts().size());
+//            if (categ.getParents() != null) System.out.println("par "+categ.getParents().size());
+//            if (categ.getChildren() != null) System.out.println("chi "+categ.getChildren().size());
+//            System.out.println("end >>>>>>>> ");
+//        }
 
         List<CD> cds = validator.getValidCD();
         List<DVD> dvds = validator.getValidDVD();
         List<Book> books = validator.getValidBook();
-        List<Review> reviews = parser.getReview();
+        List<Review> r = parser.getReview();
         List<Category> categories = validator.getValidCategory();
         List<Person> personList = validator.getValidPerson();
-        for (Review r : reviews) {
-            validator.reviewValidator(r);
-        }
+        List<com.dpb.store.entites.Review> vaildreviewList = validator.getValidReview();
+
+        Store storeLeipzig = validator.storeValidator(leipzig);
+        Store storeDresden = validator.storeValidator(dresden);
+        validator.categoriesConverter(parser.getCategories());
+        validator.reviewsValidator(r);
+
 //        List<com.dpb.store.entites.Review> reviewList = validator.getValidReview();
 //        leipzigRepo.save(storeLeipzig);
 //        dresdenRepo.save(storeDresden);

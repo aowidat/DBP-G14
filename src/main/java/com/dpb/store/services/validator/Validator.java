@@ -2,6 +2,7 @@ package com.dpb.store.services.validator;
 
 import com.dpb.store.entites.*;
 import com.dpb.store.services.parser.*;
+import com.dpb.store.services.parser.Review;
 import lombok.Getter;
 
 import lombok.extern.slf4j.Slf4j;
@@ -153,7 +154,13 @@ public class Validator {
         return true;
     }
 
-    public boolean reviewValidator(com.dpb.store.services.parser.Review review) {
+    public void reviewsValidator(List<com.dpb.store.services.parser.Review> reviews) {
+        for (com.dpb.store.services.parser.Review r : reviews) {
+            reviewValidator(r);
+        }
+    }
+
+    private boolean reviewValidator(com.dpb.store.services.parser.Review review) {
         com.dpb.store.entites.Review entityReview = new com.dpb.store.entites.Review();
         if (review.getContent().isEmpty() || review.getContent() == null) {
             log.error(reviewErrors + " no Content", review.getContent());
