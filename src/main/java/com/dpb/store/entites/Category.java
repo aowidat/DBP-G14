@@ -3,8 +3,6 @@ package com.dpb.store.entites;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,8 +22,6 @@ public class Category {
     public Category() {
     }
 
-
-
     @ManyToMany
     @JoinTable(name = "parent", joinColumns = @JoinColumn(name = "categ_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"))
     private List<Category> parents;
@@ -38,15 +34,15 @@ public class Category {
 
     @ManyToMany(mappedBy = "children")
     private List<Category> child;
-//    @ManyToMany(mappedBy = "categories")
-//    @NotFound(action = NotFoundAction.IGNORE)
-//    private List<Product> products;
+
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products;
 
     public void addNewItem(Product pr) {
-//        if (products == null) {
-//            products = new ArrayList<>();
-//        }
-//        products.add(pr);
+        if (products == null) {
+            products = new ArrayList<>();
+        }
+        products.add(pr);
     }
 
     public void addNewParent(Category cr) {

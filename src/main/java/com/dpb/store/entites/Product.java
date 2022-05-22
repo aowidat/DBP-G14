@@ -34,10 +34,11 @@ public class Product {
     @ManyToMany
     @JoinTable(name = "product_in_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
     private List<Store> availableInStores;
-//    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-//    @NotFound(action = NotFoundAction.IGNORE)
-//    @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
-//    private List<Category> categories;
+
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
+    private List<Category> categories;
     @OneToMany(mappedBy = "product_review")
     private List<Review> reviews;
 
@@ -82,10 +83,10 @@ public class Product {
     }
 
     public void addNewCategory(Category cr) {
-//        if (this.categories == null) {
-//            this.categories = new ArrayList<>();
-//        }
-//        this.categories.add(cr);
+        if (this.categories == null) {
+            this.categories = new ArrayList<>();
+        }
+        this.categories.add(cr);
     }
 
     @Override

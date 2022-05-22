@@ -211,43 +211,28 @@ public class Validator {
         for (CategoryBean category : categories.getCategory()) {
             validCategory.add(categoryConverter(category, null));
         }
-        for (Category category : validCategory) {
-            if (category.getName() == null || category.getName().isEmpty()) {
-                zumLoeschen.add(category);
-            }
-        }
-        validCategory.removeAll(zumLoeschen);
     }
 
     private Category categoryConverter(CategoryBean categoryBean, Category up) {
-        Category category = new Category();
-        String jo = categoryBean.getCategoryName();
-        if (jo != null) {
-            if (!jo.isEmpty()) {
-                String name = categoryBean.getCategoryName();
-                category.setName(name);
-                for (Iterator<Category> it = validCategory.iterator(); it.hasNext(); ) {
-                    Category x = it.next();
-                    if (x.getName() != null) {
-                        if (x.getName().equals(jo)) {
-                            category = x;
-                            it.remove();
+        Category category = null;
+        String name = categoryBean.getCategoryName();
+        if (name != null && !name.isEmpty()) {
+            category = new Category();
+            category.setName(name);
+            if (categoryBean.getItem() != null) {
+                for (String str : categoryBean.getItem()) {
+                    for (Product pr : validProduct) {
+                        if (pr.getId().equalsIgnoreCase(str)) {
+                            category.addNewItem(pr);
+                            pr.addNewCategory(category);
                         }
                     }
                 }
-                if (categoryBean.getItem() != null) {
-                    for (String str : categoryBean.getItem()) {
-                        for (Product pr : validProduct) {
-                            if (pr.getId().equalsIgnoreCase(str)) {
-                                category.addNewItem(pr);
-                                pr.addNewCategory(category);
-                            }
-                        }
-                    }
-                }
-                if (categoryBean.getCategory() != null && categoryBean.getCategory().size() != 0) {
-                    for (CategoryBean x : categoryBean.getCategory()) {
-                        Category y = categoryConverter(x, category);
+            }
+            if (categoryBean.getCategory() != null && categoryBean.getCategory().size() != 0) {
+                for (CategoryBean x : categoryBean.getCategory()) {
+                    Category y = categoryConverter(x, category);
+                    if (y != null) {
                         if (category.getChildren() != null) {
                             if (!category.getChildren().contains(y)) category.addNewChild(y);
                         } else category.addNewChild(y);
@@ -260,7 +245,6 @@ public class Validator {
                 } else category.addNewParent(up);
             }
         }
-        this.validCategory.add(category);
         return category;
     }
 
