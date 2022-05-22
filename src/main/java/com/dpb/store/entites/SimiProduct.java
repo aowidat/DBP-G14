@@ -3,6 +3,7 @@ package com.dpb.store.entites;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -17,7 +18,7 @@ public class SimiProduct {
     private String id;
     private String title;
 
-    @ManyToMany(mappedBy = "similar")
+    @ManyToMany(mappedBy = "similar", cascade = {CascadeType.ALL})
     private List<Product> product;
 
     public void addNewProduct(Product pr) {

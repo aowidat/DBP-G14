@@ -77,7 +77,7 @@ class StoreApplicationTests {
         List<Product> validProduct = validator.getValidProduct();
         leipzigRepo.save(storeLeipzig);
         dresdenRepo.save(storeDresden);
-//        productRepo.saveAll(validProduct);
+        productRepo.saveAll(validProduct);
         simiRepo.saveAll(sims);
         dvdRepo.saveAll(dvds);
         cdRepo.saveAll(cds);

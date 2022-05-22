@@ -15,16 +15,16 @@ public class Person {
     private int id;
     private String name;
 
-    @ManyToMany(mappedBy = "actors")
+    @ManyToMany(mappedBy = "actors", cascade = {CascadeType.MERGE})
     private Set<DVD> dvds_actors;
-    @ManyToMany(mappedBy = "creators")
+    @ManyToMany(mappedBy = "creators", cascade = {CascadeType.MERGE})
     private Set<DVD> dvds_creators;
-    @ManyToMany(mappedBy = "directors")
+    @ManyToMany(mappedBy = "directors", cascade = {CascadeType.MERGE})
     private Set<DVD> dvds_directors;
-    @ManyToMany(mappedBy = "artists")
+    @ManyToMany(mappedBy = "artists", cascade = {CascadeType.MERGE})
     private Set<CD> cds_artists;
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors", cascade = {CascadeType.MERGE})
     private Set<Book> books_authors;
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", cascade = {CascadeType.MERGE})
     private Set<Review> reviews;
 }

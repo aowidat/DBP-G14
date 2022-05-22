@@ -28,7 +28,7 @@ public class Review {
     @JoinColumn(name = "product_id")
     private Product product_review;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "person")
     private Person person;
 
