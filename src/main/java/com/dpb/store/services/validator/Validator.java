@@ -247,8 +247,8 @@ public class Validator {
                 }
             }
             if (up != null) {
-                if (category.getParents() != null) {
-                    if (!category.getParents().contains(up)) category.addNewParent(up);
+                if (category.getUp_categories() != null) {
+                    if (!category.getUp_categories().contains(up)) category.addNewParent(up);
                 } else category.addNewParent(up);
             }
         }

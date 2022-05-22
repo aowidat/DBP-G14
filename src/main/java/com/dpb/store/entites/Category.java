@@ -22,34 +22,28 @@ public class Category {
     public Category() {
     }
 
-    @ManyToMany
-    @JoinTable(name = "parent", joinColumns = @JoinColumn(name = "categ_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"))
-    private List<Category> parents;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "parent_of_category", joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"))
+    private List<Category> up_categories;
 
-    @ManyToMany(mappedBy = "parents")
-    private List<Category> parent;
-    @ManyToMany
-    @JoinTable(name = "children", joinColumns = @JoinColumn(name = "categ_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"))
+    @ManyToMany(mappedBy = "up_categories", cascade = CascadeType.ALL)
     private List<Category> children;
 
-    @ManyToMany(mappedBy = "children")
-    private List<Category> child;
-
-    @ManyToMany(mappedBy = "categories")
-    private List<Product> products;
+//    @ManyToMany(mappedBy = "categories")
+//    private List<Product> products;
 
     public void addNewItem(Product pr) {
-        if (products == null) {
-            products = new ArrayList<>();
-        }
-        products.add(pr);
+//        if (products == null) {
+//            products = new ArrayList<>();
+//        }
+//        products.add(pr);
     }
 
     public void addNewParent(Category cr) {
-        if (parents == null) {
-            parents = new ArrayList<>();
+        if (up_categories == null) {
+            up_categories = new ArrayList<>();
         }
-        parents.add(cr);
+        up_categories.add(cr);
     }
 
     public void addNewChild(Category cr) {

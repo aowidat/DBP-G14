@@ -49,6 +49,7 @@ class StoreApplicationTests {
         Validator validator = new Validator();
         Shop leipzig = parser.getLeipzig();
         Shop dresden = parser.getDresden();
+        List<Review> r = parser.getReview();
 
 //        System.out.println(validator.getValidCategory().size());
 //        for (Category categ : validator.getValidCategory()){
@@ -60,30 +61,30 @@ class StoreApplicationTests {
 //            System.out.println("end >>>>>>>> ");
 //        }
 
-        List<CD> cds = validator.getValidCD();
-        List<DVD> dvds = validator.getValidDVD();
-        List<Book> books = validator.getValidBook();
-        List<Review> r = parser.getReview();
-        List<Category> categories = validator.getValidCategory();
-        List<Person> personList = validator.getValidPerson();
-        List<com.dpb.store.entites.Review> vaildreviewList = validator.getValidReview();
 
         Store storeLeipzig = validator.storeValidator(leipzig);
         Store storeDresden = validator.storeValidator(dresden);
         validator.categoriesConverter(parser.getCategories());
         validator.reviewsValidator(r);
 
-//        List<com.dpb.store.entites.Review> reviewList = validator.getValidReview();
-//        leipzigRepo.save(storeLeipzig);
-//        dresdenRepo.save(storeDresden);
-//        productRepo.saveAll(validator.getValidProduct());
-//        categoryRepo.saveAll(categories);
-//        dvdRepo.saveAll(dvds);
-//        cdRepo.saveAll(cds);
-//        bookRepo.saveAll(books);
-//        personRepo.saveAll(validator.getValidPerson());
-//        reviewRepo.saveAll(validator.getValidReview());
-//        simiRepo.saveAll(validator.getValidSimiProduct());
+        List<CD> cds = validator.getValidCD();
+        List<DVD> dvds = validator.getValidDVD();
+        List<Book> books = validator.getValidBook();
+        List<Category> categories = validator.getValidCategory();
+        List<Person> personList = validator.getValidPerson();
+        List<com.dpb.store.entites.Review> reviewList = validator.getValidReview();
+        List<SimiProduct> sims = validator.getValidSimiProduct();
+        List<Product> validProduct = validator.getValidProduct();
+        leipzigRepo.save(storeLeipzig);
+        dresdenRepo.save(storeDresden);
+//        productRepo.saveAll(validProduct);
+        simiRepo.saveAll(sims);
+        dvdRepo.saveAll(dvds);
+        cdRepo.saveAll(cds);
+        bookRepo.saveAll(books);
+        personRepo.saveAll(personList);
+        reviewRepo.saveAll(reviewList);
+        categoryRepo.saveAll(categories);
     }
 
 }

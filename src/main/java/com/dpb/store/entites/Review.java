@@ -33,9 +33,6 @@ public class Review {
     private Person person;
 
     public void addProduct(Product pr) {
-//        if (this.product == null) {
-//            product = new ArrayList<>();
-//        }
         this.product_review = pr;
     }
 

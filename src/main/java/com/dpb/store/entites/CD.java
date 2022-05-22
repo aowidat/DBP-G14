@@ -23,7 +23,7 @@ public class CD extends Product {
     @ElementCollection
     private List<String> labels;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "artist", joinColumns = @JoinColumn(name = "cd_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private List<Person> artists;
 
