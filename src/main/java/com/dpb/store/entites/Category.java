@@ -22,14 +22,14 @@ public class Category {
     public Category() {
     }
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "parent_of_category", joinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"))
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "parent_of_category", joinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"))
     private List<Category> up_categories;
 
-    @ManyToMany(mappedBy = "up_categories", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(mappedBy = "up_categories",cascade = CascadeType.ALL)
     private List<Category> children;
 
-//    @ManyToMany(mappedBy = "categories", cascade = {CascadeType.PERSIST})
+//    @ManyToMany(mappedBy = "categories")
 //    private List<Product> products;
 
     public void addNewItem(Product pr) {

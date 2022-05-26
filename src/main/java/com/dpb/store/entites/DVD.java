@@ -27,15 +27,15 @@ public class DVD extends  Product {
     private List<String> studio;
 
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "actor" , joinColumns = @JoinColumn(name ="dvd_id" , referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private Set<Person> actors;
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "creator" , joinColumns = @JoinColumn(name ="dvd_id" , referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private Set<Person> creators;
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "dirctor" , joinColumns = @JoinColumn(name ="dvd_id" , referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private Set<Person> directors;
 

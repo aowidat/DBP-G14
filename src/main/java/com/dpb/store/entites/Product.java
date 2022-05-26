@@ -35,14 +35,13 @@ public class Product {
     @JoinTable(name = "product_in_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
     private List<Store> availableInStores;
 
-//    @ManyToMany(cascade = {CascadeType.PERSIST})
+//    @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
 //    private List<Category> categories;
     @OneToMany(mappedBy = "product_review")
     private List<Review> reviews;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "product_similar", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "simi_id", referencedColumnName = "id"))
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<SimiProduct> similar;
 
 
