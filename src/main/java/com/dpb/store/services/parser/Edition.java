@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * a class used by Jackson to deserialize a tag called edition
+ */
 @Getter
 @Setter
 @NoArgsConstructor

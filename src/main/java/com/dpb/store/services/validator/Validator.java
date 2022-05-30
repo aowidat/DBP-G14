@@ -2,7 +2,6 @@ package com.dpb.store.services.validator;
 
 import com.dpb.store.entites.*;
 import com.dpb.store.services.parser.*;
-import com.dpb.store.services.parser.Review;
 import lombok.Getter;
 
 import lombok.extern.slf4j.Slf4j;
@@ -10,10 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-@Slf4j
+@Slf4j(topic = "Validator")
 @Getter
 public class Validator {
     private final List<Product> validProduct = new ArrayList<>();
@@ -24,8 +22,6 @@ public class Validator {
     private final List<com.dpb.store.entites.Review> validReview = new ArrayList<>();
     private final List<Category> validCategory = new ArrayList<>();
     private final List<Category> zumLoeschen = new ArrayList<>();
-    private Category up;
-    private Category down;
     private final List<Person> validPerson = new ArrayList<>();
     private final List<Store> validStore = new ArrayList<>();
     private final String itemErrors = "{} Item not valid caused by ";

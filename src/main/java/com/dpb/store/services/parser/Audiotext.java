@@ -4,19 +4,20 @@ package com.dpb.store.services.parser;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
+/**
+ *  a class used by Jackson to deserialize a tag audiotext
+ */
 @Getter
+@NoArgsConstructor
 public class Audiotext {
     private List<AudioLanguage> language;
     private List<String> audioformat;
-
-    public Audiotext() {
-    }
 
     @JsonSetter(value = "language")
     public void setLanguageFromXML(AudioLanguage language) {

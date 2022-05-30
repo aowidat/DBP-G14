@@ -3,20 +3,25 @@ package com.dpb.store.services.parser;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Class used by Jackson to deserialize a Tag named item, which has some attributes and under tags
+ */
 @Setter
 @Getter
+@NoArgsConstructor
 public class Item {
     private String asin;
     private String ean;
     private String pgroup;
     private String title;
     private String salesrank;
-    @JacksonXmlElementWrapper(localName = "price", useWrapping = false)
+    @JacksonXmlElementWrapper(useWrapping = false)
     private Price price;
     private Detail details;
     @JacksonXmlElementWrapper
@@ -49,27 +54,36 @@ public class Item {
     private String picture;
     private String detailpage;
     private String state;
+    /**
+     * title of the similar item, when it's saved nested
+     */
     @JacksonXmlText
     private String titleOfSimilar;
 
+    /**
+     * function to get the source to the image of the item, when it's saved in under tags
+     *
+     * @return the source of the Image of the Item
+     */
     public String getTheRealImg() {
-        if (detailpage == null && details.getImg() == null) {
+        if (picture == null && details.getImg() == null) {
             return null;
-        } else if (detailpage != null) {
-            return detailpage;
+        } else if (picture != null) {
+            return picture;
         } else return this.details.getImg();
     }
 
+    /**
+     * function to get the title of the item, doesn't matter if it's an item or a similar item.
+     *
+     * @return the title of the item
+     */
     public String getTheRealTitle() {
         if (this.title != null) {
             return title;
         } else if (titleOfSimilar != null) {
             return titleOfSimilar;
         } else return null;
-    }
-
-    public Item() {
-
     }
 
     @Override

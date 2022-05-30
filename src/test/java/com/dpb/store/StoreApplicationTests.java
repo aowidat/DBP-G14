@@ -51,17 +51,6 @@ class StoreApplicationTests {
         Shop dresden = parser.getDresden();
         List<Review> r = parser.getReview();
 
-//        System.out.println(validator.getValidCategory().size());
-//        for (Category categ : validator.getValidCategory()){
-//            System.out.println("start >>>>>>>> ");
-//            System.out.println( "name "+ categ.getName());
-//            if (categ.getProducts() != null) System.out.println("pro " + categ.getProducts().size());
-//            if (categ.getParents() != null) System.out.println("par "+categ.getParents().size());
-//            if (categ.getChildren() != null) System.out.println("chi "+categ.getChildren().size());
-//            System.out.println("end >>>>>>>> ");
-//        }
-
-
         Store storeLeipzig = validator.storeValidator(leipzig);
         Store storeDresden = validator.storeValidator(dresden);
         validator.categoriesConverter(parser.getCategories());
