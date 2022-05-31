@@ -6,6 +6,9 @@
     </appender>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>store.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>LoggingArchiv\store-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
             <maxFileSize>12MB</maxFileSize>
@@ -19,11 +22,9 @@
     </appender>
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
     </root>
     <root level="warn">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
     </root>
     <root level="error">
         <appender-ref ref="STDOUT"/>
@@ -31,6 +32,5 @@
     </root>
     <root level="info">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
     </root>
 </configuration>
