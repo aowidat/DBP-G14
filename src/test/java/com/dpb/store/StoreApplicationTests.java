@@ -69,6 +69,7 @@ class StoreApplicationTests {
 //                }
 //            }
 //        }
+        categoryRepo.saveAll(categories);
         leipzigRepo.save(storeLeipzig);
         dresdenRepo.save(storeDresden);
 //        productRepo.saveAll(validProduct);
@@ -77,7 +78,6 @@ class StoreApplicationTests {
         bookRepo.saveAll(books);
         personRepo.saveAll(personList);
         reviewRepo.saveAll(reviewList);
-        categoryRepo.saveAll(categories);
     }
 
 }
