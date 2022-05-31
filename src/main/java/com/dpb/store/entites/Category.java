@@ -31,18 +31,18 @@ public class Category {
     @ManyToMany(mappedBy = "up_categories",cascade = CascadeType.ALL)
     private List<Category> children;
 
-//    @ManyToMany(mappedBy = "categories")
-//    private List<Product> products;
+    @ManyToMany(mappedBy = "categories", cascade = {CascadeType.MERGE})
+    private List<Product> products;
 
     /**
      * Method to add new Product
      * @param product to be added
      */
     public void addNewItem(Product product) {
-//        if (products == null) {
-//            products = new ArrayList<>();
-//        }
-//        products.add(product);
+        if (products == null) {
+            products = new ArrayList<>();
+        }
+        products.add(product);
     }
 
     /**
