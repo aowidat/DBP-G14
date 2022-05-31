@@ -44,8 +44,9 @@ public class Product {
     @OneToMany(mappedBy = "product_review")
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<SimiProduct> similar;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "product_similar", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "similar_id", referencedColumnName = "id"))
+    private List<Product> similar;
 
     /**
      * Method to add a new List-Mania to a List of listManias
@@ -61,7 +62,7 @@ public class Product {
      * Method to add a new simi=Product to a List of similars-Product
      * @param simiProduct to be added
      */
-    public void addNewSimProduct(SimiProduct simiProduct) {
+    public void addNewSimProduct(Product simiProduct) {
         if (this.similar == null) {
             this.similar = new ArrayList<>();
         }

@@ -10,7 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class to validate the Data before transform to Entity
@@ -21,7 +23,6 @@ import java.util.List;
 @NoArgsConstructor
 public class Validator {
     private final List<Product> validProduct = new ArrayList<>();
-    private final List<SimiProduct> validSimiProduct = new ArrayList<>();
     private final List<DVD> validDVD = new ArrayList<>();
     private final List<CD> validCD = new ArrayList<>();
     private final List<Book> validBook = new ArrayList<>();
@@ -30,6 +31,7 @@ public class Validator {
     private final List<Category> zumLoeschen = new ArrayList<>();
     private final List<Person> validPerson = new ArrayList<>();
     private final List<Store> validStore = new ArrayList<>();
+    private final Map<String, List<String>> simiProduct = new HashMap<>();
     private final String itemErrors = "{} Item not valid caused by ";
     private final String validErrors = "not valid Value caused by ";
     private final String reviewErrors = "{} Review not valid caused by ";
@@ -322,17 +324,15 @@ public class Validator {
         if (isValidNumber(item.getDvdspec().getTheatr_release()))
             dvd.setTheater_release(Integer.parseInt(item.getDvdspec().getTheatr_release().replaceAll("\"", "")));
         if (item.getSimilars() != null) {
+            List<String> simiIds = new ArrayList<>();
             for (Item i : item.getSimilars()) {
                 if (i != null) {
                     if ((i.getAsin() != null || !i.getAsin().replaceAll("\"", "").isEmpty()) && (i.getTheRealTitle() != null || !i.getTheRealTitle().replaceAll("\"", "").isEmpty())) {
-                        SimiProduct simiProduct = new SimiProduct();
-                        simiProduct.setId(i.getAsin().replaceAll("\"", ""));
-                        simiProduct.setTitle(i.getTheRealTitle().replaceAll("\"", ""));
-                        dvd.addNewSimProduct(simiProduct);
-                        simiProduct.addNewProduct(dvd);
+                        simiIds.add(i.getAsin());
                     }
                 }
             }
+            simiProduct.put(dvd.getId(), simiIds);
         }
         if (item.getListmania() != null) {
             for (GeneralField str : item.getListmania()) {
@@ -393,17 +393,15 @@ public class Validator {
         if (isValidDate(item.getMusicspec().getReleasedate()))
             cd.setDate(LocalDate.parse(item.getMusicspec().getReleasedate().replaceAll("\"", "")));
         if (item.getSimilars() != null) {
+            List<String> simiIds = new ArrayList<>();
             for (Item i : item.getSimilars()) {
                 if (i != null) {
                     if ((i.getAsin() != null || !i.getAsin().replaceAll("\"", "").isEmpty()) && (i.getTheRealTitle() != null || !i.getTheRealTitle().replaceAll("\"", "").isEmpty())) {
-                        SimiProduct simiProduct = new SimiProduct();
-                        simiProduct.setId(i.getAsin().replaceAll("\"", ""));
-                        simiProduct.setTitle(i.getTheRealTitle().replaceAll("\"", ""));
-                        cd.addNewSimProduct(simiProduct);
-                        simiProduct.addNewProduct(cd);
+                    simiIds.add(i.getAsin());
                     }
                 }
             }
+            simiProduct.put(cd.getId() , simiIds);
         }
         if (item.getListmania() != null) {
             for (GeneralField str : item.getListmania()) {
@@ -460,17 +458,15 @@ public class Validator {
         if (isValidDate(item.getBookspec().getTheRealPublication()))
             book.setPublication(LocalDate.parse(item.getBookspec().getTheRealPublication().replaceAll("\"", "")));
         if (item.getSimilars() != null) {
+            List<String> simiIds = new ArrayList<>();
             for (Item i : item.getSimilars()) {
                 if (i != null) {
                     if ((i.getAsin() != null || !i.getAsin().replaceAll("\"", "").isEmpty()) && (i.getTheRealTitle() != null || !i.getTheRealTitle().replaceAll("\"", "").isEmpty())) {
-                        SimiProduct simiProduct = new SimiProduct();
-                        simiProduct.setId(i.getAsin().replaceAll("\"", ""));
-                        simiProduct.setTitle(i.getTheRealTitle().replaceAll("\"", ""));
-                        book.addNewSimProduct(simiProduct);
-                        simiProduct.addNewProduct(book);
+                    simiIds.add(i.getAsin());
                     }
                 }
             }
+            simiProduct.put(book.getId(), simiIds);
         }
         if (item.getListmania() != null) {
             for (GeneralField str : item.getListmania()) {
@@ -543,6 +539,22 @@ public class Validator {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public void setAllsiliers(){
+        for (String key : simiProduct.keySet()) {
+            for (Product product : validProduct){
+                if (product.getId().equalsIgnoreCase(key)){
+                    for (String str : simiProduct.get(key)){
+                        for (Product validPro : validProduct){
+                            if (validPro.getId().equalsIgnoreCase(str)){
+                                product.addNewSimProduct(validPro);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
