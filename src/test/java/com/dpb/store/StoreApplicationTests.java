@@ -77,7 +77,7 @@ class StoreApplicationTests {
         bookRepo.saveAll(books);
         personRepo.saveAll(personList);
         reviewRepo.saveAll(reviewList);
-        categoryRepo.saveAll(categories);
+//        categoryRepo.saveAll(categories);
     }
 
 }

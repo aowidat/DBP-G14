@@ -38,9 +38,9 @@ public class Product {
     @JoinTable(name = "product_in_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
     private List<Store> availableInStores;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
-//    private List<Category> categories;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
+    private List<Category> categories;
     @OneToMany(mappedBy = "product_review")
     private List<Review> reviews;
 
@@ -103,10 +103,10 @@ public class Product {
      * @param category to be added
      */
     public void addNewCategory(Category category) {
-//        if (this.categories == null) {
-//            this.categories = new ArrayList<>();
-//        }
-//        this.categories.add(cr);
+        if (this.categories == null) {
+            this.categories = new ArrayList<>();
+        }
+        this.categories.add(category);
     }
 
     /**
