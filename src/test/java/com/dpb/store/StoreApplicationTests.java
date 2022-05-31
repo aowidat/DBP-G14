@@ -69,15 +69,15 @@ class StoreApplicationTests {
 //                }
 //            }
 //        }
-//        categoryRepo.saveAll(categories);
-//        leipzigRepo.save(storeLeipzig);
-//        dresdenRepo.save(storeDresden);
-////        productRepo.saveAll(validProduct);
-//        dvdRepo.saveAll(dvds);
-//        cdRepo.saveAll(cds);
-//        bookRepo.saveAll(books);
-//        personRepo.saveAll(personList);
-//        reviewRepo.saveAll(reviewList);
+        categoryRepo.saveAll(categories);
+        leipzigRepo.save(storeLeipzig);
+        dresdenRepo.save(storeDresden);
+//        productRepo.saveAll(validProduct);
+        dvdRepo.saveAll(dvds);
+        cdRepo.saveAll(cds);
+        bookRepo.saveAll(books);
+        personRepo.saveAll(personList);
+        reviewRepo.saveAll(reviewList);
     }
 
 }

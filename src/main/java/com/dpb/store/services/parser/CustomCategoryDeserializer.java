@@ -32,7 +32,7 @@ public class CustomCategoryDeserializer extends JsonDeserializer<CategoryBean> {
             StandardCategory standardCategory = jsonParser.readValueAs(StandardCategory.class);
             String categoryName = standardCategory.categoryName;
             try {
-                categoryName = standardCategory.categoryName.replaceAll("[\\n\\t ]", "");
+                categoryName = standardCategory.categoryName.stripTrailing();
             } catch (NullPointerException ignored) {
                     //nothing to do
             } finally {
@@ -45,7 +45,7 @@ public class CustomCategoryDeserializer extends JsonDeserializer<CategoryBean> {
             EmptyCategory emptyCategory = jsonParser.readValueAs(EmptyCategory.class);
             String categoryName = emptyCategory.categoryName;
             try {
-                categoryName = emptyCategory.categoryName.replaceAll("[\\n\\t ]", "");
+                categoryName = emptyCategory.categoryName.stripTrailing();
             } catch (NullPointerException ignored) {
                 //nothing to do
             } finally {
