@@ -1,5 +1,3 @@
-drop schema if exists Store cascade;
-create schema if not exists Store;
 create table if not exists category
 (
     id   integer not null
