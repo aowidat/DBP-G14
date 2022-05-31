@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Product Entity
+ */
 @Entity
 @Getter
 @Setter
@@ -44,49 +47,71 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<SimiProduct> similar;
 
-
-    public void addNewListMania(String str) {
+    /**
+     * Method to add a new List-Mania to a List of listManias
+     * @param listMania to be added
+     */
+    public void addNewListMania(String listMania) {
         if (this.listmania == null) {
             this.listmania = new ArrayList<>();
         }
-        this.listmania.add(str);
+        this.listmania.add(listMania);
     }
-
-    public void addNewSimProduct(SimiProduct pr) {
+    /**
+     * Method to add a new simi=Product to a List of similars-Product
+     * @param simiProduct to be added
+     */
+    public void addNewSimProduct(SimiProduct simiProduct) {
         if (this.similar == null) {
             this.similar = new ArrayList<>();
         }
-        this.similar.add(pr);
+        this.similar.add(simiProduct);
     }
-
-    public void addNewReview(Review rw) {
+    /**
+     * Method to add a new review to a List of reviews
+     * @param review to be added
+     */
+    public void addNewReview(Review review) {
         if (this.reviews == null) {
             this.reviews = new ArrayList<>();
         }
-        this.reviews.add(rw);
+        this.reviews.add(review);
     }
-
-    public void addNewStore(Store sr) {
+    /**
+     * Method to add a new Store to a List of Stores
+     * @param store to be added
+     */
+    public void addNewStore(Store store) {
         if (this.stores == null) {
             this.stores = new ArrayList<>();
         }
-        this.stores.add(sr);
+        this.stores.add(store);
     }
-
-    public void addNewAvailableInStore(Store sr) {
+    /**
+     * Method to add  a Store where the product is available to a List of available-in-store
+     * @param store to be added
+     */
+    public void addNewAvailableInStore(Store store) {
         if (this.availableInStores == null) {
             this.availableInStores = new ArrayList<>();
         }
-        this.availableInStores.add(sr);
+        this.availableInStores.add(store);
     }
-
-    public void addNewCategory(Category cr) {
+    /**
+     * Method to add a new categoty to a List of categories
+     * @param category to be added
+     */
+    public void addNewCategory(Category category) {
 //        if (this.categories == null) {
 //            this.categories = new ArrayList<>();
 //        }
 //        this.categories.add(cr);
     }
 
+    /**
+     * toString method to print a product
+     * @return
+     */
     @Override
     public String toString() {
         return "Product{" +

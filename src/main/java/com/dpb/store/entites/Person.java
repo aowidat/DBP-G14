@@ -6,6 +6,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Person Entity to be extended as Author, Actor...ect
+ */
 @Entity
 @Getter
 @Setter

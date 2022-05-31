@@ -18,7 +18,10 @@ public class Review {
     private String user;
     private String summery;
     private String content;
-
+    /**
+     * ToString Method to print a Review
+     * @return Review as a String
+     */
     @Override
     public String toString() {
         return "Review{" +

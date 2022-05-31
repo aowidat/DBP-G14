@@ -8,6 +8,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Review Entity
+ */
 @Entity
 @Getter
 @Setter
@@ -32,8 +35,12 @@ public class Review {
     @JoinColumn(name = "person")
     private Person person;
 
-    public void addProduct(Product pr) {
-        this.product_review = pr;
+    /**
+     * Method to add a product to review
+     * @param product to be added to a review
+     */
+    public void addProduct(Product product) {
+        this.product_review = product;
     }
 
 }

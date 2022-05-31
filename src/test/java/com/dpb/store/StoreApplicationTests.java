@@ -30,8 +30,8 @@ class StoreApplicationTests {
     StoreRepo dresdenRepo;
     @Autowired
     PersonRepo personRepo;
-    @Autowired
-    SimiRepo simiRepo;
+//    @Autowired
+//    SimiRepo simiRepo;
     @Autowired
     CategoryRepo categoryRepo;
     @Autowired
@@ -67,7 +67,7 @@ class StoreApplicationTests {
         leipzigRepo.save(storeLeipzig);
         dresdenRepo.save(storeDresden);
 //        productRepo.saveAll(validProduct);
-        simiRepo.saveAll(sims);
+//        simiRepo.saveAll(sims);
         dvdRepo.saveAll(dvds);
         cdRepo.saveAll(cds);
         bookRepo.saveAll(books);

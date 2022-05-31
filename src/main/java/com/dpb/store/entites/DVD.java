@@ -11,6 +11,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * DVD Entity
+ */
 @Entity
 @Getter
 @Setter
@@ -38,32 +41,44 @@ public class DVD extends  Product {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "dirctor" , joinColumns = @JoinColumn(name ="dvd_id" , referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private Set<Person> directors;
-
-    public void addNewStudio(String str){
+    /**
+     * Method to add a new studio to a List of studios
+     * @param studio to be added
+     */
+    public void addNewStudio(String studio){
         if(this.studio==null){
             this.studio= new ArrayList<>();
         }
-        this.studio.add(str);
+        this.studio.add(studio);
     }
-
-    public void addNewActor(Person person) {
+    /**
+     * Method to add a new actor to a List of actors
+     * @param actor to be added
+     */
+    public void addNewActor(Person actor) {
         if (this.actors==null){
             this.actors = new HashSet<>();
         }
-        this.actors.add(person);
+        this.actors.add(actor);
     }
-
-    public void addNewCreator(Person person) {
+    /**
+     * Method to add a new creator to a List of creators
+     * @param creator to be added
+     */
+    public void addNewCreator(Person creator) {
         if (this.creators==null){
             this.creators = new HashSet<>();
         }
-        this.creators.add(person);
+        this.creators.add(creator);
     }
-
-    public void addNewDirector(Person person) {
+    /**
+     * Method to add a new director to a List of directors
+     * @param director to be added
+     */
+    public void addNewDirector(Person director) {
         if (this.directors==null){
             this.directors = new HashSet<>();
         }
-        this.directors.add(person);
+        this.directors.add(director);
     }
 }

@@ -16,13 +16,20 @@ import java.util.List;
  * a custom category deserializer, because category has a recursive structure and not a united form
  */
 public class CustomCategoryDeserializer extends JsonDeserializer<CategoryBean> {
+
+    /**
+     * @param jsonParser as a Json-Parser
+     * @param txt deserialization-Context
+     * @return a deserialized Category-Bean
+     * @throws IOException
+     */
     @Override
-    public CategoryBean deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+    public CategoryBean deserialize(JsonParser jsonParser, DeserializationContext txt) throws IOException {
         //trying to deserialize one Category
         CategoryBean categoryBean = new CategoryBean();
         try {
             //convert it to standard category
-            StandardCategory standardCategory = jp.readValueAs(StandardCategory.class);
+            StandardCategory standardCategory = jsonParser.readValueAs(StandardCategory.class);
             String categoryName = standardCategory.categoryName;
             try {
                 categoryName = standardCategory.categoryName.replaceAll("[\\n\\t ]", "");
@@ -35,7 +42,7 @@ public class CustomCategoryDeserializer extends JsonDeserializer<CategoryBean> {
             categoryBean.setItem(standardCategory.item);
         } catch (JsonMappingException me) {
             // Category has an abnormal structure
-            EmptyCategory emptyCategory = jp.readValueAs(EmptyCategory.class);
+            EmptyCategory emptyCategory = jsonParser.readValueAs(EmptyCategory.class);
             String categoryName = emptyCategory.categoryName;
             try {
                 categoryName = emptyCategory.categoryName.replaceAll("[\\n\\t ]", "");

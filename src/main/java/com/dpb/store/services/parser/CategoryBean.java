@@ -21,12 +21,13 @@ import java.util.Objects;
 public class CategoryBean {
 
     private String categoryName;
-
     private List<String> item;
-
     private List<CategoryBean> category;
 
-
+    /**
+     * To String Method to print a Category-Bean
+     * @return  a Category-Bean as a String
+     */
     public String toString() {
         return "CategoryBean(categoryName=" + this.getCategoryName() + ", item=" + this.getItem() + ", category=" + this.getCategory() + ")";
     }

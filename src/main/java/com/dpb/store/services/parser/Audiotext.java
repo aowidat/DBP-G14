@@ -19,6 +19,10 @@ public class Audiotext {
     private List<AudioLanguage> language;
     private List<String> audioformat;
 
+    /**
+     * Custom Set-Method for Jackson to add a Audio-Language
+     * @param language language to be added as an Audio-Language
+     */
     @JsonSetter(value = "language")
     public void setLanguageFromXML(AudioLanguage language) {
         if (this.language == null) {
@@ -27,6 +31,10 @@ public class Audiotext {
         this.language.add(language);
     }
 
+    /**
+     * Custom Set-Method for Jackson to add a Audio-Format
+     * @param audioformat Format to be added as an Audio-Format
+     */
     @JsonSetter(value = "audioformat")
     public void setAudioFormatFromXML(String audioformat) {
         if (this.audioformat == null) {

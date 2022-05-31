@@ -86,6 +86,10 @@ public class Item {
         } else return null;
     }
 
+    /**
+     * ToString Method to print an Item
+     * @return Item as a String
+     */
     @Override
     public String toString() {
         return "Item{" +

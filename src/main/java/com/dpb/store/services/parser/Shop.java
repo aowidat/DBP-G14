@@ -22,7 +22,10 @@ public class Shop {
     private String zip;
     @JacksonXmlElementWrapper(useWrapping = false)
     private List<Item> item;
-
+    /**
+     * ToString Method to print an Shop
+     * @return Shop as a String
+     */
     @Override
     public String toString() {
         return "Shop{" +

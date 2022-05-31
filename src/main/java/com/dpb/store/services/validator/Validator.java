@@ -4,6 +4,7 @@ import com.dpb.store.entites.*;
 import com.dpb.store.services.parser.*;
 import lombok.Getter;
 
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.DateTimeException;
@@ -11,8 +12,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to validate the Data before transform to Entity
+ */
+
 @Slf4j(topic = "Validator")
 @Getter
+@NoArgsConstructor
 public class Validator {
     private final List<Product> validProduct = new ArrayList<>();
     private final List<SimiProduct> validSimiProduct = new ArrayList<>();
@@ -30,9 +36,11 @@ public class Validator {
     private final String itemWarning = "{} Item missing some values ";
     private final String reviewWarning = "{} Review missing some values ";
 
-    public Validator() {
-    }
-
+    /**
+     * Method to vaildate the Store
+     * @param shop to be validated
+     * @return valid shop
+     */
     public Store storeValidator(Shop shop) {
         if (shop != null) {
             Store store = new Store();
@@ -95,6 +103,11 @@ public class Validator {
         } else return null;
     }
 
+    /**
+     * Method to check the validation of an Item
+     * @param item  to check the validation of an Item
+     * @return boolean if the item is valid
+     */
     private boolean productValidator(Item item) {
         if (item.getAsin() == null || item.getAsin().replaceAll("\"", "").isEmpty()) {
             log.error(itemErrors + "no ID", item);
@@ -129,20 +142,33 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Method to check the validation of an Item as CD
+     * @param item  to check the validation of an Item as a CD
+     * @return boolean if the item is valid as CD
+     */
     private boolean CDValidator(Item item) {
         if ((item.getMusicspec().getFormat() == null || item.getMusicspec().getFormat().getTheRealValue().replaceAll("\"", "").isEmpty()) || (item.getMusicspec().getBinding() == null || item.getMusicspec().getBinding().replaceAll("\"", "").isEmpty())) {
             log.warn(itemWarning, item);
         }
         return true;
     }
-
+    /**
+     * Method to check the validation of an Item as DVD
+     * @param item  to check the validation of an Item as a DVD
+     * @return boolean if the item is valid as DVD
+     */
     private boolean DVDValidator(Item item) {
         if ((item.getDvdspec().getFormat() == null || item.getDvdspec().getFormat().replaceAll("\"", "").isEmpty()) || (item.getDvdspec().getAspectratio() == null || item.getDvdspec().getAspectratio().replaceAll("\"", "").isEmpty()) || (item.getDvdspec().getReleasedate() == null || item.getDvdspec().getReleasedate().replaceAll("\"", "").isEmpty())) {
             log.warn(itemWarning, item);
         }
         return true;
     }
-
+    /**
+     * Method to check the validation of an Item as Book
+     * @param item  to check the validation of an Item as a Book
+     * @return boolean if the item is valid as Book
+     */
     private boolean bookValidator(Item item) {
         if ((item.getBookspec().getBinding() == null || item.getBookspec().getBinding().replaceAll("\"", "").isEmpty()) || (item.getBookspec().getTheRealISBN() == null || item.getBookspec().getTheRealISBN().replaceAll("\"", "").isEmpty())) {
             log.warn(itemWarning, item);
@@ -150,12 +176,20 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Method to validate a list of Reviews
+     * @param reviews unchecked Reviews from the Parser
+     */
     public void reviewsValidator(List<com.dpb.store.services.parser.Review> reviews) {
         for (com.dpb.store.services.parser.Review r : reviews) {
             reviewValidator(r);
         }
     }
-
+    /**
+     * Method to check the validation of an Item as DVD
+     * @param review to check the validation of a Review
+     * @return boolean if the Review is valid
+     */
     private boolean reviewValidator(com.dpb.store.services.parser.Review review) {
         com.dpb.store.entites.Review entityReview = new com.dpb.store.entites.Review();
         if (review.getContent().isEmpty() || review.getContent() == null) {
@@ -210,12 +244,22 @@ public class Validator {
         return false;
     }
 
+    /**
+     * Method to add the valid category to a List of valid Category
+     * @param categories which has a list of category
+     */
     public void categoriesConverter(Categories categories) {
         for (CategoryBean category : categories.getCategory()) {
             validCategory.add(categoryConverter(category, null));
         }
     }
 
+    /**
+     * A recursive method to convert a category if it's valid
+     * @param categoryBean to check the validation of a category
+     * @param up as a parent of a categoryBean
+     * @return the valide category
+     */
     private Category categoryConverter(CategoryBean categoryBean, Category up) {
         Category category = null;
         String name = categoryBean.getCategoryName();
@@ -251,6 +295,11 @@ public class Validator {
         return category;
     }
 
+    /**
+     * Method to convert an Item to DVD
+     * @param item valid Item to be converted
+     * @return a valid DVD
+     */
     private DVD convertItemToDVD(Item item) {
         log.info("Making new DVD ... {}", item);
         DVD dvd = new DVD();
@@ -321,7 +370,11 @@ public class Validator {
         }
         return dvd;
     }
-
+    /**
+     * Method to convert an Item to CD
+     * @param item valid Item to be converted
+     * @return a valid CD
+     */
     private CD convertItemToCD(Item item) {
         log.info("Making new CD ... {}", item);
         CD cd = new CD();
@@ -377,7 +430,11 @@ public class Validator {
         }
         return cd;
     }
-
+    /**
+     * Method to convert an Item to Book
+     * @param item valid Item to be converted
+     * @return a valid Book
+     */
     private Book convertItemToBook(Item item) {
         log.info("Making new Book ... {}", item);
         Book book = new Book();
@@ -436,6 +493,11 @@ public class Validator {
         return book;
     }
 
+    /**
+     * Method to check the validation of a String as a Number
+     * @param str String to be converted as a Number
+     * @return boolean if the String is a valid number
+     */
     private boolean isValidNumber(String str) {
         if (str != null && !str.replaceAll("\"", "").isEmpty()) {
             try {
@@ -449,7 +511,11 @@ public class Validator {
             return false;
         }
     }
-
+    /**
+     * Method to check the validation of a String as a Double
+     * @param str String to be converted as a Double
+     * @return boolean if the String is a valid double
+     */
     private boolean isValidDouble(String str) {
         if (str != null && !str.replaceAll("\"", "").isEmpty()) {
             try {
@@ -461,7 +527,11 @@ public class Validator {
             return true;
         } else return false;
     }
-
+    /**
+     * Method to check the validation of a String as a Date
+     * @param str String to be converted as a Date
+     * @return boolean if the String is a valid Date
+     */
     private boolean isValidDate(String str) {
         if (str != null && !str.replaceAll("\"", "").isEmpty()) {
             try {
