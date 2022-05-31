@@ -60,19 +60,11 @@ class StoreApplicationTests {
         List<Category> categories = validator.getValidCategory();
         List<Person> personList = validator.getValidPerson();
         List<com.dpb.store.entites.Review> reviewList = validator.getValidReview();
-        List<Product> validProduct = validator.getValidProduct();
         validator.setAllsiliers();
-//        for (Product pro : validProduct){
-//            if (pro.getSimilar() != null) {
-//                for (Product proSimi : pro.getSimilar()) {
-//                    System.out.println( "|| "+pro.getId() + " Similars Products " + proSimi.getId());
-//                }
-//            }
-//        }
+
         categoryRepo.saveAll(categories);
         leipzigRepo.save(storeLeipzig);
         dresdenRepo.save(storeDresden);
-//        productRepo.saveAll(validProduct);
         dvdRepo.saveAll(dvds);
         cdRepo.saveAll(cds);
         bookRepo.saveAll(books);
