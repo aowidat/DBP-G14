@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Category Entity
@@ -26,13 +23,13 @@ public class Category {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "parent_of_category", joinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"))
-    private List<Category> up_categories;
+    private List<Category> up_categories = new ArrayList<>();
 
     @ManyToMany(mappedBy = "up_categories",cascade = CascadeType.ALL)
-    private List<Category> children;
+    private List<Category> children = new ArrayList<>();
 
     @ManyToMany(mappedBy = "categories" , cascade = CascadeType.MERGE)
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     /**
      * Method to add new Product
@@ -73,4 +70,14 @@ public class Category {
     public String toString() {
         return "Name:" + name;
     }
+    public void addAllChildren(List<Category> chil){
+        children.addAll(chil);
+    }
+    public void addAllParent(List<Category> parent){
+        up_categories.addAll(parent);
+    }
+    public void addAllItem(List<Product> products ){
+        products.addAll(products);
+    }
+
 }

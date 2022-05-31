@@ -28,7 +28,7 @@ public class Validator {
     private final List<Book> validBook = new ArrayList<>();
     private final List<com.dpb.store.entites.Review> validReview = new ArrayList<>();
     private final List<Category> validCategory = new ArrayList<>();
-    private final List<Category> zumLoeschen = new ArrayList<>();
+    private final List<Category> tempCategory = new ArrayList<>();
     private final List<Person> validPerson = new ArrayList<>();
     private final List<Store> validStore = new ArrayList<>();
     private final Map<String, List<String>> simiProduct = new HashMap<>();
@@ -281,6 +281,22 @@ public class Validator {
             if (categoryBean.getCategory() != null && categoryBean.getCategory().size() != 0) {
                 for (CategoryBean x : categoryBean.getCategory()) {
                     Category y = categoryConverter(x, category);
+                    System.out.println("yyy"+ y);
+                    Category temp = null;
+                    int index = 0;
+                    for (Category zz : tempCategory ) {
+                        if (y!=null && zz.getName().equalsIgnoreCase(y.getName())) {
+                            System.out.println("xxx"+ y);
+                            index = tempCategory.indexOf(zz);
+                            temp = zz;
+                            y.addAllChildren(temp.getChildren());
+                            y.addAllItem(temp.getProducts());
+                            y.addAllParent(temp.getUp_categories());
+                            break;
+                        }
+                    }
+                    tempCategory.add(y);
+                    tempCategory.remove(index);
                     if (y != null) {
                         if (category.getChildren() != null) {
                             if (!category.getChildren().contains(y)) category.addNewChild(y);
