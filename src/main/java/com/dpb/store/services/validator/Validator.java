@@ -40,6 +40,7 @@ public class Validator {
 
     /**
      * Method to vaildate the Store
+     *
      * @param shop to be validated
      * @return valid shop
      */
@@ -107,7 +108,8 @@ public class Validator {
 
     /**
      * Method to check the validation of an Item
-     * @param item  to check the validation of an Item
+     *
+     * @param item to check the validation of an Item
      * @return boolean if the item is valid
      */
     private boolean productValidator(Item item) {
@@ -146,7 +148,8 @@ public class Validator {
 
     /**
      * Method to check the validation of an Item as CD
-     * @param item  to check the validation of an Item as a CD
+     *
+     * @param item to check the validation of an Item as a CD
      * @return boolean if the item is valid as CD
      */
     private boolean CDValidator(Item item) {
@@ -155,9 +158,11 @@ public class Validator {
         }
         return true;
     }
+
     /**
      * Method to check the validation of an Item as DVD
-     * @param item  to check the validation of an Item as a DVD
+     *
+     * @param item to check the validation of an Item as a DVD
      * @return boolean if the item is valid as DVD
      */
     private boolean DVDValidator(Item item) {
@@ -166,9 +171,11 @@ public class Validator {
         }
         return true;
     }
+
     /**
      * Method to check the validation of an Item as Book
-     * @param item  to check the validation of an Item as a Book
+     *
+     * @param item to check the validation of an Item as a Book
      * @return boolean if the item is valid as Book
      */
     private boolean bookValidator(Item item) {
@@ -180,6 +187,7 @@ public class Validator {
 
     /**
      * Method to validate a list of Reviews
+     *
      * @param reviews unchecked Reviews from the Parser
      */
     public void reviewsValidator(List<com.dpb.store.services.parser.Review> reviews) {
@@ -187,8 +195,10 @@ public class Validator {
             reviewValidator(r);
         }
     }
+
     /**
      * Method to check the validation of an Item as DVD
+     *
      * @param review to check the validation of a Review
      * @return boolean if the Review is valid
      */
@@ -248,6 +258,7 @@ public class Validator {
 
     /**
      * Method to add the valid category to a List of valid Category
+     *
      * @param categories which has a list of category
      */
     public void categoriesConverter(Categories categories) {
@@ -258,8 +269,9 @@ public class Validator {
 
     /**
      * A recursive method to convert a category if it's valid
+     *
      * @param categoryBean to check the validation of a category
-     * @param up as a parent of a categoryBean
+     * @param up           as a parent of a categoryBean
      * @return the valide category
      */
     private Category categoryConverter(CategoryBean categoryBean, Category up) {
@@ -288,17 +300,14 @@ public class Validator {
                     }
                 }
             }
-            if (up != null) {
-                if (category.getUp_categories() != null) {
-                    if (!category.getUp_categories().contains(up)) category.addNewParent(up);
-                } else category.addNewParent(up);
-            }
+            category.setParent(up);
         }
         return category;
     }
 
     /**
      * Method to convert an Item to DVD
+     *
      * @param item valid Item to be converted
      * @return a valid DVD
      */
@@ -370,8 +379,10 @@ public class Validator {
         }
         return dvd;
     }
+
     /**
      * Method to convert an Item to CD
+     *
      * @param item valid Item to be converted
      * @return a valid CD
      */
@@ -397,11 +408,11 @@ public class Validator {
             for (Item i : item.getSimilars()) {
                 if (i != null) {
                     if ((i.getAsin() != null || !i.getAsin().replaceAll("\"", "").isEmpty()) && (i.getTheRealTitle() != null || !i.getTheRealTitle().replaceAll("\"", "").isEmpty())) {
-                    simiIds.add(i.getAsin());
+                        simiIds.add(i.getAsin());
                     }
                 }
             }
-            simiProduct.put(cd.getId() , simiIds);
+            simiProduct.put(cd.getId(), simiIds);
         }
         if (item.getListmania() != null) {
             for (GeneralField str : item.getListmania()) {
@@ -428,8 +439,10 @@ public class Validator {
         }
         return cd;
     }
+
     /**
      * Method to convert an Item to Book
+     *
      * @param item valid Item to be converted
      * @return a valid Book
      */
@@ -462,7 +475,7 @@ public class Validator {
             for (Item i : item.getSimilars()) {
                 if (i != null) {
                     if ((i.getAsin() != null || !i.getAsin().replaceAll("\"", "").isEmpty()) && (i.getTheRealTitle() != null || !i.getTheRealTitle().replaceAll("\"", "").isEmpty())) {
-                    simiIds.add(i.getAsin());
+                        simiIds.add(i.getAsin());
                     }
                 }
             }
@@ -491,6 +504,7 @@ public class Validator {
 
     /**
      * Method to check the validation of a String as a Number
+     *
      * @param str String to be converted as a Number
      * @return boolean if the String is a valid number
      */
@@ -507,8 +521,10 @@ public class Validator {
             return false;
         }
     }
+
     /**
      * Method to check the validation of a String as a Double
+     *
      * @param str String to be converted as a Double
      * @return boolean if the String is a valid double
      */
@@ -523,8 +539,10 @@ public class Validator {
             return true;
         } else return false;
     }
+
     /**
      * Method to check the validation of a String as a Date
+     *
      * @param str String to be converted as a Date
      * @return boolean if the String is a valid Date
      */
@@ -542,13 +560,13 @@ public class Validator {
         }
     }
 
-    public void setAllsiliers(){
+    public void setAllsiliers() {
         for (String key : simiProduct.keySet()) {
-            for (Product product : validProduct){
-                if (product.getId().equalsIgnoreCase(key)){
-                    for (String str : simiProduct.get(key)){
-                        for (Product validPro : validProduct){
-                            if (validPro.getId().equalsIgnoreCase(str)){
+            for (Product product : validProduct) {
+                if (product.getId().equalsIgnoreCase(key)) {
+                    for (String str : simiProduct.get(key)) {
+                        for (Product validPro : validProduct) {
+                            if (validPro.getId().equalsIgnoreCase(str)) {
                                 product.addNewSimProduct(validPro);
                             }
                         }

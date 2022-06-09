@@ -21,12 +21,13 @@ public class Category {
     private int id;
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "parent_of_category", joinColumns = @JoinColumn(name = "parent_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"))
-    private List<Category> up_categories = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "up_categories",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Category> children = new ArrayList<>();
+
+    @ManyToOne()
+    @JoinColumn(name = "parnet_id")
+    private Category parent;
+
 
     @ManyToMany(mappedBy = "categories" , cascade = CascadeType.MERGE)
     private List<Product> products = new ArrayList<>();
@@ -46,12 +47,12 @@ public class Category {
      * Method to add a Parent of Category
      * @param category to be added as a Parent
      */
-    public void addNewParent(Category category) {
-        if (up_categories == null) {
-            up_categories = new ArrayList<>();
-        }
-        up_categories.add(category);
-    }
+//    public void addNewParent(Category category) {
+//        if (children == null) {
+//            children = new ArrayList<>();
+//        }
+//        children.add(category);
+//    }
     /**
      * Method to add a child of Category
      * @param category to be added as a child
@@ -73,9 +74,9 @@ public class Category {
     public void addAllChildren(List<Category> chil){
         children.addAll(chil);
     }
-    public void addAllParent(List<Category> parent){
-        up_categories.addAll(parent);
-    }
+//    public void addAllParent(List<Category> parent){
+//        children.addAll(parent);
+//    }
     public void addAllItem(List<Product> products ){
         products.addAll(products);
     }
