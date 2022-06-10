@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -26,8 +28,8 @@ public class Store {
     @ManyToMany(mappedBy = "stores")
     private Set<Product> products;
 
-    @ManyToMany(mappedBy = "availableInStores")
-    private Set<Product> availableProducts;
+//    @OneToMany(mappedBy = "store", cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+//    private List<Offer> offers = new ArrayList<>();
 
     /**
      * Method to add a product to a HashSet of Products
@@ -39,17 +41,10 @@ public class Store {
         }
         products.add(product);
     }
-
-    /**
-     * Method to add a available product to a list of available products
-     * @param product to be added
-     */
-    public void addNewAvailableProduct(Product product) {
-        if (availableProducts == null) {
-            availableProducts = new HashSet<>();
-        }
-        availableProducts.add(product);
-    }
+//    public void addNewOffer(Offer offer){
+//        offer.setStore(this);
+//        offers.add(offer);
+//    }
 
     /**
      * toString method to print a product

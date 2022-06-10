@@ -34,6 +34,8 @@ class StoreApplicationTests {
     CategoryRepo categoryRepo;
     @Autowired
     ProductRepo productRepo;
+    @Autowired
+    OfferRepo offerRepo;
 
     @Test
     void contextLoads() {
@@ -61,6 +63,21 @@ class StoreApplicationTests {
         List<Person> personList = validator.getValidPerson();
         List<com.dpb.store.entites.Review> reviewList = validator.getValidReview();
         validator.setAllsiliers();
+//        for (DVD dvd: dvds){
+//            for (Offer offer: dvd.getOffers()){
+//                System.out.println(offer.getStore());
+//            }
+//        }
+//        for (CD cd: cds){
+//            for (Offer offer: cd.getOffers()){
+//                System.out.println(offer.getStore());
+//            }
+//        }
+//        for (Book book: books){
+//            for (Offer offer: book.getOffers()){
+//                System.out.println(offer.getStore());
+//            }
+//        }
 
         categoryRepo.saveAll(categories);
         leipzigRepo.save(storeLeipzig);

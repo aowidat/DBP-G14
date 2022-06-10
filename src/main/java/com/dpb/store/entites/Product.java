@@ -23,20 +23,18 @@ public class Product {
     private String id;
     private String title;
     private int salesRank;
-    private double price;
-    private String status;
     @Column(columnDefinition = "text", length = 10485760)
     private String image;
     private int rating;
     @ElementCollection
     private List<String> listmania;
+
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+    private List<Offer> offers = new ArrayList<>();
     @ManyToMany
     @JoinTable(name = "product_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
     private List<Store> stores;
 
-    @ManyToMany
-    @JoinTable(name = "product_in_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
-    private List<Store> availableInStores;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
@@ -50,6 +48,7 @@ public class Product {
 
     /**
      * Method to add a new List-Mania to a List of listManias
+     *
      * @param listMania to be added
      */
     public void addNewListMania(String listMania) {
@@ -58,8 +57,10 @@ public class Product {
         }
         this.listmania.add(listMania);
     }
+
     /**
      * Method to add a new simi=Product to a List of similars-Product
+     *
      * @param simiProduct to be added
      */
     public void addNewSimProduct(Product simiProduct) {
@@ -68,8 +69,10 @@ public class Product {
         }
         this.similar.add(simiProduct);
     }
+
     /**
      * Method to add a new review to a List of reviews
+     *
      * @param review to be added
      */
     public void addNewReview(Review review) {
@@ -78,8 +81,10 @@ public class Product {
         }
         this.reviews.add(review);
     }
+
     /**
      * Method to add a new Store to a List of Stores
+     *
      * @param store to be added
      */
     public void addNewStore(Store store) {
@@ -88,18 +93,20 @@ public class Product {
         }
         this.stores.add(store);
     }
+
     /**
      * Method to add  a Store where the product is available to a List of available-in-store
-     * @param store to be added
+     *
+     * @param offer to be added
      */
-    public void addNewAvailableInStore(Store store) {
-        if (this.availableInStores == null) {
-            this.availableInStores = new ArrayList<>();
-        }
-        this.availableInStores.add(store);
+    public void addNewOffer(Offer offer) {
+        offer.setProduct(this);
+        offers.add(offer);
     }
+
     /**
      * Method to add a new categoty to a List of categories
+     *
      * @param category to be added
      */
     public void addNewCategory(Category category) {
@@ -111,6 +118,7 @@ public class Product {
 
     /**
      * toString method to print a product
+     *
      * @return
      */
     @Override

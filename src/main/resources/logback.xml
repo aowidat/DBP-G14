@@ -4,13 +4,29 @@
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>store.log</file>
+    <appender name="Error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>store.error.log</file>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>LoggingArchiv\store-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <fileNamePattern>LoggingArchivError\store-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxFileSize>12MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="Warning" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>store.waring.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARNING</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>LoggingArchivWarning\store-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
             <maxFileSize>12MB</maxFileSize>
             <maxHistory>30</maxHistory>
             <totalSizeCap>3GB</totalSizeCap>
@@ -24,13 +40,13 @@
         <appender-ref ref="STDOUT"/>
     </root>
     <root level="warn">
+        <appender-ref ref="Warning"/>
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
 
     </root>
     <root level="error">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="Error"/>
     </root>
     <root level="info">
         <appender-ref ref="STDOUT"/>
