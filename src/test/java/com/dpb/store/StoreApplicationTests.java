@@ -63,28 +63,33 @@ class StoreApplicationTests {
         List<Person> personList = validator.getValidPerson();
         List<com.dpb.store.entites.Review> reviewList = validator.getValidReview();
         validator.setAllsiliers();
-//        for (DVD dvd: dvds){
-//            for (Offer offer: dvd.getOffers()){
-//                System.out.println(offer.getStore());
-//            }
-//        }
-//        for (CD cd: cds){
-//            for (Offer offer: cd.getOffers()){
-//                System.out.println(offer.getStore());
-//            }
-//        }
-//        for (Book book: books){
-//            for (Offer offer: book.getOffers()){
-//                System.out.println(offer.getStore());
-//            }
-//        }
+
+        for (CD cd: cds){
+            for (Offer offer: cd.getOffers()){
+                System.out.println(offer);
+            }
+        }
+        for (Book book: books){
+            for (Offer offer: book.getOffers()){
+                System.out.println(offer);
+            }
+        }
 
         categoryRepo.saveAll(categories);
         leipzigRepo.save(storeLeipzig);
         dresdenRepo.save(storeDresden);
         dvdRepo.saveAll(dvds);
+        for (DVD dvd: dvds){
+        offerRepo.saveAll(dvd.getOffers());
+        }
         cdRepo.saveAll(cds);
+        for (CD dvd: cds){
+            offerRepo.saveAll(dvd.getOffers());
+        }
         bookRepo.saveAll(books);
+        for (Book dvd: books){
+            offerRepo.saveAll(dvd.getOffers());
+        }
         personRepo.saveAll(personList);
         reviewRepo.saveAll(reviewList);
     }

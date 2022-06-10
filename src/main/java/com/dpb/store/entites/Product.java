@@ -29,7 +29,7 @@ public class Product {
     @ElementCollection
     private List<String> listmania;
 
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+    @OneToMany(mappedBy = "product")
     private List<Offer> offers = new ArrayList<>();
     @ManyToMany
     @JoinTable(name = "product_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))

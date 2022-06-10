@@ -9,10 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Class to validate the Data before transform to Entity
@@ -70,76 +67,49 @@ public class Validator {
                 if (productValidator(item)) {
                     if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("DVD") && DVDValidator(item)) {
                         DVD dvd = convertItemToDVD(item);
+                        for (ListIterator<Product> iterator = validProduct.listIterator(); iterator.hasNext(); ) {
+                            Product product = iterator.next();
+                            if (dvd.getId().equalsIgnoreCase(product.getId())) {
+                                for (Offer offer : product.getOffers()) {
+                                    dvd.addNewOffer(offer);
+                                }
+                                iterator.remove();
+                            }
+                        }
+                        this.validDVD.add(dvd);
+                        this.validProduct.add(dvd);
                         store.addNewProduct(dvd);
                         dvd.addNewStore(store);
-                        boolean isIn = false;
-                        for (Product product : validProduct) {
-                            if (dvd.getId().equalsIgnoreCase(product.getId())) {
-                                log.warn("test 2 {}", dvd);
-                                isIn = true;
-                                for (Offer offer : dvd.getOffers()) {
-                                    for (Offer offer1 : product.getOffers()) {
-                                        if (!offer.getPrice().equals(offer1.getPrice()) && !offer.getStatus().equalsIgnoreCase(offer1.getStatus())) {
-                                            System.out.println("3 store " + store.getName());
-                                            offer.setStore(store);
-                                            product.addNewOffer(offer);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        if (!isIn) {
-                            this.validDVD.add(dvd);
-                            this.validProduct.add(dvd);
-                        }
                     } else if ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("music") && CDValidator(item)) || ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Musical") && CDValidator(item)))) {
                         CD cd = convertItemToCD(item);
+                        for (ListIterator<Product> iterator = validProduct.listIterator(); iterator.hasNext(); ) {
+                            Product product = iterator.next();
+                            if (cd.getId().equalsIgnoreCase(product.getId())) {
+                                for (Offer offer : product.getOffers()) {
+                                    cd.addNewOffer(offer);
+                                }
+                                iterator.remove();
+                            }
+                        }
+                        this.validCD.add(cd);
+                        this.validProduct.add(cd);
                         store.addNewProduct(cd);
                         cd.addNewStore(store);
-                        boolean isIn = false;
-                        for (Product product : validProduct) {
-                            if (cd.getId().equalsIgnoreCase(product.getId())) {
-                                log.warn("test 2 {}", cd);
-                                isIn = true;
-                                for (Offer offer : cd.getOffers()) {
-                                    for (Offer offer1 : product.getOffers()) {
-                                        if (!offer.getPrice().equals(offer1.getPrice()) && !offer.getStatus().equalsIgnoreCase(offer1.getStatus())) {
-                                            System.out.println("2 store " + store.getName());
-                                            offer.setStore(store);
-                                            product.addNewOffer(offer);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        if (!isIn) {
-                            this.validCD.add(cd);
-                            this.validProduct.add(cd);
-                        }
                     } else if ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Book") && bookValidator(item)) || ((item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("Buch") && bookValidator(item)))) {
                         Book book = convertItemToBook(item);
-                        store.addNewProduct(book);
-                        book.addNewStore(store);
-                        boolean isIn = false;
-                        for (Product product : validProduct) {
+                        for (ListIterator<Product> iterator = validProduct.listIterator(); iterator.hasNext(); ) {
+                            Product product = iterator.next();
                             if (book.getId().equalsIgnoreCase(product.getId())) {
-                                log.warn("test 2 {}", book);
-                                isIn = true;
-                                for (Offer offer : book.getOffers()) {
-                                    for (Offer offer1 : product.getOffers()) {
-                                        if (!offer.getPrice().equals(offer1.getPrice()) && !offer.getStatus().equalsIgnoreCase(offer1.getStatus())) {
-                                            System.out.println("1 store " + store.getName());
-                                            offer.setStore(store);
-                                            product.addNewOffer(offer);
-                                        }
-                                    }
+                                for (Offer offer : product.getOffers()) {
+                                    book.addNewOffer(offer);
                                 }
+                                iterator.remove();
                             }
                         }
-                        if (!isIn) {
-                            this.validBook.add(book);
-                            this.validProduct.add(book);
-                        }
+                        this.validBook.add(book);
+                        this.validProduct.add(book);
+                        store.addNewProduct(book);
+                        book.addNewStore(store);
                     }
                 }
             }
@@ -169,8 +139,14 @@ public class Validator {
         }
         for (Product pr : validProduct) {
             if (item.getAsin().equalsIgnoreCase(pr.getId())) {
-                log.error(itemErrors + " Duplicate", item);
-                return false;
+                if (isValidDouble(item.getPrice().getPrice())) {
+                    for (Offer offer : pr.getOffers()) {
+                        if ((Double.parseDouble(item.getPrice().getPrice()) == offer.getPrice() && (item.getState() != null)  && item.getState().equalsIgnoreCase(offer.getStatus()))) {
+                            log.error(itemErrors + " Duplicate mit {}", item, pr);
+                            return false;
+                        }
+                    }
+                }
             }
         }
         if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("DVD")) {

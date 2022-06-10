@@ -14,7 +14,7 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private Double price;
+    private double price;
     private String status;
 
     @ManyToOne
