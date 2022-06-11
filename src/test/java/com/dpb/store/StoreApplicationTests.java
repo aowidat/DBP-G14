@@ -51,8 +51,8 @@ class StoreApplicationTests {
         Shop dresden = parser.getDresden();
         List<Review> r = parser.getReview();
 
-        Store storeLeipzig = validator.storeValidator(leipzig);
         Store storeDresden = validator.storeValidator(dresden);
+        Store storeLeipzig = validator.storeValidator(leipzig);
         validator.categoriesConverter(parser.getCategories());
         validator.reviewsValidator(r);
 
@@ -63,35 +63,40 @@ class StoreApplicationTests {
         List<Person> personList = validator.getValidPerson();
         List<com.dpb.store.entites.Review> reviewList = validator.getValidReview();
         validator.setAllsiliers();
-
-        for (CD cd: cds){
-            for (Offer offer: cd.getOffers()){
-                System.out.println(offer);
-            }
-        }
-        for (Book book: books){
-            for (Offer offer: book.getOffers()){
-                System.out.println(offer);
-            }
-        }
+//        for (DVD dvd: dvds){
+//            for (Offer offer: dvd.getOffers()){
+//                System.out.println(offer);
+//            }
+//        }
+//        for (CD cd: cds){
+//            for (Offer offer: cd.getOffers()){
+//                System.out.println(offer);
+//            }
+//        }
+//        for (Book book: books){
+//            for (Offer offer: book.getOffers()){
+//                System.out.println(offer);
+//            }
+//        }
 
         categoryRepo.saveAll(categories);
         leipzigRepo.save(storeLeipzig);
         dresdenRepo.save(storeDresden);
-        dvdRepo.saveAll(dvds);
-        for (DVD dvd: dvds){
-        offerRepo.saveAll(dvd.getOffers());
-        }
-        cdRepo.saveAll(cds);
-        for (CD dvd: cds){
-            offerRepo.saveAll(dvd.getOffers());
-        }
-        bookRepo.saveAll(books);
-        for (Book dvd: books){
-            offerRepo.saveAll(dvd.getOffers());
-        }
+        productRepo.saveAll(validator.getValidProduct());
         personRepo.saveAll(personList);
         reviewRepo.saveAll(reviewList);
+//        dvdRepo.saveAll(dvds);
+//        cdRepo.saveAll(cds);
+//        bookRepo.saveAll(books);
+        for (DVD dvd : dvds) {
+            offerRepo.saveAll(dvd.getOffers());
+        }
+        for (CD cd : cds) {
+            offerRepo.saveAll(cd.getOffers());
+        }
+        for (Book book : books) {
+            offerRepo.saveAll(book.getOffers());
+        }
     }
 
 }

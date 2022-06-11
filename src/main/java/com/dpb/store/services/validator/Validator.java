@@ -64,16 +64,27 @@ public class Validator {
             store.setStreet(shop.getStreet().replaceAll("\"", ""));
             store.setZip(shop.getZip().replaceAll("\"", ""));
             for (Item item : shop.getItem()) {
+                boolean isIn = false;
                 if (productValidator(item)) {
                     if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("DVD") && DVDValidator(item)) {
                         DVD dvd = convertItemToDVD(item);
                         for (ListIterator<Product> iterator = validProduct.listIterator(); iterator.hasNext(); ) {
                             Product product = iterator.next();
                             if (dvd.getId().equalsIgnoreCase(product.getId())) {
-                                for (Offer offer : product.getOffers()) {
-                                    dvd.addNewOffer(offer);
+                                isIn = true;
+                                Set<Offer> offers = new LinkedHashSet<>(product.getOffers());
+                                for (Offer offer : dvd.getOffers()) {
+                                    offer.setStore(store);
+                                    offers.add(offer);
                                 }
+                                List<Offer> combinedOffers = new ArrayList<>(offers);
+                                dvd.setOffers(combinedOffers);
                                 iterator.remove();
+                            }
+                        }
+                        if (!isIn) {
+                            for (Offer offer : dvd.getOffers()) {
+                                offer.setStore(store);
                             }
                         }
                         this.validDVD.add(dvd);
@@ -85,10 +96,20 @@ public class Validator {
                         for (ListIterator<Product> iterator = validProduct.listIterator(); iterator.hasNext(); ) {
                             Product product = iterator.next();
                             if (cd.getId().equalsIgnoreCase(product.getId())) {
-                                for (Offer offer : product.getOffers()) {
-                                    cd.addNewOffer(offer);
+                                isIn = true;
+                                Set<Offer> offers = new LinkedHashSet<>(product.getOffers());
+                                for (Offer offer : cd.getOffers()) {
+                                    offer.setStore(store);
+                                    offers.add(offer);
                                 }
+                                List<Offer> combinedOffers = new ArrayList<>(offers);
+                                cd.setOffers(combinedOffers);
                                 iterator.remove();
+                            }
+                        }
+                        if (!isIn) {
+                            for (Offer offer : cd.getOffers()) {
+                                offer.setStore(store);
                             }
                         }
                         this.validCD.add(cd);
@@ -100,10 +121,20 @@ public class Validator {
                         for (ListIterator<Product> iterator = validProduct.listIterator(); iterator.hasNext(); ) {
                             Product product = iterator.next();
                             if (book.getId().equalsIgnoreCase(product.getId())) {
-                                for (Offer offer : product.getOffers()) {
-                                    book.addNewOffer(offer);
+                                isIn = true;
+                                Set<Offer> offers = new LinkedHashSet<>(product.getOffers());
+                                for (Offer offer : book.getOffers()) {
+                                    offer.setStore(store);
+                                    offers.add(offer);
                                 }
+                                List<Offer> combinedOffers = new ArrayList<>(offers);
+                                book.setOffers(combinedOffers);
                                 iterator.remove();
+                            }
+                        }
+                        if (!isIn) {
+                            for (Offer offer : book.getOffers()) {
+                                offer.setStore(store);
                             }
                         }
                         this.validBook.add(book);
@@ -137,18 +168,18 @@ public class Validator {
             log.error(itemErrors + "no group", item);
             return false;
         }
-        for (Product pr : validProduct) {
-            if (item.getAsin().equalsIgnoreCase(pr.getId())) {
-                if (isValidDouble(item.getPrice().getPrice())) {
-                    for (Offer offer : pr.getOffers()) {
-                        if ((Double.parseDouble(item.getPrice().getPrice()) == offer.getPrice() && (item.getState() != null)  && item.getState().equalsIgnoreCase(offer.getStatus()))) {
-                            log.error(itemErrors + " Duplicate mit {}", item, pr);
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
+//        for (Product pr : validProduct) {
+//            if (item.getAsin().equalsIgnoreCase(pr.getId())) {
+//                if (isValidDouble(item.getPrice().getPrice())) {
+//                    for (Offer offer : pr.getOffers()) {
+//                        if ((Double.parseDouble(item.getPrice().getPrice()) == offer.getPrice() && (item.getState() != null)  && item.getState().equalsIgnoreCase(offer.getStatus()))) {
+//                            log.error(itemErrors + " Duplicate mit {}", item, offer);
+//                            return false;
+//                        }
+//                    }
+//                }
+//            }
+//        }
         if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("DVD")) {
             return DVDValidator(item);
         }
@@ -538,7 +569,9 @@ public class Validator {
     private boolean isValidNumber(String str) {
         if (str != null && !str.replaceAll("\"", "").isEmpty()) {
             try {
-                Integer.parseInt(str.replaceAll("\"", ""));
+                if (Integer.parseInt(str.replaceAll("\"", "")) < 0) {
+                    return false;
+                }
             } catch (NumberFormatException e) {
                 log.warn("invalid INTEGER, can not convert to Integer {}", str);
                 return false;
@@ -558,7 +591,9 @@ public class Validator {
     private boolean isValidDouble(String str) {
         if (str != null && !str.replaceAll("\"", "").isEmpty()) {
             try {
-                Double.parseDouble(str.replaceAll("\"", ""));
+                if (Double.parseDouble(str.replaceAll("\"", "")) < 0) {
+                    return false;
+                }
             } catch (NumberFormatException e) {
                 log.warn("invalid DOUBLE, can not convert to Double {}", str);
                 return false;
