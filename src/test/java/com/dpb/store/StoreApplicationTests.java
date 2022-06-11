@@ -23,11 +23,9 @@ class StoreApplicationTests {
     @Autowired
     CDRepo cdRepo;
     @Autowired
-    StoreRepo leipzigRepo;
-    @Autowired
     StoreRepo testRepo;
     @Autowired
-    StoreRepo dresdenRepo;
+    StoreRepo storeRepo;
     @Autowired
     PersonRepo personRepo;
     @Autowired
@@ -78,26 +76,26 @@ class StoreApplicationTests {
 //                System.out.println(offer);
 //            }
 //        }
-        storeLeipzig.getOffers().forEach(System.out::println);
-        storeDresden.getOffers().forEach(System.out::println);
-//        categoryRepo.saveAll(categories);
-//        leipzigRepo.save(storeLeipzig);
-//        dresdenRepo.save(storeDresden);
-//        productRepo.saveAll(validator.getValidProduct());
-//        reviewRepo.saveAll(reviewList);
-//        personRepo.saveAll(personList);
+//        storeLeipzig.getOffers().forEach(System.out::println);
+//        storeDresden.getOffers().forEach(System.out::println);
+        storeRepo.save(storeLeipzig);
+        storeRepo.save(storeDresden);
+        categoryRepo.saveAll(categories);
+        personRepo.saveAll(personList);
+        productRepo.saveAll(validator.getValidProduct());
+        reviewRepo.saveAll(reviewList);
 //        dvdRepo.saveAll(dvds);
 //        cdRepo.saveAll(cds);
 //        bookRepo.saveAll(books);
-//        for (DVD dvd : dvds) {
-//            offerRepo.saveAll(dvd.getOffers());
-//        }
-//        for (CD cd : cds) {
-//            offerRepo.saveAll(cd.getOffers());
-//        }
-//        for (Book book : books) {
-//            offerRepo.saveAll(book.getOffers());
-//        }
+        for (DVD dvd : dvds) {
+            offerRepo.saveAll(dvd.getOffers());
+        }
+        for (CD cd : cds) {
+            offerRepo.saveAll(cd.getOffers());
+        }
+        for (Book book : books) {
+            offerRepo.saveAll(book.getOffers());
+        }
     }
 
 }
