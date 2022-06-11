@@ -174,18 +174,6 @@ public class Validator {
             log.error(itemErrors + "no group", item);
             return false;
         }
-//        for (Product pr : validProduct) {
-//            if (item.getAsin().equalsIgnoreCase(pr.getId())) {
-//                if (isValidDouble(item.getPrice().getPrice())) {
-//                    for (Offer offer : pr.getOffers()) {
-//                        if ((Double.parseDouble(item.getPrice().getPrice()) == offer.getPrice() && (item.getState() != null)  && item.getState().equalsIgnoreCase(offer.getStatus()))) {
-//                            log.error(itemErrors + " Duplicate mit {}", item, offer);
-//                            return false;
-//                        }
-//                    }
-//                }
-//            }
-//        }
         if (item.getPgroup().replaceAll("\"", "").equalsIgnoreCase("DVD")) {
             return DVDValidator(item);
         }
