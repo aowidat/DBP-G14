@@ -78,25 +78,26 @@ class StoreApplicationTests {
 //                System.out.println(offer);
 //            }
 //        }
-
-        categoryRepo.saveAll(categories);
-        leipzigRepo.save(storeLeipzig);
-        dresdenRepo.save(storeDresden);
-        productRepo.saveAll(validator.getValidProduct());
-        personRepo.saveAll(personList);
-        reviewRepo.saveAll(reviewList);
+        storeLeipzig.getOffers().forEach(System.out::println);
+        storeDresden.getOffers().forEach(System.out::println);
+//        categoryRepo.saveAll(categories);
+//        leipzigRepo.save(storeLeipzig);
+//        dresdenRepo.save(storeDresden);
+//        productRepo.saveAll(validator.getValidProduct());
+//        reviewRepo.saveAll(reviewList);
+//        personRepo.saveAll(personList);
 //        dvdRepo.saveAll(dvds);
 //        cdRepo.saveAll(cds);
 //        bookRepo.saveAll(books);
-        for (DVD dvd : dvds) {
-            offerRepo.saveAll(dvd.getOffers());
-        }
-        for (CD cd : cds) {
-            offerRepo.saveAll(cd.getOffers());
-        }
-        for (Book book : books) {
-            offerRepo.saveAll(book.getOffers());
-        }
+//        for (DVD dvd : dvds) {
+//            offerRepo.saveAll(dvd.getOffers());
+//        }
+//        for (CD cd : cds) {
+//            offerRepo.saveAll(cd.getOffers());
+//        }
+//        for (Book book : books) {
+//            offerRepo.saveAll(book.getOffers());
+//        }
     }
 
 }

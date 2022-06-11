@@ -75,6 +75,7 @@ public class Validator {
                                 Set<Offer> offers = new LinkedHashSet<>(product.getOffers());
                                 for (Offer offer : dvd.getOffers()) {
                                     offer.setStore(store);
+                                    store.addNewOffer(offer);
                                     offers.add(offer);
                                 }
                                 List<Offer> combinedOffers = new ArrayList<>(offers);
@@ -85,6 +86,7 @@ public class Validator {
                         if (!isIn) {
                             for (Offer offer : dvd.getOffers()) {
                                 offer.setStore(store);
+                                store.addNewOffer(offer);
                             }
                         }
                         this.validDVD.add(dvd);
@@ -100,6 +102,7 @@ public class Validator {
                                 Set<Offer> offers = new LinkedHashSet<>(product.getOffers());
                                 for (Offer offer : cd.getOffers()) {
                                     offer.setStore(store);
+                                    store.addNewOffer(offer);
                                     offers.add(offer);
                                 }
                                 List<Offer> combinedOffers = new ArrayList<>(offers);
@@ -110,6 +113,7 @@ public class Validator {
                         if (!isIn) {
                             for (Offer offer : cd.getOffers()) {
                                 offer.setStore(store);
+                                store.addNewOffer(offer);
                             }
                         }
                         this.validCD.add(cd);
@@ -125,6 +129,7 @@ public class Validator {
                                 Set<Offer> offers = new LinkedHashSet<>(product.getOffers());
                                 for (Offer offer : book.getOffers()) {
                                     offer.setStore(store);
+                                    store.addNewOffer(offer);
                                     offers.add(offer);
                                 }
                                 List<Offer> combinedOffers = new ArrayList<>(offers);
@@ -135,6 +140,7 @@ public class Validator {
                         if (!isIn) {
                             for (Offer offer : book.getOffers()) {
                                 offer.setStore(store);
+                                store.addNewOffer(offer);
                             }
                         }
                         this.validBook.add(book);

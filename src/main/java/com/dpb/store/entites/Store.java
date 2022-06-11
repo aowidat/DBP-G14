@@ -28,8 +28,8 @@ public class Store {
     @ManyToMany(mappedBy = "stores")
     private Set<Product> products;
 
-//    @OneToMany(mappedBy = "store", cascade = {CascadeType.MERGE , CascadeType.PERSIST})
-//    private List<Offer> offers = new ArrayList<>();
+    @OneToMany(mappedBy = "store")
+    private List<Offer> offers = new ArrayList<>();
 
     /**
      * Method to add a product to a HashSet of Products
@@ -41,10 +41,10 @@ public class Store {
         }
         products.add(product);
     }
-//    public void addNewOffer(Offer offer){
-//        offer.setStore(this);
-//        offers.add(offer);
-//    }
+    public void addNewOffer(Offer offer){
+        offer.setStore(this);
+        offers.add(offer);
+    }
 
     /**
      * toString method to print a product
