@@ -71,10 +71,11 @@ public class Validator {
                         for (ListIterator<Product> iterator = validProduct.listIterator(); iterator.hasNext(); ) {
                             Product product = iterator.next();
                             if (dvd.getId().equalsIgnoreCase(product.getId())) {
+                                log.error("item {} in store {} is found duplicated with item {}, trying to merge them", item, store, dvd);
                                 isIn = true;
                                 Set<Offer> offers = new LinkedHashSet<>(product.getOffers());
                                 for (Offer offer : dvd.getOffers()) {
-                                    if (offers.contains(offer)) log.error(itemErrors + " caused by duplicate with item {}", dvd, product);
+//                                    if (offers.contains(offer)) log.error(itemErrors + " caused by duplicate with item {}", dvd, product);
                                     offer.setStore(store);
                                     store.addNewOffer(offer);
                                     offers.add(offer);
@@ -102,6 +103,7 @@ public class Validator {
                         for (ListIterator<Product> iterator = validProduct.listIterator(); iterator.hasNext(); ) {
                             Product product = iterator.next();
                             if (cd.getId().equalsIgnoreCase(product.getId())) {
+                                log.error("item {} in store {} is found duplicated with item {}, trying to merge them", item, store, cd);
                                 isIn = true;
                                 Set<Offer> offers = new LinkedHashSet<>(product.getOffers());
                                 for (Offer offer : cd.getOffers()) {
@@ -132,6 +134,7 @@ public class Validator {
                         for (ListIterator<Product> iterator = validProduct.listIterator(); iterator.hasNext(); ) {
                             Product product = iterator.next();
                             if (book.getId().equalsIgnoreCase(product.getId())) {
+                                log.error("item {} in store {} is found duplicated with item {}, trying to merge them", item, store, book);
                                 isIn = true;
                                 Set<Offer> offers = new LinkedHashSet<>(product.getOffers());
                                 for (Offer offer : book.getOffers()) {
