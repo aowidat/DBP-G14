@@ -74,6 +74,7 @@ public class Validator {
                                 isIn = true;
                                 Set<Offer> offers = new LinkedHashSet<>(product.getOffers());
                                 for (Offer offer : dvd.getOffers()) {
+                                    if (offers.contains(offer)) log.error(itemErrors + " caused by duplicate with item {}", dvd, product);
                                     offer.setStore(store);
                                     store.addNewOffer(offer);
                                     offers.add(offer);
@@ -426,12 +427,12 @@ public class Validator {
                 dvd.addNewDirector(person);
             }
         }
-        Offer offer = new Offer();
-        offer.setStatus(item.getPrice().getState());
-        if (isValidDouble(item.getPrice().getPrice())) {
+        if (isValidDouble(item.getPrice().getPrice()) && Double.parseDouble(item.getPrice().getPrice()) > 0) {
+            Offer offer = new Offer();
+            offer.setStatus(item.getPrice().getState());
             offer.setPrice(Double.parseDouble(item.getPrice().getPrice()));
-        } else offer.setPrice(0.0);
-        dvd.addNewOffer(offer);
+            dvd.addNewOffer(offer);
+        }
         return dvd;
     }
 
@@ -489,12 +490,12 @@ public class Validator {
                 cd.addNewArtist(person);
             }
         }
-        Offer offer = new Offer();
-        offer.setStatus(item.getPrice().getState());
-        if (isValidDouble(item.getPrice().getPrice())) {
+        if (isValidDouble(item.getPrice().getPrice()) && Double.parseDouble(item.getPrice().getPrice()) > 0) {
+            Offer offer = new Offer();
             offer.setPrice(Double.parseDouble(item.getPrice().getPrice()));
-        } else offer.setPrice(0.0);
-        cd.addNewOffer(offer);
+            offer.setStatus(item.getPrice().getState());
+            cd.addNewOffer(offer);
+        }
         return cd;
     }
 
@@ -554,12 +555,12 @@ public class Validator {
                 book.addNewPublisher(str.getTheRealValue().replaceAll("\"", ""));
             }
         }
-        Offer offer = new Offer();
-        offer.setStatus(item.getPrice().getState());
-        if (isValidDouble(item.getPrice().getPrice())) {
+        if (isValidDouble(item.getPrice().getPrice()) && Double.parseDouble(item.getPrice().getPrice()) > 0) {
+            Offer offer = new Offer();
+            offer.setStatus(item.getPrice().getState());
             offer.setPrice(Double.parseDouble(item.getPrice().getPrice()));
-        } else offer.setPrice(0.0);
-        book.addNewOffer(offer);
+            book.addNewOffer(offer);
+        }
         return book;
     }
 

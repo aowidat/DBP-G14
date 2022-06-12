@@ -40,8 +40,8 @@
         <appender-ref ref="STDOUT"/>
     </root>
     <root level="warn">
-        <appender-ref ref="Warning"/>
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="Warning"/>
 
     </root>
     <root level="error">
