@@ -78,6 +78,9 @@ public class Validator {
                                     store.addNewOffer(offer);
                                     offers.add(offer);
                                 }
+                                for (Store st: product.getStores()){
+                                    dvd.addNewStore(st);
+                                }
                                 List<Offer> combinedOffers = new ArrayList<>(offers);
                                 dvd.setOffers(combinedOffers);
                                 iterator.remove();
@@ -105,6 +108,9 @@ public class Validator {
                                     store.addNewOffer(offer);
                                     offers.add(offer);
                                 }
+                                for (Store st: product.getStores()){
+                                    cd.addNewStore(st);
+                                }
                                 List<Offer> combinedOffers = new ArrayList<>(offers);
                                 cd.setOffers(combinedOffers);
                                 iterator.remove();
@@ -131,6 +137,9 @@ public class Validator {
                                     offer.setStore(store);
                                     store.addNewOffer(offer);
                                     offers.add(offer);
+                                }
+                                for (Store st: product.getStores()){
+                                    book.addNewStore(st);
                                 }
                                 List<Offer> combinedOffers = new ArrayList<>(offers);
                                 book.setOffers(combinedOffers);

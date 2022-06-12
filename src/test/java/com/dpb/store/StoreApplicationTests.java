@@ -49,8 +49,8 @@ class StoreApplicationTests {
         Shop dresden = parser.getDresden();
         List<Review> r = parser.getReview();
 
-        Store storeDresden = validator.storeValidator(dresden);
         Store storeLeipzig = validator.storeValidator(leipzig);
+        Store storeDresden = validator.storeValidator(dresden);
         validator.categoriesConverter(parser.getCategories());
         validator.reviewsValidator(r);
 
@@ -61,11 +61,12 @@ class StoreApplicationTests {
         List<Person> personList = validator.getValidPerson();
         List<com.dpb.store.entites.Review> reviewList = validator.getValidReview();
         validator.setAllsiliers();
-//        for (DVD dvd: dvds){
-//            for (Offer offer: dvd.getOffers()){
-//                System.out.println(offer);
-//            }
-//        }
+        for (DVD dvd : dvds) {
+            if (dvd.getId().equalsIgnoreCase("B00013YWH8")) {
+                System.out.println("HOHOHO");
+                System.out.println(dvd.getStores());
+            }
+        }
 //        for (CD cd: cds){
 //            for (Offer offer: cd.getOffers()){
 //                System.out.println(offer);
@@ -84,18 +85,19 @@ class StoreApplicationTests {
         personRepo.saveAll(personList);
         productRepo.saveAll(validator.getValidProduct());
         reviewRepo.saveAll(reviewList);
+        validator.getValidProduct().forEach(x -> offerRepo.saveAll(x.getOffers()));
 //        dvdRepo.saveAll(dvds);
 //        cdRepo.saveAll(cds);
 //        bookRepo.saveAll(books);
-        for (DVD dvd : dvds) {
-            offerRepo.saveAll(dvd.getOffers());
-        }
-        for (CD cd : cds) {
-            offerRepo.saveAll(cd.getOffers());
-        }
-        for (Book book : books) {
-            offerRepo.saveAll(book.getOffers());
-        }
+//        for (DVD dvd : dvds) {
+//            offerRepo.saveAll(dvd.getOffers());
+//        }
+//        for (CD cd : cds) {
+//            offerRepo.saveAll(cd.getOffers());
+//        }
+//        for (Book book : books) {
+//            offerRepo.saveAll(book.getOffers());
+//        }
     }
 
 }
