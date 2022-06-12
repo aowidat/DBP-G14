@@ -14,8 +14,9 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-/LoggingArchivWarning
+LoggingArchivWarning
 LoggingArchiv
+LoggingArchivError
 store.error.log
 store.waring.log
 .idea
