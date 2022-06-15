@@ -46,6 +46,8 @@ public class Product {
     @JoinTable(name = "product_similar", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "similar_id", referencedColumnName = "id"))
     private List<Product> similar;
 
+    @ManyToMany(mappedBy = "products", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Order> orders = new ArrayList<>();
     /**
      * Method to add a new List-Mania to a List of listManias
      *

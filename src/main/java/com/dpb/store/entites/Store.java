@@ -31,8 +31,12 @@ public class Store {
     @OneToMany(mappedBy = "store")
     private List<Offer> offers = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "stores", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Order> orders = new ArrayList<>();
+
     /**
      * Method to add a product to a HashSet of Products
+     *
      * @param product to be added
      */
     public void addNewProduct(Product product) {
@@ -41,13 +45,15 @@ public class Store {
         }
         products.add(product);
     }
-    public void addNewOffer(Offer offer){
+
+    public void addNewOffer(Offer offer) {
         offer.setStore(this);
         offers.add(offer);
     }
 
     /**
      * toString method to print a product
+     *
      * @return a product as a String
      */
     @Override

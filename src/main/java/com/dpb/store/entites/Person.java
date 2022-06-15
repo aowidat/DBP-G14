@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,6 +37,8 @@ public class Person {
     private Set<Book> books_authors;
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private Set<Review> reviews;
+    @OneToMany(mappedBy = "person")
+    private List<Order> orders = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
