@@ -1,6 +1,7 @@
 package com.dpb.store.services.validator;
 
 import com.dpb.store.entites.*;
+import com.dpb.store.entites.Review;
 import com.dpb.store.services.parser.*;
 import lombok.Getter;
 
@@ -297,13 +298,29 @@ public class Validator {
         } else {
             return false;
         }
-        Person person = new Person();
-        person.setName(review.getUser().replaceAll("\"", ""));
-        this.validPerson.add(person);
-        entityReview.setPerson(person);
+        boolean x = false;
+        for (Person person : validPerson) {
+            if (review.getUser().replaceAll("\"", "").equalsIgnoreCase(person.getName())){
+                entityReview.setPerson(person);
+                x = true;
+                break;
+            }
+        }
+        if (!x) {
+            Person person = new Person();
+            person.setName(review.getUser().replaceAll("\"", ""));
+            entityReview.setPerson(person);
+            this.validPerson.add(person);
+        }
         for (Product pr : validProduct) {
             if (pr.getId().replaceAll("\"", "").equalsIgnoreCase(review.getProduct().replaceAll("\"", ""))) {
                 entityReview.addProduct(pr);
+                for (Review review1 : validReview){
+                    if (review1.equals(entityReview)){
+                        log.error(reviewErrors + " Duplicate",entityReview);
+                        return false;
+                    }
+                }
                 this.validReview.add(entityReview);
                 pr.addNewReview(entityReview);
                 return true;
@@ -408,26 +425,62 @@ public class Validator {
         }
         if (item.getActors() != null) {
             for (GeneralField str : item.getActors()) {
-                Person person = new Person();
-                person.setName(str.getTheRealValue().replaceAll("\"", ""));
-                this.validPerson.add(person);
-                dvd.addNewActor(person);
+                boolean x = false;
+                for (Person person : validPerson) {
+                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())){
+                        dvd.addNewActor(person);
+                        x = true;
+                        break;
+                    }
+                }
+                if (!x) {
+                    Person person = new Person();
+                    person.setName(str.getTheRealValue().replaceAll("\"", ""));
+                    dvd.addNewActor(person);
+                    this.validPerson.add(person);
+
+                }
             }
         }
         if (item.getCreators() != null) {
             for (GeneralField str : item.getCreators()) {
-                Person person = new Person();
-                person.setName(str.getTheRealValue().replaceAll("\"", ""));
-                this.validPerson.add(person);
-                dvd.addNewCreator(person);
+                boolean x = false;
+                for (Person person : validPerson) {
+                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())){
+                        dvd.addNewCreator(person);
+                        x = true;
+                        break;
+                    }
+                }
+                if (!x) {
+                    Person person = new Person();
+                    person.setName(str.getTheRealValue().replaceAll("\"", ""));
+                    dvd.addNewCreator(person);
+                    this.validPerson.add(person);
+
+                }
             }
         }
         if (item.getDirectors() != null) {
             for (GeneralField str : item.getDirectors()) {
-                Person person = new Person();
-                person.setName(str.getTheRealValue().replaceAll("\"", ""));
-                this.validPerson.add(person);
-                dvd.addNewDirector(person);
+//                Person person = new Person();
+//                person.setName(str.getTheRealValue().replaceAll("\"", ""));
+//                this.validPerson.add(person);
+//                dvd.addNewDirector(person);
+                boolean x = false;
+                for (Person person : validPerson) {
+                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())){
+                        dvd.addNewDirector(person);
+                        x = true;
+                        break;
+                    }
+                }
+                if (!x) {
+                    Person person = new Person();
+                    person.setName(str.getTheRealValue().replaceAll("\"", ""));
+                    dvd.addNewDirector(person);
+                    this.validPerson.add(person);
+                }
             }
         }
         if (isValidDouble(item.getPrice().getPrice()) && Double.parseDouble(item.getPrice().getPrice()) > 0) {
@@ -487,10 +540,24 @@ public class Validator {
         }
         if (item.getArtists() != null) {
             for (GeneralField str : item.getArtists()) {
-                Person person = new Person();
-                person.setName(str.getTheRealValue().replaceAll("\"", ""));
-                this.validPerson.add(person);
-                cd.addNewArtist(person);
+//                Person person = new Person();
+//                person.setName(str.getTheRealValue().replaceAll("\"", ""));
+//                this.validPerson.add(person);
+//                cd.addNewArtist(person);
+                boolean x = false;
+                for (Person person : validPerson) {
+                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())){
+                        cd.addNewArtist(person);
+                        x = true;
+                        break;
+                    }
+                }
+                if (!x) {
+                    Person person = new Person();
+                    person.setName(str.getTheRealValue().replaceAll("\"", ""));
+                    cd.addNewArtist(person);
+                    this.validPerson.add(person);
+                }
             }
         }
         if (isValidDouble(item.getPrice().getPrice()) && Double.parseDouble(item.getPrice().getPrice()) > 0) {
@@ -547,10 +614,24 @@ public class Validator {
         }
         if (item.getAuthors() != null) {
             for (GeneralField str : item.getAuthors()) {
-                Person person = new Person();
-                person.setName(str.getTheRealValue().replaceAll("\"", ""));
-                this.validPerson.add(person);
-                book.addNewAuthor(person);
+//                Person person = new Person();
+//                person.setName(str.getTheRealValue().replaceAll("\"", ""));
+//                this.validPerson.add(person);
+//                book.addNewAuthor(person);
+                boolean x = false;
+                for (Person person : validPerson) {
+                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())){
+                        book.addNewAuthor(person);
+                        x = true;
+                        break;
+                    }
+                }
+                if (!x) {
+                    Person person = new Person();
+                    person.setName(str.getTheRealValue().replaceAll("\"", ""));
+                    book.addNewAuthor(person);
+                    this.validPerson.add(person);
+                }
             }
         }
         if (item.getPublishers() != null) {

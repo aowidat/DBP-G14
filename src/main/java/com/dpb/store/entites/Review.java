@@ -43,4 +43,22 @@ public class Review {
         this.product_review = product;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Review)) return false;
+
+        Review review = (Review) o;
+
+        if (getProduct_review() != null ? !getProduct_review().equals(review.getProduct_review()) : review.getProduct_review() != null)
+            return false;
+        return getPerson().equals(review.getPerson());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getProduct_review() != null ? getProduct_review().hashCode() : 0;
+        result = 31 * result + getPerson().hashCode();
+        return result;
+    }
 }

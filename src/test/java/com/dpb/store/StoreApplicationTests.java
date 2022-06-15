@@ -61,12 +61,12 @@ class StoreApplicationTests {
         List<Person> personList = validator.getValidPerson();
         List<com.dpb.store.entites.Review> reviewList = validator.getValidReview();
         validator.setAllsiliers();
-        for (DVD dvd : dvds) {
-            if (dvd.getId().equalsIgnoreCase("B00013YWH8")) {
-                System.out.println("HOHOHO");
-                System.out.println(dvd.getStores());
-            }
-        }
+//        for (DVD dvd : dvds) {
+//            if (dvd.getId().equalsIgnoreCase("B00013YWH8")) {
+//                System.out.println("HOHOHO");
+//                System.out.println(dvd.getStores());
+//            }
+//        }
 //        for (CD cd: cds){
 //            for (Offer offer: cd.getOffers()){
 //                System.out.println(offer);
@@ -77,8 +77,8 @@ class StoreApplicationTests {
 //                System.out.println(offer);
 //            }
 //        }
-//        storeLeipzig.getOffers().forEach(System.out::println);
-//        storeDresden.getOffers().forEach(System.out::println);
+        storeLeipzig.getOffers().forEach(System.out::println);
+        storeDresden.getOffers().forEach(System.out::println);
         storeRepo.save(storeLeipzig);
         storeRepo.save(storeDresden);
         categoryRepo.saveAll(categories);
