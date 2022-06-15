@@ -25,7 +25,7 @@ public class Product {
     private int salesRank;
     @Column(columnDefinition = "text", length = 10485760)
     private String image;
-    private int rating;
+    private double rating;
     @ElementCollection
     private List<String> listmania;
 
