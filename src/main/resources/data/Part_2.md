@@ -138,7 +138,10 @@ order by x.name asc
 9. Wie hoch ist die durchschnittliche Anzahl von Liedern einer Musik-CD?
 
 ````sql
-
+SELECT ROUND(avg(t1.CountRes))
+FROM (SELECT COUNT(*) AS CountRes
+      FROM cd_tracks as t1
+      GROUP BY t1.cd_id) as t1
 ````
 
 10. Für welche Produkte gibt es ähnliche Produkte in einer anderen Hauptkategorie? Hinweis: Eine Hauptkategorie ist eine
@@ -154,4 +157,61 @@ order by x.name asc
     angeboten werden kann (z.B. neu und gebraucht).
 
 ````sql
+select t4.product_id
+from (select count(count), count.product_id
+      from (select t1.product_id, t1.store_id
+            from offer as t1
+            where price != 0
+            group by t1.product_id, t1.store_id) as count
+
+      group by count.product_id) as t4
+
+where t4.count = (select count(*)
+                  from store)
+````
+
+12. In wieviel Prozent der Fälle der Frage 11 gibt es in Leipzig das preiswerteste Angebot?
+
+````sql
+SELECT 100 *
+       (SELECT COUNT(*)
+        FROM (SELECT leipziger.product_id
+              FROM (SELECT tab1.product_id, ps.price, store.name
+                    FROM (select t4.product_id, t4.count
+                          from (select count(count), count.product_id
+                                from (select t1.product_id, t1.store_id
+                                      from offer as t1
+                                      where price != 0
+                                      group by t1.product_id, t1.store_id) as count
+                                group by count.product_id) as t4
+                          where t4.count = (select count(*) from store)) tab1
+                             LEFT JOIN offer ps ON tab1.product_id = ps.product_id
+                             LEFT JOIN store store ON ps.store_id = store.id
+                    WHERE name = 'Leipzig') leipziger
+                       LEFT JOIN
+                   (SELECT tab1.product_id, ps.price, store.name
+                    FROM (select t4.product_id, t4.count
+                          from (select count(count), count.product_id
+                                from (select t1.product_id, t1.store_id
+                                      from offer as t1
+                                      where price != 0
+                                      group by t1.product_id, t1.store_id) as count
+                                group by count.product_id) as t4
+                          where t4.count = (select count(*) from store)) tab1
+                             LEFT JOIN offer ps ON tab1.product_id = ps.product_id
+                             LEFT JOIN store store ON ps.store_id = store.id
+                    WHERE store.name != 'Leipzig') andere
+                   ON leipziger.product_id = andere.product_id
+              WHERE leipziger.price < andere.price
+              ORDER BY 1) count1)::float
+           /
+       (SELECT COUNT(*)
+        FROM ((select t4.product_id, t4.count
+               from (select count(count), count.product_id
+                     from (select t1.product_id, t1.store_id
+                           from offer as t1
+                           where price != 0
+                           group by t1.product_id, t1.store_id) as count
+                     group by count.product_id) as t4
+               where t4.count = (select count(*) from store))) alle)::float count2
 ````
