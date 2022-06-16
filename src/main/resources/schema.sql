@@ -11,7 +11,7 @@ create table if not exists public.category
     name      varchar(255),
     parnet_id integer
         constraint fkjuhi5c41octuei0syqcc1akv9
-            references public.category
+            references public.category on delete cascade on update CASCADE
 );
 
 alter table public.category
@@ -44,7 +44,7 @@ create table if not exists public.orders
     total     double precision not null,
     person_id integer
         constraint fk1b0m4muwx1t377w9if3w6wwqn
-            references public.person
+            references public.person on delete set null on update cascade
 );
 
 alter table public.orders
@@ -78,7 +78,7 @@ create table if not exists public.book
         constraint book_pkey
             primary key
         constraint fk8cjf4cjanicu58p2l5t8d9xvu
-            references public.product
+            references public.product on delete cascade on update cascade
 );
 
 alter table public.book
@@ -88,10 +88,10 @@ create table if not exists public.author
 (
     book_id   varchar(255) not null
         constraint fkqi5nll4mal57ohohlv5g0qlv2
-            references public.book,
+            references public.book on delete cascade on update cascade ,
     person_id integer      not null
         constraint fkd8cm5fy8qunfotg4xpdi1wad7
-            references public.person
+            references public.person on delete cascade on update cascade
 );
 
 alter table public.author
@@ -101,7 +101,7 @@ create table if not exists public.book_publisher
 (
     book_id   varchar(255) not null
         constraint fk8ywuvxfycghsfmxvu363jllpq
-            references public.book,
+            references public.book  on delete cascade on update cascade,
     publisher varchar(255)
 );
 
@@ -118,7 +118,7 @@ create table if not exists public.cd
         constraint cd_pkey
             primary key
         constraint fkg450nkyhi3a0t7kn2cosol0xf
-            references public.product
+            references public.product on delete cascade on update cascade
 );
 
 alter table public.cd
@@ -128,10 +128,10 @@ create table if not exists public.artist
 (
     cd_id     varchar(255) not null
         constraint fk3xd8j8p11jo7rrcphikx4i0u
-            references public.cd,
+            references public.cd  on delete cascade on update cascade,
     person_id integer      not null
         constraint fk42u4bruy3o7qi1jlqvreu49ak
-            references public.person
+            references public.person  on delete cascade on update cascade
 );
 
 alter table public.artist
@@ -141,7 +141,7 @@ create table if not exists public.cd_labels
 (
     cd_id  varchar(255) not null
         constraint fkjqlfqvxce9dygyvl1dkh8xe24
-            references public.cd,
+            references public.cd  on delete cascade on update cascade,
     labels varchar(255)
 );
 
@@ -152,7 +152,7 @@ create table if not exists public.cd_tracks
 (
     cd_id  varchar(255) not null
         constraint fk66a5xwpfjq2uu32hndlfsl71m
-            references public.cd,
+            references public.cd  on delete cascade on update cascade,
     tracks varchar(255)
 );
 
@@ -171,7 +171,7 @@ create table if not exists public.dvd
         constraint dvd_pkey
             primary key
         constraint fk8767xtav39bmxqpras2ivshb9
-            references public.product
+            references public.product on delete cascade on update cascade
 );
 
 alter table public.dvd
@@ -181,10 +181,10 @@ create table if not exists public.actor
 (
     dvd_id    varchar(255) not null
         constraint fk865vtt4l7wh5qwua14meyqvkc
-            references public.dvd,
+            references public.dvd  on delete cascade on update cascade,
     person_id integer      not null
         constraint fktk6djt6y6ni04hiton4o64s1f
-            references public.person,
+            references public.person  on delete cascade on update cascade,
     constraint actor_pkey
         primary key (dvd_id, person_id)
 );
@@ -196,10 +196,10 @@ create table if not exists public.creator
 (
     dvd_id    varchar(255) not null
         constraint fks0xroutb574db5dj4g7cdfiw9
-            references public.dvd,
+            references public.dvd  on delete cascade on update cascade,
     person_id integer      not null
         constraint fklfiq9ovibww39lq6jflx3fhx9
-            references public.person,
+            references public.person  on delete cascade on update cascade,
     constraint creator_pkey
         primary key (dvd_id, person_id)
 );
@@ -211,10 +211,10 @@ create table if not exists public.dirctor
 (
     dvd_id    varchar(255) not null
         constraint fkg3wnmxurjw9q99lxddcwmxmhp
-            references public.dvd,
+            references public.dvd  on delete cascade on update cascade,
     person_id integer      not null
         constraint fk2rn03idcmv63c8icldfkyq4i6
-            references public.person,
+            references public.person  on delete cascade on update cascade,
     constraint dirctor_pkey
         primary key (dvd_id, person_id)
 );
@@ -226,7 +226,7 @@ create table if not exists public.dvd_studio
 (
     dvd_id varchar(255) not null
         constraint fk1krgw1lu8fcuuo7mf1whobg1u
-            references public.dvd,
+            references public.dvd  on delete cascade on update cascade,
     studio varchar(255)
 );
 
@@ -237,10 +237,10 @@ create table if not exists public.product_category
 (
     product_id  varchar(255) not null
         constraint fk2k3smhbruedlcrvu6clued06x
-            references public.product,
+            references public.product on delete cascade on update cascade ,
     category_id integer      not null
         constraint fkkud35ls1d40wpjb5htpp14q4e
-            references public.category
+            references public.category on delete cascade on update cascade
 );
 
 alter table public.product_category
@@ -250,7 +250,7 @@ create table if not exists public.product_listmania
 (
     product_id varchar(255) not null
         constraint fkdjct2smg0s2pc44hmdletggva
-            references public.product,
+            references public.product on delete cascade on update cascade ,
     listmania  varchar(255)
 );
 
@@ -261,10 +261,10 @@ create table if not exists public.product_order
 (
     order_id   integer      not null
         constraint fkjwsik4uvq2sdqtb7x6h1o5f0v
-            references public.orders,
+            references public.orders on delete cascade on update cascade,
     product_id varchar(255) not null
         constraint fkh73acsd9s5wp6l0e55td6jr1m
-            references public.product
+            references public.product on delete cascade on update cascade
 );
 
 alter table public.product_order
@@ -274,10 +274,10 @@ create table if not exists public.product_similar
 (
     product_id varchar(255) not null
         constraint fkqknn5a6cl56rrvn9dvlclx9av
-            references public.product,
+            references public.product on delete cascade on update cascade ,
     similar_id varchar(255) not null
         constraint fk7f5hbigt1xka3n186q3hefghk
-            references public.product
+            references public.product  on delete cascade on update cascade
 );
 
 alter table public.product_similar
@@ -295,10 +295,10 @@ create table if not exists public.review
     summery    varchar(255),
     person     integer
         constraint fkdo60vxlownqykeceb1l8uqm2v
-            references public.person,
+            references public.person on delete set null on update cascade ,
     product_id varchar(255)
         constraint fkiyof1sindb9qiqr9o8npj8klt
-            references public.product
+            references public.product  on delete cascade on update cascade
 );
 
 alter table public.review
@@ -326,10 +326,10 @@ create table if not exists public.offer
     status     varchar(255),
     product_id varchar(255)
         constraint fk3cow2cmfxb0nrt43hxm7yu1q3
-            references public.product,
+            references public.product  on delete cascade on update cascade,
     store_id   integer
         constraint fk71eegvrtlg3qtybhd39ynsiqu
-            references public.store
+            references public.store on delete cascade on update cascade
 );
 
 alter table public.offer
@@ -339,10 +339,10 @@ create table if not exists public.product_store
 (
     product_id varchar(255) not null
         constraint fk5ixdrvrn9b8v6gwrws3s3brsf
-            references public.product,
+            references public.product on delete cascade on update cascade,
     store_id   integer      not null
         constraint fk6ofo19q4q8aqicf2tifxv91et
-            references public.store
+            references public.store on delete cascade on update cascade
 );
 
 alter table public.product_store
@@ -352,10 +352,10 @@ create table if not exists public.store_order
 (
     order_id integer not null
         constraint fkes9e61iw01g19cd55wx50djn0
-            references public.orders,
+            references public.orders on delete cascade on update cascade,
     store_id integer not null
         constraint fkrejb4m86jrrpbmstii2m7te0q
-            references public.store
+            references public.store on delete cascade on update cascade
 );
 
 alter table public.store_order
