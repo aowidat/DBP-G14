@@ -23,5 +23,5 @@
 ![UML](src/main/resources/data/media.png)
 * ### to start loading the data:
   - set up the postgresSQL as it stand in [hier](src/main/resources/application.properties)  
-  - run the [script](src/main/resources/data/schema.sql) to load the schema
+  - run the [script](src/main/resources/schema.sql) to load the schema
   - or just run the Junit function [trySomthing()](src/test/java/com/dpb/store/StoreApplicationTests.java) to load the schema and the data

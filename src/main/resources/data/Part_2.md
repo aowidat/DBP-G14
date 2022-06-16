@@ -137,30 +137,3 @@ where number_review >= 10
 
 ````sql
 ````
-
-5. SQL Trigger
-
-```sql
-CREATE OR REPLACE FUNCTION averageUpdate()
-    RETURNS TRIGGER
-AS
-'
-   BEGIN
-       UPDATE product p
-       SET rating = (
-           SELECT AVG(r.rating)
-           FROM review r
-           WHERE p.id = r.product_id
-       )
-       WHERE p.id = new.product_id;
-       return new;
-   END;
-' language plpgsql;
-
-DROP TRIGGER IF EXISTS averageUpdateTrigger on review;
-CREATE TRIGGER averageUpdateTrigger
-    AFTER INSERT
-    ON review
-    FOR EACH ROW
-EXECUTE PROCEDURE averageUpdate();
-```
