@@ -367,11 +367,9 @@ AS
 '
     BEGIN
         UPDATE product p
-        SET rating = (
-            SELECT AVG(r.rating)
-            FROM review r
-            WHERE p.id = r.product_id
-        )
+        SET rating = (SELECT AVG(r.rating)
+                      FROM review r
+                      WHERE p.id = r.product_id)
         WHERE p.id = new.product_id;
         return new;
     END;
@@ -383,3 +381,5 @@ CREATE TRIGGER averageUpdateTrigger
     ON review
     FOR EACH ROW
 EXECUTE PROCEDURE averageUpdate();
+
+CREATE index parent_id on category (parnet_id);

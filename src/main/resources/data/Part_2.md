@@ -149,7 +149,48 @@ FROM (SELECT COUNT(*) AS CountRes
     Hauptkategorie bestimmt.
 
 ````sql
+CREATE OR REPLACE FUNCTION getParent(child_id integer) RETURNS integer AS
+$$
+BEGIN
+    RETURN (SELECT parnet_id FROM category cat WHERE cat.id = child_id);
+END;
+$$
+    LANGUAGE 'plpgsql';
 
+-- getMainCategory(int)
+CREATE OR REPLACE FUNCTION getMainCategory(category_id integer) RETURNS integer AS
+$$
+BEGIN
+    IF category_id = 0 THEN
+        RETURN 0;
+    ELSEIF category_id IN (SELECT id FROM category WHERE parnet_id IS NULL) THEN
+        RETURN category_id;
+    ELSEIF category_id is not null THEN
+        RETURN getMainCategory(getParent(category_id));
+    END IF;
+    RETURN -1;
+END
+$$
+    LANGUAGE 'plpgsql';
+
+-- getCategory(String)
+CREATE OR REPLACE FUNCTION getCategory(similar_id varchar(255)) RETURNS integer AS
+$$
+BEGIN
+    RETURN (SELECT category_id FROM product_category WHERE product_id = similar_id LIMIT 1);
+END
+$$
+    LANGUAGE 'plpgsql';
+-- Die eigentliche Query:
+SELECT DISTINCT product
+FROM (SELECT cp.product_id                               product,
+             getMainCategory(cp.category_id)             mc1,
+             *,
+             getMainCategory(getCategory(ps.similar_id)) mc2
+      FROM product_category cp
+               natural JOIN
+           product_similar ps) tab1
+WHERE tab1.mc1 != tab1.mc2;
 ````
 
 11. Welche Produkte werden in allen Filialen angeboten? Hinweis: Ihre Query muss so formuliert werden, dass sie für eine
