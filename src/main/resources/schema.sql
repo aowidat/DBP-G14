@@ -383,3 +383,5 @@ CREATE TRIGGER averageUpdateTrigger
 EXECUTE PROCEDURE averageUpdate();
 
 CREATE index parent_id on category (parnet_id);
+create index prodduct_id on product_category(product_id);
+create index category_id on category(id);
