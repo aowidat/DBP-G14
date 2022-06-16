@@ -114,7 +114,25 @@ where number_review >= 10
    Musik-CDs beteiligt sind.
 
 ````sql
-
+select x.name
+from person x
+         join(select b.person_id
+              from author b
+                       join actor b2 on b.person_id = b2.person_id
+              union
+              select b.person_id
+              from author b
+                       join dirctor b2 on b.person_id = b2.person_id
+              union
+              select b.person_id
+              from author b
+                       join creator b2 on b.person_id = b2.person_id
+              union
+              select b.person_id
+              from author b
+                       join artist b2 on b.person_id = b2.person_id
+              group by b.person_id) as ir on x.id = ir.person_id
+order by x.name asc
 ````
 
 9. Wie hoch ist die durchschnittliche Anzahl von Liedern einer Musik-CD?

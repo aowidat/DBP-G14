@@ -1,5 +1,6 @@
+drop schema if exists public cascade;
+create schema if not exists public;
 create sequence public.hibernate_sequence;
-
 alter sequence public.hibernate_sequence owner to postgres;
 
 create table if not exists public.category
