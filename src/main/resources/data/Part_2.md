@@ -1,3 +1,5 @@
+# a. Queres
+
 1. Wieviele Produkte jeden Typs (Buch, Musik-CD, DVD) sind in der Datenbank erfasst? Hinweis: Geben Sie das Ergebnis in
    einer 3-spaltigen Relation aus.
 
@@ -257,7 +259,7 @@ SELECT 100 *
                where t4.count = (select count(*) from store))) alle)::float count2
 ````
 
-2.b. 
+# b. Update Review on Insert
 ````sql
 select rating from product
 where id = 'B0000668PG';
