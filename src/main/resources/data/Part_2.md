@@ -1,7 +1,7 @@
-# a. Queres
+# **a. Queres**
 
-1. Wieviele Produkte jeden Typs (Buch, Musik-CD, DVD) sind in der Datenbank erfasst? Hinweis: Geben Sie das Ergebnis in
-   einer 3-spaltigen Relation aus.
+**1. Wieviele Produkte jeden Typs (Buch, Musik-CD, DVD) sind in der Datenbank erfasst? Hinweis: Geben Sie das Ergebnis in
+einer 3-spaltigen Relation aus.**
 
 ```sql
 SELECT (select count(*)
@@ -12,10 +12,10 @@ SELECT (select count(*)
         from dvd)  as DVD_Number
 ```
 
-2. Nennen Sie die 5 besten Produkte jedes Typs (Buch, Musik-CD, DVD) sortiert nach dem durchschnittlichem Rating.
-   Hinweis: Geben Sie das Ergebnis in einer einzigen Relation mit den Attributen Typ, ProduktNr, Rating aus.
+**2. Nennen Sie die 5 besten Produkte jedes Typs (Buch, Musik-CD, DVD) sortiert nach dem durchschnittlichem Rating.
+Hinweis: Geben Sie das Ergebnis in einer einzigen Relation mit den Attributen Typ, ProduktNr, Rating aus.**
 
-* Buch
+* **Buch**
 
 ```sql
 select 'Book' as typ, x.rating, x.id
@@ -27,7 +27,7 @@ from (SELECT b.id, rating
       LIMIT 5) as x
 ```
 
-* DVD
+* **DVD**
 
 ```sql
 select 'DVD' as typ, x.rating, x.id
@@ -39,7 +39,7 @@ from (SELECT b.id, rating
       LIMIT 5) as x
 ```
 
-* CD
+* **CD**
 
 ```sql
 select 'CD' as typ, x.rating, x.id
@@ -51,7 +51,7 @@ from (SELECT b.id, rating
       LIMIT 5) as x
 ```
 
-3. Für welche Produkte gibt es im Moment kein Angebot?
+**3. Für welche Produkte gibt es im Moment kein Angebot?**
 
 ````sql
 select id
@@ -63,7 +63,7 @@ FROM offer p
                    ON p.product_id = ps.product_id
 ````
 
-4. Für welche Produkte ist das teuerste Angebot mehr als doppelt so teuer wie das preiswerteste?
+**4. Für welche Produkte ist das teuerste Angebot mehr als doppelt so teuer wie das preiswerteste?**
 
 ````sql
 SELECT t1.product_id, t1.price as price1, t2.price as price2
@@ -77,8 +77,8 @@ WHERE t1.product_id = t2.product_id
 ORDER BY 2 desc
 ````
 
-5. Welche Produkte haben sowohl mindestens eine sehr schlechte (Punktzahl: 1) als auch mindestens eine sehr gute (
-   Punktzahl: 5) Bewertung?
+**5. Welche Produkte haben sowohl mindestens eine sehr schlechte (Punktzahl: 1) als auch mindestens eine sehr gute (
+Punktzahl: 5) Bewertung?**
 
 ````sql
 select distinct t1.product_id
@@ -91,7 +91,7 @@ from (select t1.product_id, t1.rating
                     ON t1.product_id = t2.product_id
 ````
 
-6. Für wieviele Produkte gibt es gar keine Rezension?
+**6. Für wieviele Produkte gibt es gar keine Rezension?**
 
 ````sql
 SELECT COUNT(*)
@@ -101,7 +101,7 @@ FROM product p
 WHERE r is null
 ````
 
-7. Nennen Sie alle Rezensenten, die mindestens 10 Rezensionen geschrieben haben.
+**7. Nennen Sie alle Rezensenten, die mindestens 10 Rezensionen geschrieben haben.**
 
 ````sql
 select p.name
@@ -112,8 +112,8 @@ from (select count(*) as number_review, t1.person
 where number_review >= 10
 ````
 
-8. Geben Sie eine duplikatfreie und alphabetisch sortierte Liste der Namen aller Buchautoren an, die auch an DVDs oder
-   Musik-CDs beteiligt sind.
+**8. Geben Sie eine duplikatfreie und alphabetisch sortierte Liste der Namen aller Buchautoren an, die auch an DVDs oder
+Musik-CDs beteiligt sind.**
 
 ````sql
 select x.name
@@ -137,7 +137,7 @@ from person x
 order by x.name asc
 ````
 
-9. Wie hoch ist die durchschnittliche Anzahl von Liedern einer Musik-CD?
+**9. Wie hoch ist die durchschnittliche Anzahl von Liedern einer Musik-CD?**
 
 ````sql
 SELECT ROUND(avg(t1.CountRes))
@@ -146,9 +146,9 @@ FROM (SELECT COUNT(*) AS CountRes
       GROUP BY t1.cd_id) as t1
 ````
 
-10. Für welche Produkte gibt es ähnliche Produkte in einer anderen Hauptkategorie? Hinweis: Eine Hauptkategorie ist eine
-    Produktkategorie ohne Oberkategorie. Erstellen Sie eine rekursive Anfrage, die zu jedem Produkt dessen
-    Hauptkategorie bestimmt.
+**10. Für welche Produkte gibt es ähnliche Produkte in einer anderen Hauptkategorie? Hinweis: Eine Hauptkategorie ist eine
+Produktkategorie ohne Oberkategorie. Erstellen Sie eine rekursive Anfrage, die zu jedem Produkt dessen
+Hauptkategorie bestimmt.**
 
 ````sql
 CREATE OR REPLACE FUNCTION getParent(child_id integer) RETURNS integer AS
@@ -195,9 +195,9 @@ FROM (SELECT cp.product_id                               product,
 WHERE tab1.mc1 != tab1.mc2;
 ````
 
-11. Welche Produkte werden in allen Filialen angeboten? Hinweis: Ihre Query muss so formuliert werden, dass sie für eine
-    beliebige Anzahl von Filialen funktioniert. Hinweis: Beachten Sie, dass ein Produkt mehrfach von einer Filiale
-    angeboten werden kann (z.B. neu und gebraucht).
+**11. Welche Produkte werden in allen Filialen angeboten? Hinweis: Ihre Query muss so formuliert werden, dass sie für eine
+beliebige Anzahl von Filialen funktioniert. Hinweis: Beachten Sie, dass ein Produkt mehrfach von einer Filiale
+angeboten werden kann (z.B. neu und gebraucht).**
 
 ````sql
 select t4.product_id
@@ -213,7 +213,7 @@ where t4.count = (select count(*)
                   from store)
 ````
 
-12. In wieviel Prozent der Fälle der Frage 11 gibt es in Leipzig das preiswerteste Angebot?
+**12. In wieviel Prozent der Fälle der Frage 11 gibt es in Leipzig das preiswerteste Angebot?**
 
 ````sql
 SELECT 100 *
@@ -259,7 +259,8 @@ SELECT 100 *
                where t4.count = (select count(*) from store))) alle)::float count2
 ````
 
-# b. Update Review on Insert
+
+# **b. Update Review on Insert**
 ````sql
 select rating from product
 where id = 'B0000668PG';
