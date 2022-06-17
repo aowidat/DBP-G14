@@ -256,3 +256,21 @@ SELECT 100 *
                      group by count.product_id) as t4
                where t4.count = (select count(*) from store))) alle)::float count2
 ````
+
+2.b. 
+````sql
+select rating from product
+where id = 'B0000668PG';
+
+insert into review(id,content,date,helpful,rating,summery,person,product_id)
+values (88227932, 'Aziz' ,'01-01-2022', 2, 2 ,'Test 1', 23570, 'B0000668PG');
+
+select rating from product
+where id = 'B0000668PG';
+
+insert into review(id,content,date,helpful,rating,summery,person,product_id)
+values (88237932, 'Mahmoud' ,'01-01-2022', 2, 4 ,'Test 1', 23570, 'B0000668PG');
+
+select rating from product
+where id = 'B0000668PG';
+````
