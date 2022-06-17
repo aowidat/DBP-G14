@@ -61,4 +61,12 @@ public class Review {
         result = 31 * result + getPerson().hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "summery='" + summery + '\'' +
+                ", person=" + person +
+                '}';
+    }
 }
