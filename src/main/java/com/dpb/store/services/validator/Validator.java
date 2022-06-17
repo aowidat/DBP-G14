@@ -546,10 +546,6 @@ public class Validator {
         }
         if (item.getArtists() != null) {
             for (GeneralField str : item.getArtists()) {
-//                Person person = new Person();
-//                person.setName(str.getTheRealValue().replaceAll("\"", ""));
-//                this.validPerson.add(person);
-//                cd.addNewArtist(person);
                 boolean x = false;
                 for (Person person : validPerson) {
                     if (str.getTheRealValue().equalsIgnoreCase(person.getName())){
