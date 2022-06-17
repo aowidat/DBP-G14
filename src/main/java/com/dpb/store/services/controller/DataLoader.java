@@ -8,6 +8,7 @@ import com.dpb.store.services.parser.Shop;
 import com.dpb.store.services.validator.Validator;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;

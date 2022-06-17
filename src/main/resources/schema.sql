@@ -136,7 +136,7 @@ create table if not exists public.artist
 );
 
 alter table public.artist
---     add constraint unique_atrist unique (person_id, cd_id),
+    add constraint unique_atrist unique (person_id, cd_id),
     owner to postgres;
 
 create table if not exists public.cd_labels

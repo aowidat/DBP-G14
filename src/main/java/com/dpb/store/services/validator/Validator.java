@@ -77,12 +77,11 @@ public class Validator {
                                 isIn = true;
                                 Set<Offer> offers = new LinkedHashSet<>(product.getOffers());
                                 for (Offer offer : dvd.getOffers()) {
-//                                    if (offers.contains(offer)) log.error(itemErrors + " caused by duplicate with item {}", dvd, product);
                                     offer.setStore(store);
                                     store.addNewOffer(offer);
                                     offers.add(offer);
                                 }
-                                for (Store st: product.getStores()){
+                                for (Store st : product.getStores()) {
                                     dvd.addNewStore(st);
                                 }
                                 List<Offer> combinedOffers = new ArrayList<>(offers);
@@ -113,7 +112,7 @@ public class Validator {
                                     store.addNewOffer(offer);
                                     offers.add(offer);
                                 }
-                                for (Store st: product.getStores()){
+                                for (Store st : product.getStores()) {
                                     cd.addNewStore(st);
                                 }
                                 List<Offer> combinedOffers = new ArrayList<>(offers);
@@ -144,7 +143,7 @@ public class Validator {
                                     store.addNewOffer(offer);
                                     offers.add(offer);
                                 }
-                                for (Store st: product.getStores()){
+                                for (Store st : product.getStores()) {
                                     book.addNewStore(st);
                                 }
                                 List<Offer> combinedOffers = new ArrayList<>(offers);
@@ -301,7 +300,7 @@ public class Validator {
         }
         boolean x = false;
         for (Person person : validPerson) {
-            if (review.getUser().replaceAll("\"", "").equalsIgnoreCase(person.getName())){
+            if (review.getUser().replaceAll("\"", "").equalsIgnoreCase(person.getName())) {
                 entityReview.setPerson(person);
                 x = true;
                 break;
@@ -316,9 +315,9 @@ public class Validator {
         for (Product pr : validProduct) {
             if (pr.getId().replaceAll("\"", "").equalsIgnoreCase(review.getProduct().replaceAll("\"", ""))) {
                 entityReview.addProduct(pr);
-                for (Review review1 : validReview){
-                    if (review1.equals(entityReview)){
-                        log.error(reviewErrors + " Duplicate",entityReview);
+                for (Review review1 : validReview) {
+                    if (review1.equals(entityReview)) {
+                        log.error(reviewErrors + " Duplicate", entityReview);
                         return false;
                     }
                 }
@@ -392,13 +391,13 @@ public class Validator {
         dvd.setId(item.getAsin().replaceAll("\"", ""));
         if (isValidNumber(item.getSalesrank()))
             dvd.setSalesRank(Integer.parseInt(item.getSalesrank().replaceAll("\"", "")));
-        if (!item.getTheRealImg().isEmpty()){
+        if (!item.getTheRealImg().isEmpty()) {
             dvd.setImage(item.getTheRealImg().replaceAll("\"", ""));
         } else dvd.setImage(null);
         dvd.setFormat(item.getDvdspec().getFormat().replaceAll("\"", ""));
-        if(!item.getDvdspec().getAspectratio().isEmpty()) {
+        if (!item.getDvdspec().getAspectratio().isEmpty()) {
             dvd.setAspectratio(item.getDvdspec().getAspectratio().replaceAll("\"", ""));
-        }else dvd.setAspectratio(null);
+        } else dvd.setAspectratio(null);
         if (isValidNumber(item.getDvdspec().getRegioncode()))
             dvd.setRegioncode(Integer.parseInt(item.getDvdspec().getRegioncode().replaceAll("\"", "")));
         if (isValidDate(item.getDvdspec().getReleasedate()))
@@ -432,7 +431,7 @@ public class Validator {
             for (GeneralField str : item.getActors()) {
                 boolean x = false;
                 for (Person person : validPerson) {
-                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())){
+                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())) {
                         dvd.addNewActor(person);
                         x = true;
                         break;
@@ -451,7 +450,7 @@ public class Validator {
             for (GeneralField str : item.getCreators()) {
                 boolean x = false;
                 for (Person person : validPerson) {
-                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())){
+                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())) {
                         dvd.addNewCreator(person);
                         x = true;
                         break;
@@ -474,7 +473,7 @@ public class Validator {
 //                dvd.addNewDirector(person);
                 boolean x = false;
                 for (Person person : validPerson) {
-                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())){
+                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())) {
                         dvd.addNewDirector(person);
                         x = true;
                         break;
@@ -510,9 +509,10 @@ public class Validator {
         cd.setTitle(item.getTitle().replaceAll("\"", ""));
         if (isValidNumber(item.getSalesrank().replaceAll("\"", "")))
             cd.setSalesRank(Integer.parseInt(item.getSalesrank().replaceAll("\"", "")));
-        if (!item.getTheRealImg().isEmpty()){
+        if (!item.getTheRealImg().isEmpty()) {
             cd.setImage(item.getTheRealImg().replaceAll("\"", ""));
-        } else cd.setImage(null);        cd.setFormat(item.getMusicspec().getFormat().getTheRealValue().replaceAll("\"", ""));
+        } else cd.setImage(null);
+        cd.setFormat(item.getMusicspec().getFormat().getTheRealValue().replaceAll("\"", ""));
         cd.setBinding(item.getMusicspec().getBinding().replaceAll("\"", ""));
         if (isValidNumber(item.getMusicspec().getNum_discs()))
             cd.setDisc_Nr(Integer.parseInt(item.getMusicspec().getNum_discs().replaceAll("\"", "")));
@@ -545,13 +545,23 @@ public class Validator {
             }
         }
         if (item.getArtists() != null) {
+
             for (GeneralField str : item.getArtists()) {
                 boolean x = false;
+                BIG:
                 for (Person person : validPerson) {
-                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())){
-                        cd.addNewArtist(person);
-                        x = true;
-                        break;
+                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())) {
+                        if (cd.getArtists() != null) {
+                            for (Person artist : cd.getArtists()) {
+                                if (artist.getName().equalsIgnoreCase(str.getTheRealValue())) {
+                                    x = true;
+                                    break BIG;
+                                }
+                            }
+                            cd.addNewArtist(person);
+                            x = true;
+                            break;
+                        }
                     }
                 }
                 if (!x) {
@@ -584,12 +594,13 @@ public class Validator {
         book.setTitle(item.getTitle().replaceAll("\"", ""));
         if (isValidNumber(item.getSalesrank()))
             book.setSalesRank(Integer.parseInt(item.getSalesrank().replaceAll("\"", "")));
-        if (!item.getTheRealImg().isEmpty()){
+        if (!item.getTheRealImg().isEmpty()) {
             book.setImage(item.getTheRealImg().replaceAll("\"", ""));
-        } else book.setImage(null);        if(!item.getBookspec().getBinding().isEmpty()) {
+        } else book.setImage(null);
+        if (!item.getBookspec().getBinding().isEmpty()) {
             book.setBinding(item.getBookspec().getBinding().replaceAll("\"", ""));
-        }else book.setBinding(null);
-        if (!item.getBookspec().getTheRealEdition().isEmpty()){
+        } else book.setBinding(null);
+        if (!item.getBookspec().getTheRealEdition().isEmpty()) {
             book.setEdition(item.getBookspec().getTheRealEdition().replaceAll("\"", ""));
         } else book.setEdition(null);
         book.setIsbn(item.getBookspec().getTheRealISBN().replaceAll("\"", ""));
@@ -627,7 +638,7 @@ public class Validator {
 //                book.addNewAuthor(person);
                 boolean x = false;
                 for (Person person : validPerson) {
-                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())){
+                    if (str.getTheRealValue().equalsIgnoreCase(person.getName())) {
                         book.addNewAuthor(person);
                         x = true;
                         break;

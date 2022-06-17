@@ -265,14 +265,18 @@ SELECT 100 *
 select rating from product
 where id = 'B0000668PG';
 
+insert into person(id, name) VALUES (2546733, 'aziz');
+
+insert into person(id, name) VALUES (2546734, 'mahmoud');
+
 insert into review(id,content,date,helpful,rating,summery,person,product_id)
-values (88227932, 'Aziz' ,'01-01-2022', 2, 2 ,'Test 1', 23570, 'B0000668PG');
+values (88227932, 'Aziz' ,'01-01-2022', 2, 2 ,'Test 1', 2546733, 'B0000668PG');
 
 select rating from product
 where id = 'B0000668PG';
 
 insert into review(id,content,date,helpful,rating,summery,person,product_id)
-values (88237932, 'Mahmoud' ,'01-01-2022', 2, 4 ,'Test 1', 23570, 'B0000668PG');
+values (88237932, 'Mahmoud' ,'01-01-2022', 2, 4 ,'Test 1', 2546734, 'B0000668PG');
 
 select rating from product
 where id = 'B0000668PG';
