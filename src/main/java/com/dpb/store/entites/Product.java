@@ -46,6 +46,9 @@ public class Product {
     @JoinTable(name = "product_similar", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "similar_id", referencedColumnName = "id"))
     private List<Product> similar;
 
+    @ManyToMany(mappedBy = "similar" , cascade = CascadeType.ALL)
+    private List<Product> similers = new ArrayList<>();
+
     @ManyToMany(mappedBy = "products", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Order> orders = new ArrayList<>();
     /**
@@ -58,6 +61,9 @@ public class Product {
             this.listmania = new ArrayList<>();
         }
         this.listmania.add(listMania);
+    }
+    public void addSimilarTo( Product pro){
+        this.similers.add(pro);
     }
 
     /**

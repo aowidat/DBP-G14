@@ -718,6 +718,7 @@ public class Validator {
                         for (Product validPro : validProduct) {
                             if (validPro.getId().equalsIgnoreCase(str)) {
                                 product.addNewSimProduct(validPro);
+                                validPro.addSimilarTo(product);
                             }
                         }
                     }
