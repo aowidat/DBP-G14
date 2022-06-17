@@ -20,11 +20,11 @@ public class Book extends Product {
     private String binding;
     private String edition;
     private String isbn;
-    private int page;
+    private Integer page;
     private LocalDate publication;
-    private int weight;
-    private int length;
-    private int height;
+    private Integer weight;
+    private Integer length;
+    private Integer height;
     @ElementCollection
     private List<String> publisher;
 

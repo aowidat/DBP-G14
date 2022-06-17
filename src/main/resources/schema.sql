@@ -68,12 +68,12 @@ create table if not exists public.book
 (
     binding     varchar(255),
     edition     varchar(255),
-    height      integer      not null,
+    height      integer      ,
     isbn        varchar(255),
-    length      integer      not null,
-    page        integer      not null,
+    length      integer      ,
+    page        integer      ,
     publication date,
-    weight      integer      not null,
+    weight      integer      ,
     id          varchar(255) not null
         constraint book_pkey
             primary key
@@ -112,7 +112,7 @@ create table if not exists public.cd
 (
     binding varchar(255),
     date    date,
-    disc_nr integer      not null,
+    disc_nr integer,
     format  varchar(255),
     id      varchar(255) not null
         constraint cd_pkey
@@ -163,10 +163,10 @@ create table if not exists public.dvd
 (
     aspectratio     varchar(255),
     format          varchar(255),
-    regioncode      integer      not null,
+    regioncode      integer      ,
     release_date    date,
-    running_time    integer      not null,
-    theater_release integer      not null,
+    running_time    integer      ,
+    theater_release integer      ,
     id              varchar(255) not null
         constraint dvd_pkey
             primary key

@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -391,9 +392,13 @@ public class Validator {
         dvd.setId(item.getAsin().replaceAll("\"", ""));
         if (isValidNumber(item.getSalesrank()))
             dvd.setSalesRank(Integer.parseInt(item.getSalesrank().replaceAll("\"", "")));
-        dvd.setImage(item.getTheRealImg().replaceAll("\"", ""));
+        if (!item.getTheRealImg().isEmpty()){
+            dvd.setImage(item.getTheRealImg().replaceAll("\"", ""));
+        } else dvd.setImage(null);
         dvd.setFormat(item.getDvdspec().getFormat().replaceAll("\"", ""));
-        dvd.setAspectratio(item.getDvdspec().getAspectratio().replaceAll("\"", ""));
+        if(!item.getDvdspec().getAspectratio().isEmpty()) {
+            dvd.setAspectratio(item.getDvdspec().getAspectratio().replaceAll("\"", ""));
+        }else dvd.setAspectratio(null);
         if (isValidNumber(item.getDvdspec().getRegioncode()))
             dvd.setRegioncode(Integer.parseInt(item.getDvdspec().getRegioncode().replaceAll("\"", "")));
         if (isValidDate(item.getDvdspec().getReleasedate()))
@@ -505,8 +510,9 @@ public class Validator {
         cd.setTitle(item.getTitle().replaceAll("\"", ""));
         if (isValidNumber(item.getSalesrank().replaceAll("\"", "")))
             cd.setSalesRank(Integer.parseInt(item.getSalesrank().replaceAll("\"", "")));
-        cd.setImage(item.getTheRealImg().replaceAll("\"", ""));
-        cd.setFormat(item.getMusicspec().getFormat().getTheRealValue().replaceAll("\"", ""));
+        if (!item.getTheRealImg().isEmpty()){
+            cd.setImage(item.getTheRealImg().replaceAll("\"", ""));
+        } else cd.setImage(null);        cd.setFormat(item.getMusicspec().getFormat().getTheRealValue().replaceAll("\"", ""));
         cd.setBinding(item.getMusicspec().getBinding().replaceAll("\"", ""));
         if (isValidNumber(item.getMusicspec().getNum_discs()))
             cd.setDisc_Nr(Integer.parseInt(item.getMusicspec().getNum_discs().replaceAll("\"", "")));
@@ -582,9 +588,14 @@ public class Validator {
         book.setTitle(item.getTitle().replaceAll("\"", ""));
         if (isValidNumber(item.getSalesrank()))
             book.setSalesRank(Integer.parseInt(item.getSalesrank().replaceAll("\"", "")));
-        book.setImage(item.getTheRealImg().replaceAll("\"", ""));
-        book.setBinding(item.getBookspec().getBinding().replaceAll("\"", ""));
-        book.setEdition(item.getBookspec().getTheRealEdition().replaceAll("\"", ""));
+        if (!item.getTheRealImg().isEmpty()){
+            book.setImage(item.getTheRealImg().replaceAll("\"", ""));
+        } else book.setImage(null);        if(!item.getBookspec().getBinding().isEmpty()) {
+            book.setBinding(item.getBookspec().getBinding().replaceAll("\"", ""));
+        }else book.setBinding(null);
+        if (!item.getBookspec().getTheRealEdition().isEmpty()){
+            book.setEdition(item.getBookspec().getTheRealEdition().replaceAll("\"", ""));
+        } else book.setEdition(null);
         book.setIsbn(item.getBookspec().getTheRealISBN().replaceAll("\"", ""));
         if (isValidNumber(item.getBookspec().getPages()))
             book.setPage(Integer.parseInt(item.getBookspec().getPages().replaceAll("\"", "")));
@@ -660,7 +671,7 @@ public class Validator {
                 if (Integer.parseInt(str.replaceAll("\"", "")) < 0) {
                     return false;
                 }
-            } catch (NumberFormatException e) {
+            } catch (DataIntegrityViolationException e) {
                 log.warn("invalid INTEGER, can not convert to Integer {}", str);
                 return false;
             }

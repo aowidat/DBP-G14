@@ -22,10 +22,10 @@ public class DVD extends  Product {
 
     private String format;
     private String aspectratio;
-    private int regioncode;
+    private Integer regioncode;
     private LocalDate release_date;
-    private int running_time;
-    private int theater_release;
+    private Integer running_time;
+    private Integer theater_release;
     @ElementCollection
     private List<String> studio;
 

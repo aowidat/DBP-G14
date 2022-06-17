@@ -19,7 +19,7 @@ public class CD extends Product {
 
     private String format;
     private String binding;
-    private int disc_Nr;
+    private Integer disc_Nr;
     private LocalDate date;
     @ElementCollection
     private List<String> tracks;
