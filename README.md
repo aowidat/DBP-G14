@@ -20,7 +20,7 @@
 * Lombok
 * ### relation schema (updated):
 
-![UML](src/main/resources/data/media.png)
+![UML](src/main/resources/Part_2/media.png)
 
 ### 1. Abgabe
 
@@ -34,4 +34,4 @@
 
 - just run the the Class StoreApplication
 - schema is to find [here](src/main/resources/schema.sql)
-- [Queres](src/main/resources/data/Part_2.md) are here to finde
+- [Queres](src/main/resources/Part_2/Part_2.md) are here to finde
