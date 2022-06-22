@@ -6,6 +6,10 @@ import com.dpb.store.services.parser.Parser;
 import com.dpb.store.services.parser.Review;
 import com.dpb.store.services.parser.Shop;
 import com.dpb.store.services.validator.Validator;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,8 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.List;
 
-@Service
-@Component
+
+@Configuration
+@Slf4j
 public class DataLoader {
     ReviewRepo reviewRepo;
     DVDRepo dvdRepo;
@@ -38,6 +43,15 @@ public class DataLoader {
         this.categoryRepo = categoryRepo;
         this.productRepo = productRepo;
         this.offerRepo = offerRepo;
+    }
+
+    @Bean
+    CommandLineRunner initDatabase() {
+        return args -> {
+            log.info("\t\t\t========== DATA IS BEING LOADING ==========");
+            loadAllData();
+            System.out.println("\t\t\t========== DATA LOADING IS FINISHED ==========");
+        };
     }
 
     public void loadAllData() throws IOException {

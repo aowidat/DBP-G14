@@ -395,12 +395,6 @@ CREATE TRIGGER averageUpdateTriggerOnInsert
     FOR EACH ROW
 EXECUTE PROCEDURE averageUpdate();
 
-CREATE TRIGGER averageUpdateTriggerOnDelete
-    AFTER DELETE
-    ON review
-    FOR EACH ROW
-EXECUTE PROCEDURE averageUpdate();
-
 CREATE index parent_id on category (parnet_id);
 create index prodduct_id on product_category (product_id);
 create index category_id on category (id);
