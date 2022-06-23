@@ -1,5 +1,6 @@
 package com.dpb.store.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,14 +23,17 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Category> children = new ArrayList<>();
 
     @ManyToOne()
+    @JsonIgnore
     @JoinColumn(name = "parnet_id")
     private Category parent;
 
 
     @ManyToMany(mappedBy = "categories" , cascade = CascadeType.MERGE)
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
     /**
