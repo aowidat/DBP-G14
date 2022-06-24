@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ProductRepo extends JpaRepository<Product, String> {
     List<Product> findAllByTitle(String title);
+
+    List<Product> findAllByRating(Double i);
 }
