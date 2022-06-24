@@ -1,5 +1,6 @@
 package com.dpb.store.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,18 +28,22 @@ public class DVD extends  Product {
     private Integer running_time;
     private Integer theater_release;
     @ElementCollection
+    @JsonIgnore
     private List<String> studio;
 
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinTable(name = "actor" , joinColumns = @JoinColumn(name ="dvd_id" , referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private Set<Person> actors;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinTable(name = "creator" , joinColumns = @JoinColumn(name ="dvd_id" , referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private Set<Person> creators;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinTable(name = "dirctor" , joinColumns = @JoinColumn(name ="dvd_id" , referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private Set<Person> directors;
     /**

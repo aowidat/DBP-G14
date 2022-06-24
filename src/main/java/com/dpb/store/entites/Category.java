@@ -73,7 +73,7 @@ public class Category {
      */
     @Override
     public String toString() {
-        return "Name:" + name;
+        return name;
     }
     public void addAllChildren(List<Category> chil){
         children.addAll(chil);
