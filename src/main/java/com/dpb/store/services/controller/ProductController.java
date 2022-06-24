@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController("/product/")
 public class ProductController {
@@ -31,7 +32,13 @@ public class ProductController {
 
     @GetMapping("TopProducts")
     List<Product> topProduct(){
-        return productRepo.findAllByRating(5.0);
+        Double max = Double.MIN_VALUE;
+        for (Product pr : productRepo.findAll()){
+            if (pr.getRating() > max){
+                max = pr.getRating();
+            }
+        }
+        return productRepo.findAllByRating(max);
     }
 
     @GetMapping("getSimilarCheaperProduct/{id}")
