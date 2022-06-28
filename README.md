@@ -35,7 +35,3 @@
 - just run the the Class StoreApplication
 - schema is to find [here](src/main/resources/schema.sql)
 - [Queres](src/main/resources/Part_2/Part_2.md) are here to finde
-
-
-### 2. Testat:
-- [a link](https://github.com/aowidat/DBP-G14/tree/Part_2/src/main/resources/Part_2) to find files of 2. Part of the project.
