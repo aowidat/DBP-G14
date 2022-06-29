@@ -2,6 +2,7 @@ package com.dpb.store.services.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,17 +17,8 @@ import java.sql.SQLException;
 
 @RestController
 public class DataController {
+    @Autowired
     DataSource dataSource;
-
-    public void buildConnection() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName("org.postgresql.Driver");
-        dataSourceBuilder.url("jdbc:postgresql://localhost:5432/postgres");
-        dataSourceBuilder.username("postgres");
-        dataSourceBuilder.password("root");
-        DataSource ds = dataSourceBuilder.build();
-        dataSource = ds;
-    }
 
     @Autowired
     private WebApplicationContext context;
@@ -36,18 +28,18 @@ public class DataController {
         this.dataLoader = dataLoader;
     }
 
-//    @GetMapping("/init")
+    @GetMapping("/init")
     public String init() throws IOException {
-        this.buildConnection();
-        ResourceDatabasePopulator populator = new ResourceDatabasePopulator(context.getResource("classpath:/schema.sql"));
-        DatabasePopulatorUtils.execute(populator, dataSource);
-        dataLoader.loadAllData();
+//        this.buildConnection();
+        ResourceDatabasePopulator populator1 = new ResourceDatabasePopulator(context.getResource("classpath:/schema.sql"));
+        DatabasePopulatorUtils.execute(populator1, dataSource);
+        ResourceDatabasePopulator populator2 = new ResourceDatabasePopulator(context.getResource("classpath:/data/data.sql"));
+        DatabasePopulatorUtils.execute(populator2, dataSource);
         return "DATA HAS BEEN LOADED";
     }
 
     @GetMapping("/finish")
     public String finish() throws SQLException {
-        //todo
         dataSource.getConnection().close();
         return "FINISH";
     }

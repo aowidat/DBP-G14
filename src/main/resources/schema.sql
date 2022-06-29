@@ -379,19 +379,19 @@ CREATE OR REPLACE FUNCTION averageUpdate()
 AS
 '
     BEGIN
-        UPDATE product p
+        UPDATE public.product p
         SET rating = (SELECT AVG(r.rating)
-                      FROM review r
+                      FROM public.review r
                       WHERE p.id = r.product_id)
         WHERE p.id = new.product_id;
         return new;
     END;
 ' language plpgsql;
 
-DROP TRIGGER IF EXISTS averageUpdateTrigger on review;
+DROP TRIGGER IF EXISTS averageUpdateTrigger on public.review;
 CREATE TRIGGER averageUpdateTriggerOnInsert
     AFTER INSERT
-    ON review
+    ON public.review
     FOR EACH ROW
 EXECUTE PROCEDURE averageUpdate();
 
