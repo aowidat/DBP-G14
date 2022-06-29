@@ -3,13 +3,14 @@ package com.dpb.store.services.controller;
 import com.dpb.store.entites.Person;
 import com.dpb.store.entites.Review;
 import com.dpb.store.repos.PersonRepo;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin
 @RestController("/person/")
 public class PersonController {
     PersonRepo personRepo;

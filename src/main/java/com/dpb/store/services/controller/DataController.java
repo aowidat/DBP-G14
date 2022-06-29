@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.support.SimpleTriggerContext;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
@@ -14,7 +15,7 @@ import javax.sql.DataSource;
 import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.SQLException;
-
+@CrossOrigin
 @RestController
 public class DataController {
     @Autowired

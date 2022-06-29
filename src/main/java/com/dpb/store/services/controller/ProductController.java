@@ -3,6 +3,7 @@ package com.dpb.store.services.controller;
 import com.dpb.store.entites.Offer;
 import com.dpb.store.entites.Product;
 import com.dpb.store.repos.ProductRepo;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController("/product/")
 public class ProductController {
 
@@ -31,10 +33,10 @@ public class ProductController {
     }
 
     @GetMapping("TopProducts")
-    List<Product> topProduct(){
+    List<Product> topProduct() {
         Double max = Double.MIN_VALUE;
-        for (Product pr : productRepo.findAll()){
-            if (pr.getRating() > max){
+        for (Product pr : productRepo.findAll()) {
+            if (pr.getRating() > max) {
                 max = pr.getRating();
             }
         }
@@ -42,13 +44,13 @@ public class ProductController {
     }
 
     @GetMapping("getSimilarCheaperProduct/{id}")
-    List<Product> getSimilarCheaperProduct(@PathVariable String id){
+    List<Product> getSimilarCheaperProduct(@PathVariable String id) {
 
         Product product = productRepo.findById(id).orElseThrow();
         Double min = Double.MAX_VALUE;
         List<Product> similars = product.getSimilar();
-        for (Offer offer : product.getOffers()){
-            if (offer.getPrice() <= min){
+        for (Offer offer : product.getOffers()) {
+            if (offer.getPrice() <= min) {
                 min = offer.getPrice();
             }
         }
@@ -65,8 +67,8 @@ public class ProductController {
 
 
     @GetMapping("GetOffers/{id}")
-    List<Offer> getOffers(@PathVariable String id){
-       return productRepo.findById(id).orElseThrow().getOffers();
+    List<Offer> getOffers(@PathVariable String id) {
+        return productRepo.findById(id).orElseThrow().getOffers();
     }
 
 }

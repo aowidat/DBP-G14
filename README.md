@@ -35,3 +35,5 @@
 - just run the the Class StoreApplication
 - schema is to find [here](src/main/resources/schema.sql)
 - [Queres](src/main/resources/Part_2/Part_2.md) are here to finde
+
+### 3. Abgabe

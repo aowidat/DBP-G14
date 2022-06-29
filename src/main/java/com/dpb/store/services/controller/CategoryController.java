@@ -6,14 +6,11 @@ import com.dpb.store.repos.CategoryRepo;
 import com.dpb.store.repos.ProductRepo;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.*;
-
+@CrossOrigin
 @RestController("/category/")
 public class CategoryController {
     CategoryRepo categoryRepo;
