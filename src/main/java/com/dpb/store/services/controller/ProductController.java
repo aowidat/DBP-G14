@@ -3,17 +3,15 @@ package com.dpb.store.services.controller;
 import com.dpb.store.entites.Offer;
 import com.dpb.store.entites.Product;
 import com.dpb.store.repos.ProductRepo;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin
-@RestController("/product/")
+@RestController
+@RequestMapping("/product/")
 public class ProductController {
 
     private final ProductRepo productRepo;
@@ -29,7 +27,7 @@ public class ProductController {
         products.add(productRepo.findById(id).orElseThrow());
         return products;
     }
-
+    @CrossOrigin
     @GetMapping("findAllByPattern/{pattern}")
     List<Product> getAllByPattern(@PathVariable String pattern) {
         return productRepo.findAllByTitle(pattern);

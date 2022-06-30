@@ -80,7 +80,4 @@ return products;
          }
         return products;
     }
-
-
-
 }
