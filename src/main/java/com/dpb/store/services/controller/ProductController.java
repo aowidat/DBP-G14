@@ -23,8 +23,11 @@ public class ProductController {
     }
 
     @GetMapping("findById/{id}")
-    Product getOne(@PathVariable String id) {
-        return productRepo.findById(id).orElseThrow();
+    List<Product> getOne(@PathVariable String id) {
+        List<Product> products= new ArrayList<>();
+
+        products.add(productRepo.findById(id).orElseThrow());
+        return products;
     }
 
     @GetMapping("findAllByPattern/{pattern}")
@@ -70,5 +73,8 @@ public class ProductController {
     List<Offer> getOffers(@PathVariable String id) {
         return productRepo.findById(id).orElseThrow().getOffers();
     }
-
+    @GetMapping("getAllProduct")
+    List<Product> allProducts(){
+        return productRepo.findAll();
+    }
 }

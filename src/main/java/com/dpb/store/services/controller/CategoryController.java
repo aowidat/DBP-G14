@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.*;
 @CrossOrigin
-@RestController("/category/")
+@RestController
+@RequestMapping("/category/")
 public class CategoryController {
     CategoryRepo categoryRepo;
 
@@ -40,7 +41,7 @@ public class CategoryController {
         Category category = categoryRepo.findOneByName(name);
         return category;
     }
-
+    @CrossOrigin
     @GetMapping("productPerPath/{path}")
     List<Product> getProductPerPath(@PathVariable String path) throws IOException {
         List<Product> products = new ArrayList<>();

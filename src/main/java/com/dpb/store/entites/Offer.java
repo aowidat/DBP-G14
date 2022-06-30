@@ -25,7 +25,6 @@ public class Offer {
 
     @ManyToOne
     @JoinColumn(name = "store_id")
-    @JsonIgnore
     private Store store;
 
     @Override
