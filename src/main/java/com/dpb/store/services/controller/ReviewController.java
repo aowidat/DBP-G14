@@ -22,10 +22,10 @@ public class ReviewController {
     public ReviewController(ReviewRepo reviewRepo) {
         this.reviewRepo = reviewRepo;
     }
-
+    @CrossOrigin
     @PostMapping("addReview")
     @ExceptionHandler(ConstraintViolationException.class)
-    public String addNewReview(@RequestBody Review review) {
+    public Review addNewReview(@RequestBody Review review) {
         try {
             Review review1 = new Review();
             if (!review.getContent().isEmpty() && !review.getSummery().isEmpty()) {
@@ -38,14 +38,14 @@ public class ReviewController {
                     review1.setSummery(review.getSummery());
                     review1.setProduct_review(review.getProduct_review());
                     reviewRepo.save(review1);
-                    return "DD";
+                    return review1;
                 }
             }
-            return "HH";
+            return null;
 
         } catch (DataIntegrityViolationException e) {
-
-            return e.getMessage();
+            return null;
+//            return e.getMessage();
         }
     }
 
