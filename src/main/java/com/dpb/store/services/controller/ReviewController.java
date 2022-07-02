@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController()
@@ -26,33 +28,46 @@ public class ReviewController {
     public ReviewController(ReviewRepo reviewRepo) {
         this.reviewRepo = reviewRepo;
     }
+
     @CrossOrigin
     @PostMapping("addReview")
     @ExceptionHandler(ConstraintViolationException.class)
-    public Review addNewReview(@RequestBody Review review) {
+    public Map<String, String> addNewReview(@RequestBody Review review) {
+        Map<String, String> respons = new HashMap<>();
         try {
             Review review1 = new Review();
-            if (!review.getContent().isEmpty() && !review.getSummery().isEmpty()) {
+            if (!review.getContent().isEmpty() || !review.getContent().isBlank()) {
                 if (review.getRating() > 0 && review.getRating() < 6) {
-                    Person p = new Person();
-                    p.setName(review.getPerson().getName());
-                    review1.setPerson(p);
-                    review1.setContent(review.getContent());
-                    review1.setDate(LocalDate.now());
-                    review1.setHelpful(0);
-                    review1.setRating(review.getRating());
-                    review1.setSummery(review.getSummery());
-                    review1.setProduct_review(review.getProduct_review());
-                    personRepo.save(p);
-                    reviewRepo.save(review1);
-                    return review1;
+                    if (!review.getSummery().isEmpty() || !review.getSummery().isBlank()) {
+                        if (!review.getPerson().getName().isEmpty() || !review.getPerson().getName().isBlank()) {
+                            Person p = new Person();
+                            p.setName(review.getPerson().getName());
+                            review1.setPerson(p);
+                            review1.setContent(review.getContent());
+                            review1.setDate(LocalDate.now());
+                            review1.setHelpful(0);
+                            review1.setRating(review.getRating());
+                            review1.setSummery(review.getSummery());
+                            review1.setProduct_review(review.getProduct_review());
+                            personRepo.save(p);
+                            reviewRepo.save(review1);
+                            respons.put("status", "success");
+                            return respons;
+                        }
+                        respons.put("status", "Error User");
+                        return respons;
+                    }
+                    respons.put("status", "Error Summery");
+                    return respons;
                 }
+                respons.put("status", "Error Rating");
+                return respons;
             }
-            return null;
-
+            respons.put("status", "Error Content");
+            return respons;
         } catch (DataIntegrityViolationException e) {
-            return null;
-//            return e.getMessage();
+            respons.put("status", "Error " + e.getMessage());
+            return respons;
         }
     }
 
