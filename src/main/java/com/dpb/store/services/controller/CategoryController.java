@@ -19,6 +19,10 @@ public class CategoryController {
     public CategoryController(CategoryRepo categoryRepo) {
         this.categoryRepo = categoryRepo;
     }
+    @GetMapping("getTreetest")
+    List<Category> testCat(){
+        return categoryRepo.findByParent(null);
+    }
 
     @GetMapping("getTree")
     Map<Category,List<Category>> getCategoryTree() {

@@ -23,12 +23,11 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<Category> children = new ArrayList<>();
 
     @ManyToOne()
-    @JsonIgnore
     @JoinColumn(name = "parnet_id")
+    @JsonIgnore
     private Category parent;
 
 
