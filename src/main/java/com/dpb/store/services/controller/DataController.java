@@ -1,5 +1,6 @@
 package com.dpb.store.services.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,9 @@ import javax.sql.DataSource;
 import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+@Slf4j(topic = "DataController")
 @CrossOrigin
 @RestController
 public class DataController {
@@ -30,18 +34,39 @@ public class DataController {
     }
 
     @GetMapping("/init")
-    public String init() throws IOException {
-//        this.buildConnection();
-        ResourceDatabasePopulator populator1 = new ResourceDatabasePopulator(context.getResource("classpath:/schema.sql"));
-        DatabasePopulatorUtils.execute(populator1, dataSource);
-        ResourceDatabasePopulator populator2 = new ResourceDatabasePopulator(context.getResource("classpath:/data/data.sql"));
-        DatabasePopulatorUtils.execute(populator2, dataSource);
-        return "DATA HAS BEEN LOADED";
+    public Map<String, String> init() {
+        Map<String, String> respon = new HashMap<>();
+        try {
+            log.info("Starting SQL Scripts");
+            ResourceDatabasePopulator populator1 = new ResourceDatabasePopulator(context.getResource("classpath:/schema.sql"));
+            DatabasePopulatorUtils.execute(populator1, dataSource);
+            ResourceDatabasePopulator populator3 = new ResourceDatabasePopulator(context.getResource("classpath:/data/other.sql"));
+            DatabasePopulatorUtils.execute(populator3, dataSource);
+            ResourceDatabasePopulator populator2 = new ResourceDatabasePopulator(context.getResource("classpath:/data/data.sql"));
+            DatabasePopulatorUtils.execute(populator2, dataSource);
+            dataSource.getConnection().beginRequest();
+            respon.put("staus", "done");
+            log.info("Loading SQL Scripts is done");
+            return respon;
+        } catch (Exception e) {
+            log.error("Something went wrong {}", e.getMessage());
+            respon.put("status", e.getMessage());
+            return respon;
+        }
     }
 
     @GetMapping("/finish")
-    public String finish() throws SQLException {
-        dataSource.getConnection().close();
-        return "FINISH";
+    public Map<String, String> finish() throws SQLException {
+        Map<String, String> respon = new HashMap<>();
+        try {
+            log.info("Finishing the App");
+            dataSource.getConnection().close();
+            respon.put("status", "done");
+            return respon;
+        } catch (Exception e){
+            log.error("Something went wrong {}", e.getMessage());
+            respon.put("status", e.getMessage());
+            return respon;
+        }
     }
 }
