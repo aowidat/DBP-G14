@@ -21,12 +21,12 @@ public class CategoryController {
         this.categoryRepo = categoryRepo;
     }
 
-    @GetMapping("getTreetest")
-    List<Category> testCat() {
+    @GetMapping("getTree")
+    List<Category> getTree() {
         return categoryRepo.findByParent(null);
     }
 
-    @GetMapping("getTree")
+
     Map<Category, List<Category>> getCategoryTree() {
         List<Category> allcat = categoryRepo.findAll();
         Map<Category, List<Category>> finalCategories = new HashMap<>();
