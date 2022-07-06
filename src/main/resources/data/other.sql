@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION averageUpdate()
+CREATE OR REPLACE FUNCTION public.averageUpdate()
     RETURNS TRIGGER
 AS
 '
@@ -17,7 +17,7 @@ CREATE TRIGGER averageUpdateTriggerOnInsert
     AFTER INSERT
     ON public.review
     FOR EACH ROW
-EXECUTE PROCEDURE averageUpdate();
+EXECUTE PROCEDURE public.averageUpdate();
 
 CREATE index parent_id on category (parnet_id);
 create index prodduct_id on product_category (product_id);

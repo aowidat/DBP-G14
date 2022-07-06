@@ -40,12 +40,12 @@ public class DataController {
             log.info("Starting SQL Scripts");
             ResourceDatabasePopulator populator1 = new ResourceDatabasePopulator(context.getResource("classpath:/schema.sql"));
             DatabasePopulatorUtils.execute(populator1, dataSource);
+            dataSource.getConnection().beginRequest();
             ResourceDatabasePopulator populator3 = new ResourceDatabasePopulator(context.getResource("classpath:/data/other.sql"));
             DatabasePopulatorUtils.execute(populator3, dataSource);
             ResourceDatabasePopulator populator2 = new ResourceDatabasePopulator(context.getResource("classpath:/data/data.sql"));
             DatabasePopulatorUtils.execute(populator2, dataSource);
-            dataSource.getConnection().beginRequest();
-            respon.put("staus", "done");
+            respon.put("status", "done");
             log.info("Loading SQL Scripts is done");
             return respon;
         } catch (Exception e) {
