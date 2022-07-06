@@ -1,6 +1,7 @@
 package com.dpb.store.entites;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.NotFound;
@@ -27,29 +28,37 @@ public class Product {
     private String image;
     private double rating;
     @ElementCollection
+    @JsonIgnore
     private List<String> listmania;
 
     @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<Offer> offers = new ArrayList<>();
     @ManyToMany
+    @JsonIgnore
     @JoinTable(name = "product_store", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "store_id", referencedColumnName = "id"))
     private List<Store> stores;
 
 
     @ManyToMany(cascade = CascadeType.PERSIST)
+    @JsonIgnore
     @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
     private List<Category> categories;
     @OneToMany(mappedBy = "product_review")
+    @JsonIgnore
     private List<Review> reviews;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinTable(name = "product_similar", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "similar_id", referencedColumnName = "id"))
     private List<Product> similar;
 
     @ManyToMany(mappedBy = "similar" , cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Product> similers = new ArrayList<>();
 
     @ManyToMany(mappedBy = "products", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
     /**
      * Method to add a new List-Mania to a List of listManias

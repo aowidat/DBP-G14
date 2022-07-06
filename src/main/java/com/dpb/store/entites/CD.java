@@ -1,5 +1,6 @@
 package com.dpb.store.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,11 +23,14 @@ public class CD extends Product {
     private Integer disc_Nr;
     private LocalDate date;
     @ElementCollection
+    @JsonIgnore
     private List<String> tracks;
     @ElementCollection
+    @JsonIgnore
     private List<String> labels;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinTable(name = "artist", joinColumns = @JoinColumn(name = "cd_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private List<Person> artists;
 

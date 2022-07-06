@@ -18,6 +18,8 @@
 * Logback
 * SLF4J
 * Lombok
+* RestController
+* git
 * ### relation schema (updated):
 
 ![UML](src/main/resources/Part_2/media.png)
@@ -35,3 +37,8 @@
 - just run the the Class StoreApplication
 - schema is to find [here](src/main/resources/schema.sql)
 - [Queres](src/main/resources/Part_2/Part_2.md) are here to finde
+
+### 3. Abgabe
+
+- just run the the Class StoreApplication
+- Go to [Frontend App](https://github.com/aowidat/DBP-Store-FrontEnd)

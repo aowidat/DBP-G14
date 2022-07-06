@@ -1,5 +1,6 @@
 package com.dpb.store.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,12 +27,15 @@ public class Store {
     private String zip;
 
     @ManyToMany(mappedBy = "stores")
+    @JsonIgnore
     private Set<Product> products;
 
     @OneToMany(mappedBy = "store")
+    @JsonIgnore
     private List<Offer> offers = new ArrayList<>();
 
     @ManyToMany(mappedBy = "stores", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
 
     /**

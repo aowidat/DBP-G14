@@ -45,14 +45,14 @@ public class DataLoader {
         this.offerRepo = offerRepo;
     }
 
-    @Bean
-    CommandLineRunner initDatabase() {
-        return args -> {
-            log.info("\t\t\t========== DATA IS BEING LOADING ==========");
-            loadAllData();
-            System.out.println("\t\t\t========== DATA LOADING IS FINISHED ==========");
-        };
-    }
+//    @Bean
+//    CommandLineRunner initDatabase() {
+//        return args -> {
+//            log.info("\t\t\t========== DATA IS BEING LOADING ==========");
+//            loadAllData();
+//            System.out.println("\t\t\t========== DATA LOADING IS FINISHED ==========");
+//        };
+//    }
 
     public void loadAllData() throws IOException {
         Parser parser = new Parser();

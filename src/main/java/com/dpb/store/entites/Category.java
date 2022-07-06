@@ -1,5 +1,6 @@
 package com.dpb.store.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,10 +27,12 @@ public class Category {
 
     @ManyToOne()
     @JoinColumn(name = "parnet_id")
+    @JsonIgnore
     private Category parent;
 
 
     @ManyToMany(mappedBy = "categories" , cascade = CascadeType.MERGE)
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
     /**
@@ -69,7 +72,7 @@ public class Category {
      */
     @Override
     public String toString() {
-        return "Name:" + name;
+        return name;
     }
     public void addAllChildren(List<Category> chil){
         children.addAll(chil);
